@@ -58,7 +58,9 @@ public class PlayerInput : MonoBehaviour
     
     void GatherInput()
     {
-        _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+        Vector2 input = _playerActions.Player.Move.ReadValue<Vector2>();
+        _input = new Vector3(input.x, 0f , input.y);
+        Debug.Log(_input);
     }
 
     void Move()
