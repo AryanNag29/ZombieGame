@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     private InputSystem_Actions _playerActions;
   
     private Vector3 _input;
+    private Vector3 _lookInput;
 
     private CharacterController _characterController;
 
@@ -68,15 +69,16 @@ public class PlayerInput : MonoBehaviour
     {
         Vector2 input = _playerActions.Player.Move.ReadValue<Vector2>(); // read the value from the _input
         _input = new Vector3(input.x, 0f , input.y); //store the value in a vector 3 compo in the x and z
-        
+        Vector2 lookInput = _playerActions.Player.Look.ReadValue<Vector2>();
+        _lookInput = new Vector3(lookInput.x, 0f , lookInput.y);
     }
 
     void Look()
     {
-        if(_input == Vector3.zero) return; //if the player is not providing anything don't do anything 
+        if(_lookInput == Vector3.zero) return; //if the player is not providing anything don't do anything 
 
         Matrix4x4 isometricMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, -45, 0));
-        Vector3 multiplyMatrix = isometricMatrix.MultiplyPoint3x4(_input);
+        Vector3 multiplyMatrix = isometricMatrix.MultiplyPoint3x4(_lookInput);
         Quaternion rotation = Quaternion.LookRotation(multiplyMatrix, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation ,_rotationSpeed * Time.deltaTime);
     }
