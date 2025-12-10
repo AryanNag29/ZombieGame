@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     #region Functions
 
     //functions
-    public void GatherInput(InputAction.CallbackContext context) //for movement function
+    public void GatherInputOnMovement(InputAction.CallbackContext context) //for movement function
     {
         //movement of character
         _Input = context.ReadValue<Vector2>();
@@ -37,16 +37,24 @@ public class PlayerController : MonoBehaviour
         _currentMovement.z = _Input.y;
         _isMovementPressed = _Input.x != 0 || _Input.y != 0;
         
+    }
+
+    public void GatherInputOnRotation(InputAction.CallbackContext context)
+    {
         //rotation of Character
         _inputRotation = context.ReadValue<Vector2>();
-        _currentRotation.x = _inputRotation.x;
-        _currentRotation.y = _inputRotation.y;
     }
     private void applyMovement()
     {
         _appliedMovement.x = _currentMovement.x;
         _appliedMovement.z = _currentMovement.z;
         controls.Move(_appliedMovement * _movementSpeed * Time.deltaTime);
+    }
+
+    private void applyRotation()
+    {
+        var targetAngle = Mathf.Atan2(_inputRotation.x, _inputRotation.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, targetAngle, 0);
     }
 
     #endregion
@@ -61,18 +69,16 @@ public class PlayerController : MonoBehaviour
         playerinput = new PlayerInput();
         _playerActions = new InputSystem_Actions();
         //to start the movement of character with keyboard
-        _playerActions.Player.Move.started += GatherInput;
+        _playerActions.Player.Move.started += GatherInputOnMovement;
         //to stop the movement of character with keyboard
-        _playerActions.Player.Move.canceled += GatherInput;
+        _playerActions.Player.Move.canceled += GatherInputOnMovement;
         //to start the movement of character with controller
-        _playerActions.Player.Move.performed += GatherInput; 
+        _playerActions.Player.Move.performed += GatherInputOnMovement; 
         
         //to start the movement of character with keyboard
-        _playerActions.Player.Look.started += GatherInput;
-        //to stop the movement of character with keyboard
-        _playerActions.Player.Look.canceled += GatherInput;
+        _playerActions.Player.Look.started += GatherInputOnRotation;
         //to start the movement of character with controller
-        _playerActions.Player.Look.performed += GatherInput; 
+        _playerActions.Player.Look.performed += GatherInputOnRotation; 
     }
 
     #endregion
@@ -83,8 +89,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var targetAngle = Mathf.Atan2(_Input.x, _Input.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+        applyRotation();
         applyMovement();
     }
 
