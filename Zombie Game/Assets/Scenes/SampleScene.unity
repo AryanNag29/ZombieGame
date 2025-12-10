@@ -696,7 +696,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 17.911627, y: 17.911627, z: 17.911627}
+  m_LocalScale: {x: 17.911627, y: 1, z: 17.911627}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1973,7 +1973,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2131612137}
-  - component: {fileID: 2131612138}
+  - component: {fileID: 2131612141}
+  - component: {fileID: 2131612140}
   - component: {fileID: 2131612139}
   m_Layer: 0
   m_Name: Player
@@ -1998,23 +1999,6 @@ Transform:
   - {fileID: 916569212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2131612138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2131612136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a98e5f2a09bc444ba1f32f7096a8ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
-  _maxSpeed: 10
-  _rotationSpeed: 360
-  _accelerationFactor: 5
-  _decelerationFactor: 10
-  sprintMultiplier: 2
 --- !u!143 &2131612139
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2040,6 +2024,37 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2131612140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131612136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e79ec85744c2214aa4c359f89befa48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  controls: {fileID: 2131612139}
+  _maxSpeed: 20
+  _rotationSpeed: 360
+  _accelerationFactor: 5
+  _decelerationFactor: 10
+  sprintMultiplier: 2
+--- !u!114 &2131612141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131612136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cec7dc339230da44895f538a65f9ac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputParent
+  controls: {fileID: 2131612139}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -5,10 +5,10 @@ public class PlayerInputParent : MonoBehaviour
 {
     #region ComponentReference
     [SerializeField]protected CharacterController controls;
-    protected PlayerInput playerinput;
     #endregion
-    
-    private InputSystem_Actions _playerActions;
+    //important Variables
+    protected PlayerInput playerinput;
+    protected InputSystem_Actions _playerActions;
     
     [Header("Character Movement")]
     //movement variable
@@ -20,9 +20,10 @@ public class PlayerInputParent : MonoBehaviour
     [Header("Character Rotation")]
     protected Vector2 _inputRotation;
     Vector3 _currentRotation;
+
+    #region Functions
     
-    
-    public void GatherInputOnMovement(InputAction.CallbackContext context) //for movement function
+    protected void GatherInputOnMovement(InputAction.CallbackContext context) //for movement function
     {
         //movement of character
         _Input = context.ReadValue<Vector2>();
@@ -31,16 +32,17 @@ public class PlayerInputParent : MonoBehaviour
         _isMovementPressed = _Input.x != 0 || _Input.y != 0;
         
     }
-    public void GatherInputOnRotation(InputAction.CallbackContext context)
+    protected void GatherInputOnRotation(InputAction.CallbackContext context)
     {
         //rotation of Character
         _inputRotation = context.ReadValue<Vector2>();
     }
-    
-    
-    
-    
-    void Awake()
+    #endregion
+
+
+
+    #region Awake
+    private void Awake()
     {
         controls = GetComponent<CharacterController>();
         playerinput = new PlayerInput();
@@ -57,21 +59,16 @@ public class PlayerInputParent : MonoBehaviour
         //to start the Rotation of character with controller
         _playerActions.Player.Look.performed += GatherInputOnRotation; 
     }
+    #endregion
     
-    
-    #region  OnEnable
+    #region  OnEnable/Disable
 
-    void OnEnable()
+    private void OnEnable()
     {
         //enable player character controles
         _playerActions.Player.Enable();
     }
-
-    #endregion
-
-
-    #region OnDisable
-
+    
     void OnDisable()
     {
         //disable player character contoles
