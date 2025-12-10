@@ -1,17 +1,19 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class PlayerInput : MonoBehaviour
 {
     #region MainVariables
     
-    private InputSystem_Actions _playerActions;
-  
+    [Header("Character Movement")]
     private Vector3 _input;
-    private Vector3 _lookInput;
-
+    private Vector3 _applyMovement;
     private CharacterController _characterController;
+    private bool _isMovementPressed;
+    private PlayerInput _playerInput;
+    private InputSystem_Actions _playerActions;
 
     #endregion
 
@@ -54,7 +56,6 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        GatherInput();
         Move();
         Look();
         CalculateSpeed();
@@ -65,28 +66,29 @@ public class PlayerInput : MonoBehaviour
 
     #region Functions
     
-    void GatherInput()
+    void GatherInput(InputAction.CallbackContext context)
     {
-        Vector2 input = _playerActions.Player.Move.ReadValue<Vector2>(); // read the value from the _input
-        _input = new Vector3(input.x, 0f , input.y); //store the value in a vector 3 compo in the x and z
-        Vector2 lookInput = _playerActions.Player.Look.ReadValue<Vector2>();
-        _lookInput = new Vector3(lookInput.x, 0f , lookInput.y);
+        Vector2 input = context.ReadValue<Vector2>();//read the vector2 value from input system 
+        _input.x = input.x;//store it into the vector3 x component
+        _input.z = input.y;//store it into the vector3 y component
+        _isMovementPressed = input.x != 0 || input.y != 0;
     }
 
     void Look()
     {
-        if(_lookInput == Vector3.zero) return; //if the player is not providing anything don't do anything 
+        if(_input== Vector3.zero) return; //if the player is not providing anything don't do anything 
 
         Matrix4x4 isometricMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, -45, 0));
-        Vector3 multiplyMatrix = isometricMatrix.MultiplyPoint3x4(_lookInput);
+        Vector3 multiplyMatrix = isometricMatrix.MultiplyPoint3x4(_input);
         Quaternion rotation = Quaternion.LookRotation(multiplyMatrix, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation ,_rotationSpeed * Time.deltaTime);
+        // transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation ,_rotationSpeed * Time.deltaTime);
     }
 
     void Move()
     {
-        Vector3 moveDirection = transform.forward *_input.magnitude  * _currentSpeed *  Time.deltaTime;
-        _characterController.Move(moveDirection);
+        _applyMovement.x = _input.x;
+        _applyMovement.z = _input.y;
+        _characterController.Move(_applyMovement * _currentSpeed * Time.deltaTime);
     }
 
     void CalculateSpeed()
