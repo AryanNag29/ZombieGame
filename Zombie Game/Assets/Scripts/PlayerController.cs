@@ -75,9 +75,9 @@ public class PlayerController : MonoBehaviour
         //to start the movement of character with controller
         _playerActions.Player.Move.performed += GatherInputOnMovement; 
         
-        //to start the movement of character with keyboard
+        //to start the Rotation of character with Mouse
         _playerActions.Player.Look.started += GatherInputOnRotation;
-        //to start the movement of character with controller
+        //to start the Rotation of character with controller
         _playerActions.Player.Look.performed += GatherInputOnRotation; 
     }
 
