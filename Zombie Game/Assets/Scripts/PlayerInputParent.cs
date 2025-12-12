@@ -48,6 +48,7 @@ public class PlayerInputParent : MonoBehaviour
         controls = GetComponent<CharacterController>();
         playerinput = new PlayerInput();
         _playerActions = new InputSystem_Actions();
+        //Movement
         //to start the movement of character with keyboard
         _playerActions.Player.Move.started += GatherInputOnMovement;
         //to stop the movement of character with keyboard
@@ -55,6 +56,7 @@ public class PlayerInputParent : MonoBehaviour
         //to start the movement of character with controller
         _playerActions.Player.Move.performed += GatherInputOnMovement; 
         
+        //Rotation
         //to start the Rotation of character with Mouse
         _playerActions.Player.Look.started += GatherInputOnRotation;
         //to start the Rotation of character with controller
