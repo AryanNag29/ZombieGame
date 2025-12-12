@@ -2039,8 +2039,9 @@ MonoBehaviour:
   controls: {fileID: 2131612139}
   _maxSpeed: 20
   _rotationSpeed: 360
+  _rotationSmoothing: 3
   _accelerationFactor: 5
-  _decelerationFactor: 10
+  _decelerationFactor: 30
   sprintMultiplier: 2
 --- !u!114 &2131612141
 MonoBehaviour:

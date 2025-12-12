@@ -10,7 +10,7 @@ public class PlayerController : PlayerInputParent
     [SerializeField] private float _rotationSpeed = 360f;
     [SerializeField] private float _rotationSmoothing = 5f;
     [SerializeField] private float _accelerationFactor = 5f;
-    [SerializeField] private float _decelerationFactor = 10f;
+    [SerializeField] private float _deaccelerationFactor = 30f;
     [SerializeField] private float sprintMultiplier = 2f;
     #endregion
 
@@ -34,12 +34,12 @@ public class PlayerController : PlayerInputParent
     protected void CalculateSpeed()
     {
         // if the input will become 0 form the keyboard and the current speed is greater then 0 deceleration
-        if (_currentMovement == Vector3.zero && _currentSpeed > 0) 
+        if (!_isMovementPressed && _currentSpeed > 0) 
         {
-            _currentSpeed -= _decelerationFactor * Time.deltaTime;
+            _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
         }
         //if the input is not zero and the current speed is less then max speed acceleration
-        else if (_currentMovement != Vector3.zero && _currentSpeed < _maxSpeed)
+        else if (_isMovementPressed && _currentSpeed < _maxSpeed)
         {
             _currentSpeed += _accelerationFactor * Time.deltaTime;
         }
