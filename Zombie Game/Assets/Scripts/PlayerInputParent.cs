@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -60,7 +61,7 @@ public class PlayerInputParent : MonoBehaviour
         _playerActions.Player.Look.performed += GatherInputOnRotation; 
     }
     #endregion
-    
+
     #region  OnEnable/Disable
 
     private void OnEnable()

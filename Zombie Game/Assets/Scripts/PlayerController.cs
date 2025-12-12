@@ -8,6 +8,7 @@ public class PlayerController : PlayerInputParent
     private float _currentSpeed;
     [SerializeField] private float _maxSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 360f;
+    [SerializeField] private float _rotationSmoothing = 5f;
     [SerializeField] private float _accelerationFactor = 5f;
     [SerializeField] private float _decelerationFactor = 10f;
     [SerializeField] private float sprintMultiplier = 2f;
@@ -25,8 +26,8 @@ public class PlayerController : PlayerInputParent
     protected void applyRotation()
     {
         float targetAngle = Mathf.Atan2(_inputRotation.x, _inputRotation.y) * Mathf.Rad2Deg; //angle of rotation in degree
-        float skewAngle = targetAngle + 45f;
-        transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+        Quaternion target  = Quaternion.Euler(0, targetAngle, 0);// rotation along y axis
+        transform.rotation = Quaternion.Slerp(transform.rotation, target, _rotationSmoothing* Time.deltaTime); // smoothing rotaion with slerp
     }
     #endregion
 
