@@ -13,6 +13,7 @@ public class PlayerController : PlayerInputParent
     [SerializeField] private float _deaccelerationFactor = 30f;
     [SerializeField] private float sprintMultiplier = 2f;
     #endregion
+    
 
     #region Functions
     //functions

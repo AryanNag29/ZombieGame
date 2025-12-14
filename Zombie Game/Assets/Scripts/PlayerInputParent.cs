@@ -1,8 +1,8 @@
- using System;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class PlayerInputParent : MonoBehaviour
+public abstract class PlayerInputParent : EnumStates
 {
     #region ComponentReference
     [SerializeField]protected CharacterController controls;
