@@ -8,7 +8,7 @@ public class PlayerController : PlayerInputParent
     private float _currentSpeed;
     [SerializeField] private float _maxSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 360f;
-    [SerializeField] private float _rotationSmoothing = 5f;
+    [SerializeField] private float _rotationSmoothing = 3f;
     [SerializeField] private float _accelerationFactor = 5f;
     [SerializeField] private float _deaccelerationFactor = 30f;
     [SerializeField] private float sprintMultiplier = 2f;
