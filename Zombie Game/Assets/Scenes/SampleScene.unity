@@ -1927,7 +1927,7 @@ MonoBehaviour:
   _maxSpeed: 20
   _rotationSpeed: 360
   _rotationSmoothing: 5
-  _accelerationFactor: 0.1
+  _accelerationFactor: 5
   _deaccelerationFactor: 30
   sprintMultiplier: 2
 --- !u!1660057539 &9223372036854775807
