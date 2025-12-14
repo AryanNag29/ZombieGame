@@ -1,12 +1,20 @@
-using System;
+ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputParent : MonoBehaviour
+public abstract class PlayerInputParent : MonoBehaviour
 {
     #region ComponentReference
     [SerializeField]protected CharacterController controls;
     #endregion
+
+    #region Matrix
+
+    protected static Matrix4x4 _isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0f, 45f, 0f));
+    
+    #endregion
+    
+    #region Variables
     //important Variables
     protected InputSystem_Actions _playerActions;
     
@@ -14,12 +22,12 @@ public class PlayerInputParent : MonoBehaviour
     //movement variable
     protected Vector2 _Input;
     protected Vector3 _currentMovement;
-    protected Vector3 _appliedMovement;
     protected bool _isMovementPressed;
     
     [Header("Character Rotation")]
     protected Vector2 _inputRotation;
     Vector3 _currentRotation;
+    #endregion
 
     #region Functions
     
