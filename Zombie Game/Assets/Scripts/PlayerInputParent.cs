@@ -9,9 +9,8 @@ public abstract class PlayerInputParent : MonoBehaviour
     #endregion
 
     #region Matrix
-
-    protected static Matrix4x4 _isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0f, 45f, 0f));
-    
+    protected Matrix4x4 isometricMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, -45, 0));
+    protected Vector3 multiplyMatrix(Vector3 _input) => isometricMatrix.MultiplyPoint3x4(_input);
     #endregion
     
     #region Variables
@@ -26,7 +25,8 @@ public abstract class PlayerInputParent : MonoBehaviour
     
     [Header("Character Rotation")]
     protected Vector2 _inputRotation;
-    Vector3 _currentRotation;
+    protected Vector3 _currentRotation;
+    protected bool _isRotationPressed;
     #endregion
 
     #region Functions
@@ -44,6 +44,9 @@ public abstract class PlayerInputParent : MonoBehaviour
     {
         //rotation of Character
         _inputRotation = context.ReadValue<Vector2>();
+        _currentRotation.x = _inputRotation.x;
+        _currentRotation.z = _inputRotation.y;
+        _isRotationPressed = _inputRotation.x != 0 || _inputRotation.y != 0;
     }
     #endregion
 

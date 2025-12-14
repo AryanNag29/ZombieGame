@@ -18,13 +18,14 @@ public class PlayerController : PlayerInputParent
     //functions
     protected void applyMovement()
     {
-        controls.Move(_currentMovement * _currentSpeed * Time.deltaTime);
+        controls.Move(multiplyMatrix(_currentMovement) * _currentSpeed * Time.deltaTime);
     }
 
     protected void applyRotation()
-    {   
+    {
+        transform.rotation = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);
         float targetAngle = Mathf.Atan2(_inputRotation.x, _inputRotation.y) * Mathf.Rad2Deg; //angle of rotation in degree
-        Quaternion target  = Quaternion.Euler(0, targetAngle, 0);// rotation along y axis
+        Quaternion target  = Quaternion.Euler(0, targetAngle, 0);// rotation along y axiss
         transform.rotation = Quaternion.Slerp(transform.rotation , target, _rotationSmoothing * Time.deltaTime); // smoothing rotaion with slerp
     }
     #endregion
