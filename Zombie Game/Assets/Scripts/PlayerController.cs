@@ -8,7 +8,6 @@ public class PlayerController : PlayerInputParent
     //variables
     private float _currentSpeed;
     [SerializeField] private float _maxSpeed = 5f;
-    [SerializeField] private float _rotationSpeed = 360f;
     [SerializeField] private float _rotationSmoothing = 3f;
     [SerializeField] private float _accelerationFactor = 5f;
     [SerializeField] private float _deaccelerationFactor = 30f;
@@ -27,8 +26,7 @@ public class PlayerController : PlayerInputParent
         Quaternion _SkewedRotaion = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);//skewed rotation towards y axis
         transform.rotation = Quaternion.Slerp(transform.rotation , _SkewedRotaion, _rotationSmoothing * Time.deltaTime); // smoothing rotaion with slerp
     }
-    #endregion
-
+    
     protected void CalculateSpeed()
     {
         // if the input will become 0 form the keyboard and the current speed is greater then 0 deceleration
@@ -43,7 +41,10 @@ public class PlayerController : PlayerInputParent
         }
         _currentSpeed = Mathf.Clamp(_currentSpeed,0,_maxSpeed);
     }
-    
+
+    #endregion
+
+
 
     #region Update
     private void Update()
