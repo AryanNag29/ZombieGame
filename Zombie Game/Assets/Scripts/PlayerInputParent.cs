@@ -8,7 +8,6 @@ public class PlayerInputParent : MonoBehaviour
     [SerializeField]protected CharacterController controls;
     #endregion
     //important Variables
-    protected PlayerInput playerinput;
     protected InputSystem_Actions _playerActions;
     
     [Header("Character Movement")]
@@ -46,7 +45,6 @@ public class PlayerInputParent : MonoBehaviour
     private void Awake()
     {
         controls = GetComponent<CharacterController>();
-        playerinput = new PlayerInput();
         _playerActions = new InputSystem_Actions();
         //Movement
         //to start the movement of character with keyboard
