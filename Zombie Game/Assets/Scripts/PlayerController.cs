@@ -6,12 +6,13 @@ public class PlayerController : PlayerInputParent
 {
     #region Variables
     //variables
-    private float _currentSpeed;
-    [SerializeField] private float _maxSpeed = 5f;
-    [SerializeField] private float _rotationSmoothing = 3f;
-    [SerializeField] private float _accelerationFactor = 5f;
-    [SerializeField] private float _deaccelerationFactor = 30f;
-    [SerializeField] private float sprintMultiplier = 2f;
+    protected float _currentSpeed;
+    protected float _maxSpeed = 5f;
+    protected float _rotationSmoothing = 3f;
+    protected float _accelerationFactor = 3f;
+    protected float _deaccelerationFactor = 30f;
+    protected float sprintingSpeed = 15f;
+    protected float sprintMultiplier = 3f;
     #endregion
     
 
@@ -30,17 +31,35 @@ public class PlayerController : PlayerInputParent
     
     protected void CalculateSpeed()
     {
-        // if the input will become 0 form the keyboard and the current speed is greater then 0 deceleration
-        if (!_isMovementPressed && _currentSpeed > 0) 
+            // if the input will become 0 form the keyboard and the current speed > 0 deceleration
+            if (!_isMovementPressed && _currentSpeed > 0) 
+            {
+                _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
+            }
+            //if the input is not zero and the current speed is less then max speed acceleration
+            else if (_isMovementPressed && _currentSpeed < _maxSpeed)
+            {
+                _currentSpeed += _accelerationFactor * Time.deltaTime;
+            }
+            _currentSpeed = Mathf.Clamp(_currentSpeed,0,_maxSpeed);
+    }
+
+    protected void applySprint()
+    {
+        if (_isSprintPressed && _currentSpeed > 0)
         {
-            _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
-        }
-        //if the input is not zero and the current speed is less then max speed acceleration
-        else if (_isMovementPressed && _currentSpeed < _maxSpeed)
-        {
+            _maxSpeed = sprintingSpeed;
+            _accelerationFactor *= sprintMultiplier;
             _currentSpeed += _accelerationFactor * Time.deltaTime;
         }
-        _currentSpeed = Mathf.Clamp(_currentSpeed,0,_maxSpeed);
+        else if (!_isSprintPressed && _maxSpeed == sprintingSpeed)
+        {
+            _maxSpeed = 5f;
+            _accelerationFactor = 3f;
+            _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
+        }
+
+        _currentSpeed = Mathf.Clamp(_currentSpeed, 0, _maxSpeed);
     }
 
     #endregion
@@ -53,6 +72,7 @@ public class PlayerController : PlayerInputParent
         CalculateSpeed();
         applyMovement();
         applyRotation();
+        applySprint();
     }
     #endregion
 }

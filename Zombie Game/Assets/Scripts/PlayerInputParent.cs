@@ -26,7 +26,9 @@ public abstract class PlayerInputParent : EnumStates
     [Header("Character Rotation")]
     protected Vector2 _inputRotation;
     protected Vector3 _currentRotation;
-    protected bool _isRotationPressed;
+    
+    [Header("Character Sprint")]
+    protected bool _isSprintPressed;
     #endregion
 
     #region Functions
@@ -46,7 +48,12 @@ public abstract class PlayerInputParent : EnumStates
         _inputRotation = context.ReadValue<Vector2>();
         _currentRotation.x = _inputRotation.x;
         _currentRotation.z = _inputRotation.y;
-        _isRotationPressed = _inputRotation.x != 0 || _inputRotation.y != 0;
+    }
+
+    protected void OnSprint(InputAction.CallbackContext context)
+    {
+        _isSprintPressed = context.ReadValueAsButton();
+        Debug.Log("Sprint: " + _isSprintPressed);
     }
     #endregion
 
@@ -70,6 +77,14 @@ public abstract class PlayerInputParent : EnumStates
         _playerActions.Player.Look.started += GatherInputOnRotation;
         //to start the Rotation of character with controller
         _playerActions.Player.Look.performed += GatherInputOnRotation; 
+        
+        //sprint
+        //keyboard input
+        _playerActions.Player.Sprint.started += OnSprint;
+        _playerActions.Player.Sprint.canceled += OnSprint;
+        //controller input
+        _playerActions.Player.Sprint.performed += OnSprint;
+        _playerActions.Player.Sprint.performed -= OnSprint;
     }
     #endregion
 

@@ -5,7 +5,7 @@ public class EnumStates : MonoBehaviour
     protected enum playerState
     {
      idle,
-     moving,
+     walking,
      running
     }
 
