@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class PlayerInputParent : EnumStates
+public abstract class PlayerInputParent : MonoBehaviour
 {
     #region ComponentReference
     [SerializeField]protected CharacterController controls;
@@ -53,7 +53,6 @@ public abstract class PlayerInputParent : EnumStates
     protected void OnSprint(InputAction.CallbackContext context)
     {
         _isSprintPressed = context.ReadValueAsButton();
-        Debug.Log("Sprint: " + _isSprintPressed);
     }
     #endregion
 

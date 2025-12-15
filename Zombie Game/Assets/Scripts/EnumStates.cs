@@ -10,8 +10,8 @@ public class EnumStates : MonoBehaviour
     }
 
     protected enum daynightState
-    {
-        day,
-        night
-    }
-}
+     {
+         day,
+         night
+     }
+ }
