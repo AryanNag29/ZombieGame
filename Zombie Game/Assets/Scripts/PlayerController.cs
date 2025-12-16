@@ -15,7 +15,6 @@ public class PlayerController : PlayerInputParent
     [SerializeField]protected float sprintMultiplier = 3f;
     #endregion
     
-
     #region Functions
     //functions
     protected void applyMovement()
@@ -64,9 +63,7 @@ public class PlayerController : PlayerInputParent
     }
 
     #endregion
-
-
-
+    
     #region Update
     private void Update()
     {

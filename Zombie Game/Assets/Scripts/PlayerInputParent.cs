@@ -2,8 +2,17 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class PlayerInputParent : MonoBehaviour
+public abstract class PlayerInputParent : StateManager<PlayerInputParent.PlayerState>
 {
+    #region PlayerEnum
+    public enum PlayerState
+    {
+        Idle,
+        Walk,
+        Run,
+    }
+    #endregion
+    
     #region ComponentReference
     [SerializeField]protected CharacterController controls;
     #endregion
@@ -55,9 +64,7 @@ public abstract class PlayerInputParent : MonoBehaviour
         _isSprintPressed = context.ReadValueAsButton();
     }
     #endregion
-
-
-
+    
     #region Awake
     private void Awake()
     {

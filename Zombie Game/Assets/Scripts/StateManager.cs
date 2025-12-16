@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
 {
@@ -10,14 +11,33 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
     
     protected  BaseState<EState> _currentState;
 
-    void State()
+    protected bool IsTranstionToState = false;
+
+    void Start()
     {
         _currentState.EnterState();
     }
 
     void Update()
     {
-        _currentState.UpdateState();
+        EState nextStateKey = _currentState.GetNextState();
+        if (!IsTranstionToState && nextStateKey.Equals(_currentState.StateKey))
+        {
+            _currentState.UpdateState();
+        }
+        else
+        {
+            TranstionToState(nextStateKey);
+        }
+    }
+
+    void TranstionToState(EState StateKey)
+    {
+        IsTranstionToState = true;
+        _currentState.ExitState();
+        _currentState = States[StateKey];
+        _currentState.EnterState();
+        IsTranstionToState = false;
     }
 
     void OnTriggerEnter(Collider other)
