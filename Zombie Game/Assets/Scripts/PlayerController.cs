@@ -7,12 +7,12 @@ public class PlayerController : PlayerInputParent
     #region Variables
     //variables
     protected float _currentSpeed;
-    protected float _maxSpeed = 5f;
-    protected float _rotationSmoothing = 3f;
-    protected float _accelerationFactor = 3f;
-    protected float _deaccelerationFactor = 30f;
-    protected float sprintingSpeed = 15f;
-    protected float sprintMultiplier = 3f;
+    [SerializeField]protected float _maxSpeed = 5f;
+    [SerializeField]protected float _rotationSmoothing = 3f;
+    [SerializeField]protected float _accelerationFactor = 3f;
+    [SerializeField]protected float _deaccelerationFactor = 30f;
+    [SerializeField]protected float sprintingSpeed = 15f;
+    [SerializeField]protected float sprintMultiplier = 3f;
     #endregion
     
 
@@ -59,6 +59,7 @@ public class PlayerController : PlayerInputParent
             _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
         }
 
+        _accelerationFactor = Mathf.Clamp(_accelerationFactor, 0, 15f);
         _currentSpeed = Mathf.Clamp(_currentSpeed, 0, _maxSpeed);
     }
 
