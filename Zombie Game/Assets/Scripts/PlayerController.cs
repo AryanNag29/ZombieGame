@@ -15,6 +15,7 @@ public class PlayerController : PlayerInputParent
     [SerializeField]protected float sprintMultiplier = 3f;
     #endregion
     
+    
     #region Functions
     //functions
     protected void applyMovement()
@@ -60,6 +61,16 @@ public class PlayerController : PlayerInputParent
 
         _accelerationFactor = Mathf.Clamp(_accelerationFactor, 0, 15f);
         _currentSpeed = Mathf.Clamp(_currentSpeed, 0, _maxSpeed);
+    }
+    
+    
+
+    #endregion
+
+    #region Awake
+
+    void awake()
+    {
     }
 
     #endregion

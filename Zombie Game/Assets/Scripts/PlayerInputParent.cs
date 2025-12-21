@@ -1,8 +1,11 @@
 using System;
+using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class PlayerInputParent : StateManager<PlayerInputParent.PlayerState>
+
+public abstract class PlayerInputParent : MonoBehaviour
 {
     #region PlayerEnum
     public enum PlayerState
@@ -63,6 +66,7 @@ public abstract class PlayerInputParent : StateManager<PlayerInputParent.PlayerS
     {
         _isSprintPressed = context.ReadValueAsButton();
     }
+    
     #endregion
     
     #region Awake
