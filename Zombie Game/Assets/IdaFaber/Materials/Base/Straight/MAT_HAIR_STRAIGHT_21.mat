@@ -258,7 +258,7 @@ Material:
     - _AlphaCutoffShadow: 0.5
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
-    - _AlphaToMask: 0
+    - _AlphaToMask: 1
     - _AlphaToMaskInspectorValue: 0
     - _Alpha_Threshold: 0.311
     - _AnisoAngle: 0
@@ -306,6 +306,7 @@ Material:
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 0
+    - _DstBlendAlpha: 0
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
@@ -385,6 +386,7 @@ Material:
     - _SpecularHighlights: 1
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
     - _StencilRef: 0
     - _StencilRefDepth: 8
     - _StencilRefDistortionVec: 4
