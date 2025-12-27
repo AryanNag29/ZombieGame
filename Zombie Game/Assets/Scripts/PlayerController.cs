@@ -18,12 +18,12 @@ public class PlayerController : PlayerInputParent
     
     #region Functions
     //functions
-    protected void applyMovement()
+    protected void ApplyMovement()
     {
         controls.Move(multiplyMatrix(_currentMovement) * _currentSpeed * Time.deltaTime);
     }
 
-    protected void applyRotation()
+    protected void ApplyRotation()
     {
         Quaternion _SkewedRotaion = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);//skewed rotation towards y axis
         transform.rotation = Quaternion.Slerp(transform.rotation , _SkewedRotaion, _rotationSmoothing * Time.deltaTime); // smoothing rotaion with slerp
@@ -44,26 +44,39 @@ public class PlayerController : PlayerInputParent
             _currentSpeed = Mathf.Clamp(_currentSpeed,0,_maxSpeed);
     }
 
-    protected void applySprint()
+    protected void ApplySprint()
     {
+      
         if (_isSprintPressed && _currentSpeed > 0)
         {
-            _maxSpeed = sprintingSpeed;
-            _accelerationFactor *= sprintMultiplier;
-            _currentSpeed += _accelerationFactor * Time.deltaTime;
+            StartSprint();
         }
-        else if (!_isSprintPressed && _maxSpeed == sprintingSpeed)
+        else 
         {
-            _maxSpeed = 5f;
-            _accelerationFactor = 3f;
-            _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
+            StopSprint();
         }
 
         _accelerationFactor = Mathf.Clamp(_accelerationFactor, 0, 15f);
         _currentSpeed = Mathf.Clamp(_currentSpeed, 0, _maxSpeed);
     }
+
+    protected override void StartSprint()
+    {
+        _maxSpeed = sprintingSpeed;
+        _accelerationFactor *= sprintMultiplier;
+        _currentSpeed += _accelerationFactor * Time.deltaTime;
+    }
+
+    protected override void StopSprint()
+    {
+        _maxSpeed = 5f; // Your walk speed
+        _accelerationFactor = 3f;
     
-    
+        if (_currentSpeed > _maxSpeed)
+        {
+            _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
+        }
+    }
 
     #endregion
 
@@ -79,9 +92,9 @@ public class PlayerController : PlayerInputParent
     private void Update()
     {
         CalculateSpeed();
-        applyMovement();
-        applyRotation();
-        applySprint();
+        ApplyMovement();
+        ApplyRotation();
+        ApplySprint();
     }
     #endregion
 }

@@ -40,10 +40,13 @@ public abstract class PlayerInputParent : MonoBehaviour
     protected Vector3 _currentRotation;
     
     [Header("Character Sprint")]
-    protected bool _isSprintPressed;
+    protected bool _isSprintPressed = false;
     #endregion
 
     #region Functions
+    
+    protected virtual void StartSprint(){}
+    protected virtual void StopSprint(){}
     
     protected void GatherInputOnMovement(InputAction.CallbackContext context) //for movement function
     {
@@ -63,7 +66,15 @@ public abstract class PlayerInputParent : MonoBehaviour
 
     protected void OnSprint(InputAction.CallbackContext context)
     {
-        _isSprintPressed = context.ReadValueAsButton();
+        _isSprintPressed = !_isSprintPressed;
+        if (_isSprintPressed)
+        {
+            StartSprint();
+        }
+        else
+        {
+            StopSprint();
+        }
     }
     
     #endregion
@@ -91,9 +102,7 @@ public abstract class PlayerInputParent : MonoBehaviour
         //keyboard input
         _playerActions.Player.Sprint.started += OnSprint;
         _playerActions.Player.Sprint.canceled += OnSprint;
-        //controller input
-        _playerActions.Player.Sprint.performed += OnSprint;
-        _playerActions.Player.Sprint.performed -= OnSprint;
+        
     }
     #endregion
 
@@ -103,12 +112,15 @@ public abstract class PlayerInputParent : MonoBehaviour
     {
         //enable player character controles
         _playerActions.Player.Enable();
+        //controller input
+        _playerActions.Player.Sprint.performed += OnSprint;
     }
     
     void OnDisable()
     {
         //disable player character contoles
         _playerActions.Player.Disable();
+        _playerActions.Player.Sprint.performed -= OnSprint;
     }
 
     #endregion
