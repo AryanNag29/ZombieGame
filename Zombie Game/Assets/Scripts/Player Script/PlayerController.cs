@@ -21,6 +21,7 @@ public class PlayerController : PlayerInputParent
     protected void ApplyMovement()
     {
         controls.Move(multiplyMatrix(_currentMovement) * _currentSpeed * Time.deltaTime);
+  
     }
 
     protected void ApplyRotation()
@@ -79,11 +80,12 @@ public class PlayerController : PlayerInputParent
     }
 
     #endregion
+    
+    #region Start
 
-    #region Awake
-
-    void awake()
+    private void Start()
     {
+        animator = GetComponent<Animator>();
     }
 
     #endregion

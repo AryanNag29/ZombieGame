@@ -29,6 +29,11 @@ public abstract class PlayerInputParent : MonoBehaviour
     //important Variables
     protected InputSystem_Actions _playerActions;
     
+    [Header("Animator")]
+    protected Animator animator;
+    [SerializeField]protected int isWalkingHash;
+    [SerializeField]protected int isRunningHash;
+    protected bool _isWalking, IsRunning;
     [Header("Character Movement")]
     //movement variable
     protected Vector2 _Input;
@@ -105,6 +110,8 @@ public abstract class PlayerInputParent : MonoBehaviour
         
     }
     #endregion
+
+
 
     #region  OnEnable/Disable
 
