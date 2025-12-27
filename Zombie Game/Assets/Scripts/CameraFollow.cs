@@ -11,11 +11,11 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        transform.position = PlayerPos.position;
+        transform.position = new Vector3(PlayerPos.position.x, 1 , PlayerPos.position.z);
     }
 
     private void Update()
     {
-        transform.position = PlayerPos.position;
+        transform.position = new Vector3(PlayerPos.position.x, 1 , PlayerPos.position.z);
     }
 }

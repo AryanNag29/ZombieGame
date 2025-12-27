@@ -47,7 +47,7 @@ public class PlayerController : PlayerInputParent
     protected void ApplySprint()
     {
       
-        if (_isSprintPressed && _currentSpeed > 0)
+        if (_isSprintPressed && _currentSpeed > 0 )
         {
             StartSprint();
         }
