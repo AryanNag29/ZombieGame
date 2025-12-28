@@ -45,7 +45,7 @@ public abstract class PlayerInputParent : MonoBehaviour
     protected Vector3 _currentRotation;
     
     [Header("Character Sprint")]
-    protected bool _isSprintPressed = false;
+    [SerializeField]protected bool _isSprintPressed = false;
     #endregion
 
     #region Functions

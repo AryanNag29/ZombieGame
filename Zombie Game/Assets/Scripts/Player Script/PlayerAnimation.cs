@@ -13,7 +13,7 @@ public class PlayerAnimation : PlayerController
 
     #region Functions
 
-    void isWalkingAnimation()
+    void IsWalkingAnimation()
     {
         bool isWalking = _animator.GetBool("IsWalking");
         if (!isWalking && _isMovementPressed)
@@ -23,6 +23,23 @@ public class PlayerAnimation : PlayerController
         if(isWalking && !_isMovementPressed)
         {
             _animator.SetBool(isWalkingHash,false);
+        }
+    }
+
+    void IsRunningAnimation()
+    {
+        bool isRunning = _animator.GetBool("IsRunning");
+        if (!isRunning && _isSprintPressed && _isMovementPressed)
+        {
+            _animator.SetBool(isRunningHash, true);
+        }
+        if (isRunning && !_isMovementPressed)
+        {
+            _animator.SetBool(isRunningHash,false);
+        }
+        else if(isRunning && !_isSprintPressed)
+        {
+            _animator.SetBool(isRunningHash,false);
         }
     }
     
@@ -35,6 +52,7 @@ public class PlayerAnimation : PlayerController
     {
         _animator = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("IsWalking");
+        isRunningHash = Animator.StringToHash("IsRunning");
     }
 
     #endregion
@@ -43,7 +61,8 @@ public class PlayerAnimation : PlayerController
 
     protected override void Update()
     {
-        isWalkingAnimation();
+        IsWalkingAnimation();
+        IsRunningAnimation();
     }
 
     #endregion
