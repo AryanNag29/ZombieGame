@@ -83,7 +83,7 @@ public class PlayerController : PlayerInputParent
     
     #region Start
 
-    private void Start()
+    protected virtual void Start()
     {
         animator = GetComponent<Animator>();
     }
@@ -91,7 +91,7 @@ public class PlayerController : PlayerInputParent
     #endregion
     
     #region Update
-    private void Update()
+    protected virtual void Update()
     {
         CalculateSpeed();
         ApplyMovement();
