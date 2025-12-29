@@ -1336,20 +1336,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: f158ec52bcd3c1b42882e48cefad9023, type: 2}
     - target: {fileID: 3134969143851543086, guid: a23de2e6ddacb9a40bfb1bb3bead9620, type: 3}
       propertyPath: m_CullingMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134969143851543086, guid: a23de2e6ddacb9a40bfb1bb3bead9620, type: 3}
-      propertyPath: m_AnimatePhysics
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3134969143851543086, guid: a23de2e6ddacb9a40bfb1bb3bead9620, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3134969143851543086, guid: a23de2e6ddacb9a40bfb1bb3bead9620, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'root'\n\tTransform 'clavicle_r'\n\tTransform
-        'lowerarm_r'\n\tTransform 'root'\n\tTransform 'spine_04'\n\tTransform 'hand_l'\n\tTransform
-        'head'\n\tTransform 'neck_01'\n\tTransform 'spine_02'\n\tTransform 'thigh_l'\n\tand
-        more ...\n\tFrom animation clip 'Run Forward'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3134969143851543086, guid: a23de2e6ddacb9a40bfb1bb3bead9620, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -1501,6 +1496,7 @@ MonoBehaviour:
   controls: {fileID: 1112552634}
   isWalkingHash: 0
   isRunningHash: 0
+  _isSprintPressed: 0
   _maxSpeed: 5
   _rotationSmoothing: 3
   _accelerationFactor: 3
@@ -1522,6 +1518,7 @@ MonoBehaviour:
   controls: {fileID: 1112552634}
   isWalkingHash: 0
   isRunningHash: 0
+  _isSprintPressed: 0
   _maxSpeed: 5
   _rotationSmoothing: 3
   _accelerationFactor: 3
