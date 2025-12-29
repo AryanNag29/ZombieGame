@@ -86,7 +86,6 @@ public class PlayerController : PlayerInputParent
 
     protected virtual void Start()
     {
-        animator = GetComponent<Animator>();
     }
 
     #endregion

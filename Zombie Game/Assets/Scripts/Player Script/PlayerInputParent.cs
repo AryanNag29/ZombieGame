@@ -30,15 +30,16 @@ public abstract class PlayerInputParent : MonoBehaviour
     protected InputSystem_Actions _playerActions;
     
     [Header("Animator")]
-    protected Animator animator;
-    [SerializeField]protected int isWalkingHash;
-    [SerializeField]protected int isRunningHash;
-    protected bool _isWalking, IsRunning;
+    [SerializeField]protected float animationVelocity = 0.0f;
+    protected float animationAcceleration = 0.1f;
+    protected float animationDeceleration = 0.5f;
+    protected int velocityHash;
+    
     [Header("Character Movement")]
     //movement variable
     protected Vector2 _Input;
     protected Vector3 _currentMovement;
-    protected bool _isMovementPressed;
+    [SerializeField]protected bool _isMovementPressed;
     
     [Header("Character Rotation")]
     protected Vector2 _inputRotation;

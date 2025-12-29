@@ -5,41 +5,38 @@ using UnityEngine.PlayerLoop;
 public class PlayerAnimation : PlayerController
 {
     #region Variables
-
     private Animator _animator;
-    
-
     #endregion
 
     #region Functions
 
     void IsWalkingAnimation()
     {
-        bool isWalking = _animator.GetBool("IsWalking");
-        if (!isWalking && _isMovementPressed)
+        _animator.SetFloat(velocityHash, animationVelocity);
+        if (_isMovementPressed && animationVelocity >= 0)
         {
-            _animator.SetBool(isWalkingHash, true);
+            animationVelocity += Time.deltaTime * animationAcceleration;
+            animationVelocity = Mathf.Clamp(animationVelocity, 0.0f, 0.3f);
         }
-        if(isWalking && !_isMovementPressed)
+        else
         {
-            _animator.SetBool(isWalkingHash,false);
+            animationVelocity -= Time.deltaTime * animationDeceleration;
+            animationVelocity = Mathf.Clamp(animationVelocity, 0.0f, 1f);
         }
     }
 
     void IsRunningAnimation()
     {
-        bool isRunning = _animator.GetBool("IsRunning");
-        if (!isRunning && _isSprintPressed && _isMovementPressed)
+        _animator.SetFloat(velocityHash, animationVelocity);
+        if (_isMovementPressed && _isSprintPressed && animationVelocity >= 0)
         {
-            _animator.SetBool(isRunningHash, true);
+            animationVelocity += Time.deltaTime * animationAcceleration;
+            animationVelocity = Mathf.Clamp(animationVelocity, 0.0f, 1f);
         }
-        if (isRunning && !_isMovementPressed)
+        else if (!_isMovementPressed || !_isSprintPressed)
         {
-            _animator.SetBool(isRunningHash,false);
-        }
-        else if(isRunning && !_isSprintPressed)
-        {
-            _animator.SetBool(isRunningHash,false);
+            animationVelocity -= Time.deltaTime * animationDeceleration;
+            animationVelocity = Mathf.Clamp(animationVelocity, 0.0f, 1f);
         }
     }
     
@@ -51,8 +48,7 @@ public class PlayerAnimation : PlayerController
     protected override void Start()
     {
         _animator = GetComponent<Animator>();
-        isWalkingHash = Animator.StringToHash("IsWalking");
-        isRunningHash = Animator.StringToHash("IsRunning");
+        velocityHash = Animator.StringToHash("Velocity");
     }
 
     #endregion
