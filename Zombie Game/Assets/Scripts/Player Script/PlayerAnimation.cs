@@ -12,19 +12,19 @@ public class PlayerAnimation : PlayerController
 
     void IsWalkingAnimation()
     {
-        _animator.SetFloat(velocityHash, animationVelocity);
-        if (_isMovementPressed && animationVelocity >= 0)
-        {
-            animationVelocity += Time.deltaTime * animationAcceleration;
-        }
-        else if(!_isMovementPressed && animationVelocity > 0)
-        {
-            animationVelocity -= Time.deltaTime * animationDeceleration;
-        }
-        else if (animationVelocity < 0)
-        {
-            animationVelocity = 0.0f;
-        }
+        // _animator.SetFloat(velocityHash, animationVelocity);
+        // if (_isMovementPressed && animationVelocity >= 0)
+        // {
+        //     animationVelocity += Time.deltaTime * animationAcceleration;
+        // }
+        // else if(!_isMovementPressed && animationVelocity > 0)
+        // {
+        //     animationVelocity -= Time.deltaTime * animationDeceleration;
+        // }
+        // else if (animationVelocity < 0)
+        // {
+        //     animationVelocity = 0.0f;
+        // }
     }
 
     void IsRunningAnimation()
