@@ -16,28 +16,28 @@ public class PlayerAnimation : PlayerController
         if (_isMovementPressed && animationVelocity >= 0)
         {
             animationVelocity += Time.deltaTime * animationAcceleration;
-            animationVelocity = Mathf.Clamp(animationVelocity, 0.0f, 0.3f);
         }
-        else
+        else if(!_isMovementPressed && animationVelocity > 0)
         {
             animationVelocity -= Time.deltaTime * animationDeceleration;
-            animationVelocity = Mathf.Clamp(animationVelocity, 0.0f, 1f);
+        }
+        else if (animationVelocity < 0)
+        {
+            animationVelocity = 0.0f;
         }
     }
 
     void IsRunningAnimation()
     {
-        _animator.SetFloat(velocityHash, animationVelocity);
-        if (_isMovementPressed && _isSprintPressed && animationVelocity >= 0)
-        {
-            animationVelocity += Time.deltaTime * animationAcceleration;
-            animationVelocity = Mathf.Clamp(animationVelocity, 0.0f, 1f);
-        }
-        else if (!_isMovementPressed || !_isSprintPressed)
-        {
-            animationVelocity -= Time.deltaTime * animationDeceleration;
-            animationVelocity = Mathf.Clamp(animationVelocity, 0.0f, 1f);
-        }
+        // _animator.SetFloat(velocityHash, animationVelocity);
+        // if (_isMovementPressed && _isSprintPressed && animationVelocity >= 0)
+        // {
+        //     animationVelocity += Time.deltaTime * animationAcceleration;
+        // }
+        // else if (!_isMovementPressed || !_isSprintPressed)
+        // {
+        //     animationVelocity -= Time.deltaTime * animationDeceleration;
+        // }
     }
     
 
