@@ -1412,6 +1412,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8514716638734019310, guid: a23de2e6ddacb9a40bfb1bb3bead9620, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1112552638}
+    - targetCorrespondingSourceObject: {fileID: 8514716638734019310, guid: a23de2e6ddacb9a40bfb1bb3bead9620, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1112552631}
     - targetCorrespondingSourceObject: {fileID: 8514716638734019310, guid: a23de2e6ddacb9a40bfb1bb3bead9620, type: 3}
       insertIndex: -1
@@ -1494,8 +1497,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   controls: {fileID: 1112552634}
-  isWalkingHash: 0
-  isRunningHash: 0
+  animationVelocity: 0
+  _isMovementPressed: 0
   _isSprintPressed: 0
   _maxSpeed: 5
   _rotationSmoothing: 3
@@ -1516,8 +1519,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
   controls: {fileID: 1112552634}
-  isWalkingHash: 0
-  isRunningHash: 0
+  animationVelocity: 0
+  _isMovementPressed: 0
   _isSprintPressed: 0
   _maxSpeed: 5
   _rotationSmoothing: 3
@@ -1525,6 +1528,19 @@ MonoBehaviour:
   _deaccelerationFactor: 30
   sprintingSpeed: 15
   sprintMultiplier: 3
+--- !u!114 &1112552638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112552630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306bbe28c409b0e48b5e47c106ef1fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TwoDimentionAnimationStateControl
+  velocityAccelration: 2
 --- !u!1 &1387642517
 GameObject:
   m_ObjectHideFlags: 0
