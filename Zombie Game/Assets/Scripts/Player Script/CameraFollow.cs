@@ -11,6 +11,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
+        //start follow
         transform.position = new Vector3(PlayerPos.position.x, 1 , PlayerPos.position.z);
     }
 
