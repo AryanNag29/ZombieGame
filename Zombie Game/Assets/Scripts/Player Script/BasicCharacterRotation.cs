@@ -60,6 +60,7 @@ namespace LifelikeMotion.IKFootPlacement
             else if (!_isRotationPressed)
             {
                 rotation = new Vector3(0, 0, 0);
+                transform.eulerAngles = rotation;
             }
         }
         private void GetInputData()
