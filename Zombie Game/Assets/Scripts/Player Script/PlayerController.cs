@@ -6,18 +6,34 @@ public class PlayerController : PlayerInputParent
 {
     #region Variables
     //variables
+    [Header("Movement")]
     protected float _currentSpeed;
     [SerializeField]protected float _maxSpeed = 5f;
-    [SerializeField]protected float _rotationSmoothing = 3f;
     [SerializeField]protected float _accelerationFactor = 3f;
     [SerializeField]protected float _deaccelerationFactor = 30f;
+    [Header("Sprint")]
     [SerializeField]protected float sprintingSpeed = 15f;
     [SerializeField]protected float sprintMultiplier = 3f;
+    [Header("Rotation")]
+    [SerializeField]protected float _rotationSmoothing = 3f;
+    protected bool receiveInput = true;
+    protected float mouseX;
+    protected float mouseY;
     #endregion
     
     
     #region Functions
     //functions
+    protected void GatherInput()
+    {
+        if (receiveInput)
+        {
+            multiplyMatrix(_currentRotation);
+            mouseX = _currentRotation.x;
+            mouseY = _currentRotation.z;
+        }
+    }
+    
     protected void ApplyMovement()
     {
         controls.Move(multiplyMatrix(_currentMovement) * _currentSpeed * Time.deltaTime);
@@ -47,8 +63,7 @@ public class PlayerController : PlayerInputParent
 
     protected void ApplySprint()
     {
-
-      
+        
         if (_isSprintPressed && _currentSpeed > 0 )
         {
             StartSprint();

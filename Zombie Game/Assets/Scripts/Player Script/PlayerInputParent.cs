@@ -72,14 +72,6 @@ public abstract class PlayerInputParent : MonoBehaviour
         _currentRotation.z = _inputRotation.y;
         Debug.Log(_inputRotation.x + " " + _inputRotation.y);
         _isRotationPressed = _inputRotation.sqrMagnitude > 0.1f;
-        // if (context.performed || context.started)
-        // {
-        //     _isRotationPressed = true;
-        // }
-        // else if (context.canceled)
-        // {
-        //     _isRotationPressed = false;
-        // }
     }
 
     protected void OnSprint(InputAction.CallbackContext context)
