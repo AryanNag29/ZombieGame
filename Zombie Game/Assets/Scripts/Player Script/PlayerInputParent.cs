@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
 
 public abstract class PlayerInputParent : MonoBehaviour
@@ -44,7 +45,7 @@ public abstract class PlayerInputParent : MonoBehaviour
     [Header("Character Rotation")]
     protected Vector2 _inputRotation;
     protected Vector3 _currentRotation;
-    protected bool _isRotationPressed;
+    [SerializeField]protected bool _isRotationPressed;
     
     [Header("Character Sprint")]
     [SerializeField]protected bool _isSprintPressed = false;
@@ -69,6 +70,7 @@ public abstract class PlayerInputParent : MonoBehaviour
         _inputRotation = context.ReadValue<Vector2>();
         _currentRotation.x = _inputRotation.x;
         _currentRotation.z = _inputRotation.y;
+        Debug.Log(_inputRotation.x + " " + _inputRotation.y);
         _isRotationPressed = _inputRotation.x != 0 || _inputRotation.y != 0;
         
     }

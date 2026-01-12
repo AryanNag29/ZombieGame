@@ -29,10 +29,10 @@ namespace LifelikeMotion.IKFootPlacement
 
         private void ApplyRotation()
         {
-            if (smoothing <= 0)
+            if (smoothing <= 0 && _isRotationPressed)
             {
                 rotation.y += mouseX * mouseSensitivity;
-
+                
                 rotationY_target = rotation.y;
                 rotationX_target += mouseY * mouseSensitivity;
                 rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
@@ -40,10 +40,9 @@ namespace LifelikeMotion.IKFootPlacement
 
                 float _rotation_Angle = rotationX_target / 90f;
                 animator.SetFloat("Rotation_Angle", _rotation_Angle);
-
                 transform.localEulerAngles = rotation;
             }
-            else if (smoothing > 0)
+            else if (smoothing > 0 && _isRotationPressed)
             {
                 rotationY_target += mouseX * mouseSensitivity;
                 
@@ -54,12 +53,11 @@ namespace LifelikeMotion.IKFootPlacement
                 rotationX = Mathf.Lerp(rotationX, rotationX_target, Time.deltaTime / smoothing);
                 float _rotation_Angle = rotationX / 90f;
                 animator.SetFloat("Rotation_Angle", _rotation_Angle);
-
                 transform.localEulerAngles = rotation;
             }
             else if (!_isRotationPressed)
             {
-                rotation = new Vector3(0, 0, 0);
+                rotation.y = 0f;
                 transform.eulerAngles = rotation;
             }
         }
