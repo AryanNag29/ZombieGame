@@ -54,12 +54,13 @@ namespace LifelikeMotion.IKFootPlacement
                 float _rotation_Angle = rotationX / 90f;
                 animator.SetFloat("Rotation_Angle", _rotation_Angle);
                 transform.localEulerAngles = rotation;
+                if (!_isRotationPressed)
+                {
+                    rotation.y = rotation.y;
+                    transform.eulerAngles = rotation;
+                }
             }
-            else if (!_isRotationPressed)
-            {
-                rotation.y = 0f;
-                transform.eulerAngles = rotation;
-            }
+ 
         }
         private void GetInputData()
         {

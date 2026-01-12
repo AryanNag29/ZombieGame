@@ -71,8 +71,15 @@ public abstract class PlayerInputParent : MonoBehaviour
         _currentRotation.x = _inputRotation.x;
         _currentRotation.z = _inputRotation.y;
         Debug.Log(_inputRotation.x + " " + _inputRotation.y);
-        _isRotationPressed = _inputRotation.x != 0 || _inputRotation.y != 0;
-        
+        _isRotationPressed = _inputRotation.sqrMagnitude > 0.1f;
+        // if (context.performed || context.started)
+        // {
+        //     _isRotationPressed = true;
+        // }
+        // else if (context.canceled)
+        // {
+        //     _isRotationPressed = false;
+        // }
     }
 
     protected void OnSprint(InputAction.CallbackContext context)
@@ -106,6 +113,8 @@ public abstract class PlayerInputParent : MonoBehaviour
         //Rotation
         //to start the Rotation of character with Mouse
         _playerActions.Player.Look.started += GatherInputOnRotation;
+        //to stop the rotatin of character with Mouse
+        _playerActions.Player.Look.canceled += GatherInputOnRotation;
         //to start the Rotation of character with controller
         _playerActions.Player.Look.performed += GatherInputOnRotation; 
         
