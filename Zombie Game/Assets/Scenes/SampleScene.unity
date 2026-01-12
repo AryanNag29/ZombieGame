@@ -1767,6 +1767,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pre_Alpha
       objectReference: {fileID: 0}
+    - target: {fileID: 5972115994435125909, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972115994435125909, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972115994435125909, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972115994435125909, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5972115994435125909, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8446356504439046295, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.00005656356
