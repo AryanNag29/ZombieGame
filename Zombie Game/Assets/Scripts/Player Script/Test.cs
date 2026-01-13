@@ -1,9 +1,15 @@
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Test : PlayerInputParent
 {
-        #region Variables
+    #region Variables
     //variables
+    [Header("References")]
+    [SerializeField] protected Camera _mainCamera;
+    [SerializeField] protected LayerMask _groundLayer;
+    
     [Header("Movement")]
     protected float _currentSpeed;
     [SerializeField]protected float _maxSpeed = 5f;
@@ -13,7 +19,8 @@ public class Test : PlayerInputParent
     [SerializeField]protected float sprintingSpeed = 15f;
     [SerializeField]protected float sprintMultiplier = 3f;
     [Header("Rotation")]
-    [SerializeField]protected float smoothing = 3f;
+    [SerializeField]protected float gamepadSmoothing = 3f;
+    [SerializeField]protected float mouseSmoothing = 3f;
     [SerializeField] private float mouseSensitivity = 1.5f;
     protected bool receiveInput = true;
     protected float mouseX;
@@ -22,20 +29,11 @@ public class Test : PlayerInputParent
     private float rotationX_target = 0;
     private float rotationY_target = 0;
     private Vector3 rotation;
-    protected Vector3 mouseInput;
     #endregion
     
     
     #region Functions
     //functions
-    protected void GatherInput()
-    {
-        if (receiveInput)
-        {
-            multiplyMatrix(_currentRotation);
-            mouseInput = _currentRotation;
-        }
-    }
     
     protected void ApplyMovement()
     {
@@ -45,8 +43,30 @@ public class Test : PlayerInputParent
 
     protected void MouseRaycast()
     {
+        Quaternion _SkewedRotaion = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);//skewed rotation towards y axis
+        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
+        {
+            Vector3 targetPostion = hit.point;
+        
+            Vector3 direction = targetPostion - transform.position;
+            direction.y = 0;
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                Quaternion targetAngle = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
+            }    
+        }
+        if (_isRotationPressed)
+        {
+            transform.rotation = Quaternion.LookRotation(_currentRotation, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation , _SkewedRotaion,  Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
+        }
         
     }
+
+
 
     protected void ApplyRotation()
     {
@@ -118,7 +138,7 @@ public class Test : PlayerInputParent
         CalculateSpeed();
         ApplyMovement();
         ApplyRotation();
-        GatherInput();
+        MouseRaycast();
         ApplySprint();
     }
     #endregion
