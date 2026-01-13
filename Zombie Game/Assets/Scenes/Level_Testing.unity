@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 11
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -30}
+  m_LocalPosition: {x: 0, y: 0, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 696219049}
   - component: {fileID: 696219048}
   - component: {fileID: 696219047}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -961,20 +961,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 2126536177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e79ec85744c2214aa4c359f89befa48, type: 3}
+  m_Script: {fileID: 11500000, guid: 4aa1333de7e0ee1409d82878e5eaba5d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  m_EditorClassIdentifier: Assembly-CSharp::Test
   controls: {fileID: 2126536178}
   animationVelocity: 0
   _isMovementPressed: 0
   _isRotationPressed: 0
   _isSprintPressed: 0
+  _mainCamera: {fileID: 330585545}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   _maxSpeed: 5
   _accelerationFactor: 3
   _deaccelerationFactor: 30
   sprintingSpeed: 15
   sprintMultiplier: 3
-  smoothing: 0.5
+  gamepadSmoothing: 20
+  mouseSmoothing: 5
   mouseSensitivity: 1.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

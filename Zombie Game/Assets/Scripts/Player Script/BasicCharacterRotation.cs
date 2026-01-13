@@ -5,7 +5,9 @@ namespace LifelikeMotion.IKFootPlacement
     public class BasicCharacterRotation : PlayerInputParent
     {
         [SerializeField] private float mouseSensitivity = 1.5f;
-        [SerializeField] private float smoothing = 0;
+        [SerializeField] private float mouseSmoothing = 0;
+        [SerializeField] private float gamepadSmoothing = 0f;
+        [SerializeField] private float smoothing = 0f;
         private Vector3 rotation;
         private Animator animator;
         private float mouseX;
@@ -14,6 +16,8 @@ namespace LifelikeMotion.IKFootPlacement
         private float rotationX_target = 0;
         private float rotationY_target = 0;
         private bool receiveInput = true;
+        [SerializeField]private LayerMask _groundLayer;
+        [SerializeField]private Camera _mainCamera;
 
         private void Start()
         {
@@ -40,7 +44,7 @@ namespace LifelikeMotion.IKFootPlacement
 
                 float _rotation_Angle = rotationX_target / 90f;
                 animator.SetFloat("Rotation_Angle", _rotation_Angle);
-                transform.localEulerAngles = rotation;
+                // transform.localEulerAngles = rotation;
             }
             else if (smoothing > 0 && _isRotationPressed)
             {
@@ -53,12 +57,32 @@ namespace LifelikeMotion.IKFootPlacement
                 rotationX = Mathf.Lerp(rotationX, rotationX_target, Time.deltaTime / smoothing);
                 float _rotation_Angle = rotationX / 90f;
                 animator.SetFloat("Rotation_Angle", _rotation_Angle);
-                transform.localEulerAngles = rotation;
-                if (!_isRotationPressed)
+                // transform.localEulerAngles = rotation;
+                // if (!_isRotationPressed)
+                // {
+                //     rotation.y = rotation.y;
+                //     transform.eulerAngles = rotation;
+                // }
+            }
+            Quaternion _SkewedRotaion = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);//skewed rotation towards y axis
+            Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
+            {
+                Vector3 targetPostion = hit.point;
+            
+                Vector3 direction = targetPostion - transform.position;
+                direction.y = 0;
+                if (direction != Vector3.zero)
                 {
-                    rotation.y = rotation.y;
-                    transform.eulerAngles = rotation;
-                }
+                    Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                    Quaternion targetAngle = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
+                }    
+            }
+            if (_isRotationPressed)
+            {
+                transform.rotation = Quaternion.LookRotation(_currentRotation, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation , _SkewedRotaion,  Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
             }
  
         }

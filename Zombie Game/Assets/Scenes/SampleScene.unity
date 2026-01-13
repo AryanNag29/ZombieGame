@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 375744048}
   - component: {fileID: 375744047}
   - component: {fileID: 375744046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1616,8 +1616,24 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2745010561674177744, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 2745010561674177744, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: mouseSmoothing
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745010561674177744, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: gamepadSmoothing
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745010561674177744, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
       propertyPath: mouseSensitivity
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745010561674177744, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: _groundLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 2745010561674177745, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
       propertyPath: controls
