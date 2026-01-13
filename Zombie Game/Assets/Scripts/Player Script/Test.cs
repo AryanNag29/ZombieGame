@@ -22,6 +22,7 @@ public class Test : PlayerInputParent
     private float rotationX_target = 0;
     private float rotationY_target = 0;
     private Vector3 rotation;
+    protected Vector3 mouseInput;
     #endregion
     
     
@@ -32,8 +33,7 @@ public class Test : PlayerInputParent
         if (receiveInput)
         {
             multiplyMatrix(_currentRotation);
-            mouseX = _currentRotation.x;
-            mouseY = _currentRotation.z;
+            mouseInput = _currentRotation;
         }
     }
     
@@ -43,39 +43,14 @@ public class Test : PlayerInputParent
         
     }
 
+    protected void MouseRaycast()
+    {
+        
+    }
+
     protected void ApplyRotation()
     {
-        if (smoothing <= 0 && _isRotationPressed)
-        {
-            rotation.y += mouseX * mouseSensitivity;
-                
-            rotationY_target = rotation.y;
-            rotationX_target += mouseY * mouseSensitivity;
-            rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
-            rotationX = rotationX_target;
-            float _rotation_Angle = rotationX_target / 90f;
-            transform.localEulerAngles = rotation;
-        }
-        else if (smoothing > 0 && _isRotationPressed)
-        {
-            rotationY_target += mouseX * mouseSensitivity;
-                
-            rotation.y = Mathf.Lerp(rotation.y, rotationY_target, Time.deltaTime / smoothing);
-            rotationX_target += mouseY * mouseSensitivity;
-            rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
-
-            rotationX = Mathf.Lerp(rotationX, rotationX_target, Time.deltaTime / smoothing);
-            float _rotation_Angle = rotationX / 90f;
-            // transform.localEulerAngles = rotation;
-            // if (!_isRotationPressed)
-            // {
-            //     rotation.y = rotation.y;
-            //     transform.eulerAngles = rotation;
-            // }
-        }
-        // Quaternion _SkewedRotaion = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);//skewed rotation towards y axis
-        Quaternion _SkewedRotaion = Quaternion.LookRotation(rotation, Vector3.up); 
-        transform.rotation = Quaternion.Slerp(transform.rotation , _SkewedRotaion,  Time.deltaTime / smoothing); // smoothing rotaion with slerp
+      
     }
     
     protected void CalculateSpeed()
