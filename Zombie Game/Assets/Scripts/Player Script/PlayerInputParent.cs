@@ -70,7 +70,6 @@ public abstract class PlayerInputParent : MonoBehaviour
         _inputRotation = context.ReadValue<Vector2>();
         _currentRotation.x = _inputRotation.x;
         _currentRotation.z = _inputRotation.y;
-        Debug.Log(_inputRotation.x + " " + _inputRotation.y);
         _isRotationPressed = _inputRotation.sqrMagnitude > 0.1f;
     }
 

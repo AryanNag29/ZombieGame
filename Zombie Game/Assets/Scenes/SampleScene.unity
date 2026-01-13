@@ -1623,6 +1623,14 @@ PrefabInstance:
       propertyPath: controls
       value: 
       objectReference: {fileID: 500643303}
+    - target: {fileID: 2745010561674177748, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: invertBodyRotationOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745010561674177751, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      propertyPath: m_Weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2745010561674177751, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
       propertyPath: m_Effectors.Array.size
       value: 3

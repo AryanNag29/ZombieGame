@@ -974,7 +974,8 @@ MonoBehaviour:
   _deaccelerationFactor: 30
   sprintingSpeed: 15
   sprintMultiplier: 3
-  _rotationSmoothing: 3
+  smoothing: 0.5
+  mouseSensitivity: 1.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

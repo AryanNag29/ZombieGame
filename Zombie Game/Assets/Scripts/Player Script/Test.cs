@@ -1,11 +1,8 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class PlayerController : PlayerInputParent
+public class Test : PlayerInputParent
 {
-    #region Variables
+        #region Variables
     //variables
     [Header("Movement")]
     protected float _currentSpeed;
