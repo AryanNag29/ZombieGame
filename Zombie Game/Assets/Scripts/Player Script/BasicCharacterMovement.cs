@@ -9,6 +9,16 @@ namespace LifelikeMotion.IKFootPlacement
         [SerializeField] private float movementSpeed = 2;
         [SerializeField] private float jumpSpeed = 5;
         [SerializeField] private float gravity = 15;
+        
+        [Header("Movement")]
+        protected float _currentSpeed;
+        [SerializeField]protected float _maxSpeed = 5f;
+        [SerializeField]protected float _accelerationFactor = 3f;
+        [SerializeField]protected float _deaccelerationFactor = 30f;
+        
+        [Header("Sprint")]
+        [SerializeField]protected float sprintingSpeed = 15f;
+        [SerializeField]protected float sprintMultiplier = 3f;
 
         private bool receiveInput = true;
         private bool isMoving = true;
@@ -34,6 +44,7 @@ namespace LifelikeMotion.IKFootPlacement
         {
             GetInputData();
             CalculateMovement();
+            ApplySprint();
         }
 
         public void CalculateMovement()
@@ -48,11 +59,9 @@ namespace LifelikeMotion.IKFootPlacement
 
             _velocity = Vector3.ClampMagnitude(_velocity, 1);
             
-            velocity.z = _velocity.z * movementSpeed;
-            velocity.x = _velocity.x * movementSpeed;
+            velocity.z = _velocity.z * _currentSpeed;
+            velocity.x = _velocity.x * _currentSpeed;
             
-            
-            Debug.Log("veclocity x : " + velocity.x + " velocity z : " + velocity.z);
 
             if (cc.isGrounded && !jumped) { velocity.y = -2; }
 
@@ -78,6 +87,40 @@ namespace LifelikeMotion.IKFootPlacement
 
             if (!isMoving) { cc.transform.position = new Vector3(ccPosition.x, cc.transform.position.y, ccPosition.z); }
             else { ccPosition = cc.transform.position; }
+        }
+        
+        protected void ApplySprint()
+        {
+        
+            if (_isSprintPressed && _currentSpeed > 0 )
+            {
+                StartSprint();
+            }
+            else 
+            {
+                StopSprint();
+            }
+
+            _accelerationFactor = Mathf.Clamp(_accelerationFactor, 0, 15f);
+            _currentSpeed = Mathf.Clamp(_currentSpeed, 0, _maxSpeed);
+        }
+
+        protected override void StartSprint()
+        {
+            _maxSpeed = sprintingSpeed;
+            _accelerationFactor *= sprintMultiplier;
+            _currentSpeed += _accelerationFactor * Time.deltaTime;
+        }
+
+        protected override void StopSprint()
+        {
+            _maxSpeed = 5f; // Your walk speed
+            _accelerationFactor = 3f;
+    
+            if (_currentSpeed > _maxSpeed)
+            {
+                _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
+            }
         }
 
         private void GetInputData()
