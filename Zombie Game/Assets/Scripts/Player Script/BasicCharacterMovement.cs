@@ -74,7 +74,7 @@ namespace LifelikeMotion.IKFootPlacement
                 isMoving = true;
             }
 
-            cc.Move(multiplyMatrix(transform.TransformVector(velocity)) * Time.deltaTime);
+            cc.Move(multiplyMatrix(velocity) * Time.deltaTime);
 
             if (!isMoving) { cc.transform.position = new Vector3(ccPosition.x, cc.transform.position.y, ccPosition.z); }
             else { ccPosition = cc.transform.position; }
