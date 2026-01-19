@@ -5,7 +5,9 @@ using UnityEngine.PlayerLoop;
 public class PlayerAnimation : PlayerController
 {
     #region Variables
+
     private Animator _animator;
+
     #endregion
 
     #region Functions
@@ -39,7 +41,6 @@ public class PlayerAnimation : PlayerController
         //     animationVelocity -= Time.deltaTime * animationDeceleration;
         // }
     }
-    
 
     #endregion
 
@@ -52,7 +53,7 @@ public class PlayerAnimation : PlayerController
     }
 
     #endregion
-    
+
     #region Update
 
     protected override void Update()

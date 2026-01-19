@@ -9,6 +9,7 @@ namespace LifelikeMotion.IKFootPlacement
     public class IKFootPlacement : MonoBehaviour
     {
         #region Class Variables
+
         [Header("Two Bone IK Constraints")]
         [Tooltip("Two Bone IK Constraints that represent each leg, that is controlled by inverse kinematics. " +
                  "\n\nTips: " +
@@ -84,19 +85,21 @@ namespace LifelikeMotion.IKFootPlacement
 
         [Header("Body Offset Parameters")]
         [Range(0, 5)]
-        [Tooltip("Value that controls the time it takes to offset the \"hips\" transform position relative to the lowest position of the feet. " +
-                 "\n\nTips: " +
-                 "\n- default value = 0.035, " +
-                 "\n- suggested value should be the same as \"Feet Position Offset Smoothing\", " +
-                 "\n- if this value is set to 0, the adjustment will be instant but may produce shaking.")]
+        [Tooltip(
+            "Value that controls the time it takes to offset the \"hips\" transform position relative to the lowest position of the feet. " +
+            "\n\nTips: " +
+            "\n- default value = 0.035, " +
+            "\n- suggested value should be the same as \"Feet Position Offset Smoothing\", " +
+            "\n- if this value is set to 0, the adjustment will be instant but may produce shaking.")]
         public float bodyPositionOffsetSmoothing = 0.035f;
 
         [Range(0, 5)]
-        [Tooltip("Value that controls the time it takes to offset the \"hips\" transform rotation relative to the rotation of the ground beneath that transform. " +
-                 "\n\nTips: " +
-                 "\n- default value = 0.2, " +
-                 "\n- if this value is set to 0, the adjustment will be instant but may produce shaking," +
-                 "\n- using body rotation offset is good for quadrupedal characters, but not for bipedal.")]
+        [Tooltip(
+            "Value that controls the time it takes to offset the \"hips\" transform rotation relative to the rotation of the ground beneath that transform. " +
+            "\n\nTips: " +
+            "\n- default value = 0.2, " +
+            "\n- if this value is set to 0, the adjustment will be instant but may produce shaking," +
+            "\n- using body rotation offset is good for quadrupedal characters, but not for bipedal.")]
         public float bodyRotationOffsetSmoothing = 0.2f;
 
         [Tooltip("Boolean that controls the direction in which the hips transform position is offset. " +
@@ -116,21 +119,23 @@ namespace LifelikeMotion.IKFootPlacement
 
         [Header("Stationary to Walk Feet Adjustment")]
         [Range(0, 5)]
-        [Tooltip("Value that controls the time it takes to adjust the IK Controls from a stationary state to a walking state. " +
-                 "\n\nTips: " +
-                 "\n- default value = 0.025, " +
-                 "\n- if this value is set to 0, the adjustment will be instant, " +
-                 "\n- if the \"Stationary To Rotate Smoothing\" value is set to 0, this value will not change anything, " +
-                 "\n- if the \"Max Stationary Rotation\" value is set to 0 or 360, this value will not change anything.")]
+        [Tooltip(
+            "Value that controls the time it takes to adjust the IK Controls from a stationary state to a walking state. " +
+            "\n\nTips: " +
+            "\n- default value = 0.025, " +
+            "\n- if this value is set to 0, the adjustment will be instant, " +
+            "\n- if the \"Stationary To Rotate Smoothing\" value is set to 0, this value will not change anything, " +
+            "\n- if the \"Max Stationary Rotation\" value is set to 0 or 360, this value will not change anything.")]
         public float stationaryToWalkSmoothing = 0.2f;
 
         [Header("Stationary to Rotate Feet Adjustment")]
         [Range(0, 5)]
-        [Tooltip("Value that controls the time it takes to adjust the feet position and rotation when in a stationary state but rotated above \"maxStationaryRotationAngle\" value. " +
-                 "\n\nTips: " +
-                 "\n- default value = 0.06, " +
-                 "\n- if this value is set to 0, the adjustment will be instant and make the feet slide, " +
-                 "\n- if the \"Max Stationary Rotation\" value is set to 0 or 360, this value will not change anything.")]
+        [Tooltip(
+            "Value that controls the time it takes to adjust the feet position and rotation when in a stationary state but rotated above \"maxStationaryRotationAngle\" value. " +
+            "\n\nTips: " +
+            "\n- default value = 0.06, " +
+            "\n- if this value is set to 0, the adjustment will be instant and make the feet slide, " +
+            "\n- if the \"Max Stationary Rotation\" value is set to 0 or 360, this value will not change anything.")]
         public float stationaryToRotateSmoothing = 0.06f;
 
         [Range(0, 360)]
@@ -142,12 +147,13 @@ namespace LifelikeMotion.IKFootPlacement
                  "\n- toggle Gizmos visibility in the Scene view to visualize the cone.")]
         public float maxStationaryRotationAngle = 60;
 
-        [Tooltip("Boolean that controls the direction of feet adjustment, when rotating the character but not moving. " +
-                 "\n\nTips: " +
-                 "\n- default value = \"false\", " +
-                 "\n- if set to \"false\", the script will start adjustment from the first element of \"IK Constraints\" list when rotating clockwise, " +
-                 "\n- if set to \"true\", the script will start adjustment from the last element of \"IK Constraints\" list when rotating clockwise, " +
-                 "\n- be sure to correctly set the elements of \"IK Constraints\" list.")]
+        [Tooltip(
+            "Boolean that controls the direction of feet adjustment, when rotating the character but not moving. " +
+            "\n\nTips: " +
+            "\n- default value = \"false\", " +
+            "\n- if set to \"false\", the script will start adjustment from the first element of \"IK Constraints\" list when rotating clockwise, " +
+            "\n- if set to \"true\", the script will start adjustment from the last element of \"IK Constraints\" list when rotating clockwise, " +
+            "\n- be sure to correctly set the elements of \"IK Constraints\" list.")]
         public bool invertAdjustmentDirection = false;
 
         [Header("Debug Rays")]
@@ -165,9 +171,19 @@ namespace LifelikeMotion.IKFootPlacement
         // Control booleans
         [HideInInspector] public bool isActive = true;
         [HideInInspector] public bool startup = true;
-        [HideInInspector] public bool jumped = false; // Important! This variable should be controlled by another script for character movement!
-        [HideInInspector] public bool isMoving = true; // Important! This variable should be controlled by another script for character movement!
-        [HideInInspector] public bool isGrounded = true; // Important! This variable should be controlled by another script for character movement!
+
+        [HideInInspector]
+        public bool
+            jumped = false; // Important! This variable should be controlled by another script for character movement!
+
+        [HideInInspector]
+        public bool
+            isMoving = true; // Important! This variable should be controlled by another script for character movement!
+
+        [HideInInspector]
+        public bool
+            isGrounded =
+                true; // Important! This variable should be controlled by another script for character movement!
 
         // Component references
         private Animator animator;
@@ -177,6 +193,7 @@ namespace LifelikeMotion.IKFootPlacement
         private PlayableGraph rigBuilderGraph;
         private AnimationScriptPlayable animationScriptPlayable;
         private IKFootPlacementJob iKFootPlacementJob;
+
         #endregion
 
         // Create new RigBuilder graph when enabled
@@ -192,6 +209,7 @@ namespace LifelikeMotion.IKFootPlacement
                 DisableIKFootPlacement();
                 return;
             }
+
             if (rigBuilder == null)
             {
                 Debug.LogError("Rig Builder component is missing in this GameObject!");
@@ -199,7 +217,10 @@ namespace LifelikeMotion.IKFootPlacement
                 return;
             }
 
-            if (animator != null || rigBuilder != null) { rigBuilder.Build(); }
+            if (animator != null || rigBuilder != null)
+            {
+                rigBuilder.Build();
+            }
         }
 
         // Destroy existing RigBuilder graph and create a new one when disabled
@@ -214,7 +235,10 @@ namespace LifelikeMotion.IKFootPlacement
         // The logic needs to be calculated inside of Update, as it is executed prior to animation calculations
         private void Update()
         {
-            if (startup) { Startup(); }
+            if (startup)
+            {
+                Startup();
+            }
 
             iKFootPlacementJob = animationScriptPlayable.GetJobData<IKFootPlacementJob>();
 
@@ -222,7 +246,10 @@ namespace LifelikeMotion.IKFootPlacement
             CheckParameters();
             CheckRotations();
             SetJobParameters();
-            if (isActive) { GetRaycastData(); }
+            if (isActive)
+            {
+                GetRaycastData();
+            }
 
             animationScriptPlayable.SetJobData(iKFootPlacementJob);
         }
@@ -285,10 +312,11 @@ namespace LifelikeMotion.IKFootPlacement
             if (!jumped && isGrounded)
             {
                 #region Body Raycast
+
                 RaycastHit bodyRaycastHit = new RaycastHit();
                 Vector3 bodyRaycastOrigin = new Vector3(hips.position.x,
-                                                        transform.position.y + raycastHeight,
-                                                        hips.position.z);
+                    transform.position.y + raycastHeight,
+                    hips.position.z);
 
                 bool bodyHit = false;
 
@@ -296,9 +324,9 @@ namespace LifelikeMotion.IKFootPlacement
                 if (bodyPositionOffsetWeight > 0 || bodyRotationOffsetWeight > 0)
                 {
                     bodyHit = Physics.Raycast(bodyRaycastOrigin,
-                                              transform.TransformDirection(Vector3.down),
-                                              out bodyRaycastHit,
-                                              raycastLength);
+                        transform.TransformDirection(Vector3.down),
+                        out bodyRaycastHit,
+                        raycastLength);
                 }
 
                 if (bodyHit)
@@ -307,7 +335,9 @@ namespace LifelikeMotion.IKFootPlacement
                     {
                         float raycastDistance = Vector3.Distance(bodyRaycastOrigin, bodyRaycastHit.point);
                         Debug.DrawLine(bodyRaycastOrigin, bodyRaycastHit.point, Color.blue);
-                        Debug.DrawRay(bodyRaycastHit.point, transform.TransformDirection(Vector3.down) * (raycastLength - raycastDistance), Color.white);
+                        Debug.DrawRay(bodyRaycastHit.point,
+                            transform.TransformDirection(Vector3.down) * (raycastLength - raycastDistance),
+                            Color.white);
                     }
 
                     iKFootPlacementJob.bodyRaycastHitPoint = bodyRaycastHit.point;
@@ -320,15 +350,17 @@ namespace LifelikeMotion.IKFootPlacement
                     iKFootPlacementJob.bodyRaycastOrigin = Vector3.zero;
                     iKFootPlacementJob.bodyRaycastHitNormal = Vector3.zero;
                 }
+
                 #endregion
 
                 #region Legs Raycasts
+
                 for (int i = 0; i < iKConstraints.Count; i++)
                 {
                     RaycastHit legRaycastHit = new RaycastHit();
                     Vector3 legRaycastOrigin = new Vector3(iKConstraints[i].data.target.position.x,
-                                                           transform.position.y + raycastHeight,
-                                                           iKConstraints[i].data.target.position.z);
+                        transform.position.y + raycastHeight,
+                        iKConstraints[i].data.target.position.z);
 
                     Vector3 footLocalEuler = iKConstraints[i].data.target.localEulerAngles;
 
@@ -338,9 +370,9 @@ namespace LifelikeMotion.IKFootPlacement
                     if (feetPositionOffsetWeight > 0 || feetRotationOffsetWeight > 0 || bodyPositionOffsetWeight > 0)
                     {
                         legHit = Physics.Raycast(legRaycastOrigin,
-                                                 transform.TransformDirection(Vector3.down),
-                                                 out legRaycastHit,
-                                                 raycastLength);
+                            transform.TransformDirection(Vector3.down),
+                            out legRaycastHit,
+                            raycastLength);
                     }
 
                     if (legHit)
@@ -349,7 +381,9 @@ namespace LifelikeMotion.IKFootPlacement
                         {
                             float raycastDistance = Vector3.Distance(legRaycastOrigin, legRaycastHit.point);
                             Debug.DrawLine(legRaycastOrigin, legRaycastHit.point, Color.red);
-                            Debug.DrawRay(legRaycastHit.point, transform.TransformDirection(Vector3.down) * (raycastLength - raycastDistance), Color.white);
+                            Debug.DrawRay(legRaycastHit.point,
+                                transform.TransformDirection(Vector3.down) * (raycastLength - raycastDistance),
+                                Color.white);
                         }
 
                         iKFootPlacementJob.legRaycastHitPoint[i] = legRaycastHit.point;
@@ -363,6 +397,7 @@ namespace LifelikeMotion.IKFootPlacement
                         iKFootPlacementJob.legRaycastHitNormal[i] = Vector3.zero;
                     }
                 }
+
                 #endregion
             }
             else
@@ -384,7 +419,11 @@ namespace LifelikeMotion.IKFootPlacement
         private void CheckParameters()
         {
             // Slide feet with these Stationary to Rotate Feet Adjustment values
-            if (stationaryToRotateSmoothing <= 0 || maxStationaryRotationAngle == 0 || maxStationaryRotationAngle == 360) { isMoving = true; }
+            if (stationaryToRotateSmoothing <= 0 || maxStationaryRotationAngle == 0 ||
+                maxStationaryRotationAngle == 360)
+            {
+                isMoving = true;
+            }
         }
 
         // Pass parameters values from this script to iKFootPlacementJob struct
@@ -410,10 +449,13 @@ namespace LifelikeMotion.IKFootPlacement
             iKFootPlacementJob.rootPosition = transform.position;
             // Bools
             iKFootPlacementJob.isActive = isActive;
-            iKFootPlacementJob.isGrounded = isGrounded; // Important! "isGrounded" variable should be controlled by another script for character movement!
-            iKFootPlacementJob.isMoving = isMoving; // Important! "isMoving" variable should be controlled by another script for character movement!
-            iKFootPlacementJob.jumped = jumped; // Important! "jumped" variable should be controlled by another script for character movement!
-                                                // deltaTime for Lerp (IAnimationJob does not support Time.deltaTime)
+            iKFootPlacementJob.isGrounded =
+                isGrounded; // Important! "isGrounded" variable should be controlled by another script for character movement!
+            iKFootPlacementJob.isMoving =
+                isMoving; // Important! "isMoving" variable should be controlled by another script for character movement!
+            iKFootPlacementJob.jumped =
+                jumped; // Important! "jumped" variable should be controlled by another script for character movement!
+            // deltaTime for Lerp (IAnimationJob does not support Time.deltaTime)
             iKFootPlacementJob.deltaTime = Time.deltaTime;
         }
 
@@ -422,7 +464,8 @@ namespace LifelikeMotion.IKFootPlacement
         {
             float currentStationaryRotation = transform.eulerAngles.y;
 
-            if (stationaryToRotateSmoothing > 0 && maxStationaryRotationAngle != 0 && maxStationaryRotationAngle != 360 && iKConstraints.Count != 0)
+            if (stationaryToRotateSmoothing > 0 && maxStationaryRotationAngle != 0 &&
+                maxStationaryRotationAngle != 360 && iKConstraints.Count != 0)
             {
                 if (!isMoving && isGrounded)
                 {
@@ -432,32 +475,57 @@ namespace LifelikeMotion.IKFootPlacement
                         float rotationDifference = Mathf.DeltaAngle(stationaryRotation, currentStationaryRotation);
                         if (rotationDifference < 0)
                         {
-                            if (!invertAdjustmentDirection) { iKFootPlacementJob.adjustDirection = "left"; }
-                            else { iKFootPlacementJob.adjustDirection = "right"; }
+                            if (!invertAdjustmentDirection)
+                            {
+                                iKFootPlacementJob.adjustDirection = "left";
+                            }
+                            else
+                            {
+                                iKFootPlacementJob.adjustDirection = "right";
+                            }
                         }
                         else if (rotationDifference > 0)
                         {
-                            if (!invertAdjustmentDirection) { iKFootPlacementJob.adjustDirection = "right"; }
-                            else { iKFootPlacementJob.adjustDirection = "left"; }
+                            if (!invertAdjustmentDirection)
+                            {
+                                iKFootPlacementJob.adjustDirection = "right";
+                            }
+                            else
+                            {
+                                iKFootPlacementJob.adjustDirection = "left";
+                            }
                         }
 
-                        float lastRotationDifference = Mathf.DeltaAngle(lastStationaryRotation, currentStationaryRotation);
+                        float lastRotationDifference =
+                            Mathf.DeltaAngle(lastStationaryRotation, currentStationaryRotation);
                         if (Mathf.Abs(lastRotationDifference) > maxStationaryRotationAngle / 2f)
                         {
                             lastStationaryRotation = currentStationaryRotation;
-                            if (iKFootPlacementJob.adjustDirection == "right") { iKFootPlacementJob.adjustedFoot[0] = true; } // Adjust starting from first element of iKConstraints list
-                            else { iKFootPlacementJob.adjustedFoot[iKConstraints.Count - 1] = true; } // Adjust starting from last element of iKConstraints list
+                            if (iKFootPlacementJob.adjustDirection == "right")
+                            {
+                                iKFootPlacementJob.adjustedFoot[0] = true;
+                            } // Adjust starting from first element of iKConstraints list
+                            else
+                            {
+                                iKFootPlacementJob.adjustedFoot[iKConstraints.Count - 1] = true;
+                            } // Adjust starting from last element of iKConstraints list
+
                             iKFootPlacementJob.adjustFeet = true;
                         }
                     }
                     // When the character is already adjusting feet
                     else if (iKFootPlacementJob.adjustFeet)
                     {
-                        float lastRotationDifference = Mathf.DeltaAngle(lastStationaryRotation, currentStationaryRotation);
+                        float lastRotationDifference =
+                            Mathf.DeltaAngle(lastStationaryRotation, currentStationaryRotation);
                         if (Mathf.Abs(lastRotationDifference) > maxStationaryRotationAngle / 2f)
                         {
                             lastStationaryRotation = currentStationaryRotation;
-                            for (int i = 0; i < iKConstraints.Count; i++) { iKFootPlacementJob.adjustedFoot[i] = true; }
+                            for (int i = 0; i < iKConstraints.Count; i++)
+                            {
+                                iKFootPlacementJob.adjustedFoot[i] = true;
+                            }
+
                             iKFootPlacementJob.adjustFeet = true;
                             iKFootPlacementJob.adjustDirection = "both"; // Adjust all feet
                         }
@@ -470,27 +538,45 @@ namespace LifelikeMotion.IKFootPlacement
                     if (Mathf.Abs(lastRotationDifference) > maxStationaryRotationAngle / 4f)
                     {
                         lastStationaryRotation = currentStationaryRotation;
-                        for (int i = 0; i < iKConstraints.Count; i++) { iKFootPlacementJob.adjustedFoot[i] = true; }
+                        for (int i = 0; i < iKConstraints.Count; i++)
+                        {
+                            iKFootPlacementJob.adjustedFoot[i] = true;
+                        }
+
                         iKFootPlacementJob.adjustDirection = "both"; // Adjust all feet
                     }
                 }
-                else { lastStationaryRotation = currentStationaryRotation; }
+                else
+                {
+                    lastStationaryRotation = currentStationaryRotation;
+                }
 
                 if (drawDebugRay)
                 {
                     Debug.DrawRay(transform.position, transform.forward, Color.yellow);
-                    Debug.DrawRay(transform.position, Quaternion.Euler(0, lastStationaryRotation + (maxStationaryRotationAngle / 2.0f), 0) * Vector3.forward, Color.red);
-                    Debug.DrawRay(transform.position, Quaternion.Euler(0, lastStationaryRotation - (maxStationaryRotationAngle / 2.0f), 0) * Vector3.forward, Color.red);
+                    Debug.DrawRay(transform.position,
+                        Quaternion.Euler(0, lastStationaryRotation + (maxStationaryRotationAngle / 2.0f), 0) *
+                        Vector3.forward, Color.red);
+                    Debug.DrawRay(transform.position,
+                        Quaternion.Euler(0, lastStationaryRotation - (maxStationaryRotationAngle / 2.0f), 0) *
+                        Vector3.forward, Color.red);
                 }
             }
-            else { lastStationaryRotation = currentStationaryRotation; }
+            else
+            {
+                lastStationaryRotation = currentStationaryRotation;
+            }
+
             stationaryRotation = currentStationaryRotation;
         }
 
         // Checks if the character has landed after jumping (to avoid beeing one frame late)
         private void CheckIfLanded()
         {
-            if (jumped && isGrounded) { jumped = false; } // Important! "jumped", "isGrounded" and "isMoving" variables should be controlled by another script for character movement!
+            if (jumped && isGrounded)
+            {
+                jumped = false;
+            } // Important! "jumped", "isGrounded" and "isMoving" variables should be controlled by another script for character movement!
         }
 
         // Disable the script

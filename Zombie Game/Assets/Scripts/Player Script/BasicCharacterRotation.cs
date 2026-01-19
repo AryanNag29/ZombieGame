@@ -16,8 +16,8 @@ namespace LifelikeMotion.IKFootPlacement
         private float rotationX_target = 0;
         private float rotationY_target = 0;
         private bool receiveInput = true;
-        [SerializeField]private LayerMask _groundLayer;
-        [SerializeField]private Camera _mainCamera;
+        [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private Camera _mainCamera;
 
         private void Start()
         {
@@ -36,7 +36,7 @@ namespace LifelikeMotion.IKFootPlacement
             if (smoothing <= 0 && _isRotationPressed)
             {
                 rotation.y += mouseX * mouseSensitivity;
-                
+
                 rotationY_target = rotation.y;
                 rotationX_target += mouseY * mouseSensitivity;
                 rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
@@ -49,7 +49,7 @@ namespace LifelikeMotion.IKFootPlacement
             else if (smoothing > 0 && _isRotationPressed)
             {
                 rotationY_target += mouseX * mouseSensitivity;
-                
+
                 rotation.y = Mathf.Lerp(rotation.y, rotationY_target, Time.deltaTime / smoothing);
                 rotationX_target += mouseY * mouseSensitivity;
                 rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
@@ -64,28 +64,34 @@ namespace LifelikeMotion.IKFootPlacement
                 //     transform.eulerAngles = rotation;
                 // }
             }
-            Quaternion _SkewedRotaion = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);//skewed rotation towards y axis
+
+            Quaternion _SkewedRotaion =
+                Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up); //skewed rotation towards y axis
             Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
             {
                 Vector3 targetPostion = hit.point;
-            
+
                 Vector3 direction = targetPostion - transform.position;
                 direction.y = 0;
                 if (direction != Vector3.zero)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
                     Quaternion targetAngle = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
-                }    
+                    transform.rotation =
+                        Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
+                }
             }
+
             if (_isRotationPressed)
             {
                 transform.rotation = Quaternion.LookRotation(_currentRotation, Vector3.up);
-                transform.rotation = Quaternion.Slerp(transform.rotation , _SkewedRotaion,  Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
+                transform.rotation =
+                    Quaternion.Slerp(transform.rotation, _SkewedRotaion,
+                        Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
             }
- 
         }
+
         private void GetInputData()
         {
             if (receiveInput)
@@ -96,5 +102,4 @@ namespace LifelikeMotion.IKFootPlacement
             }
         }
     }
-
 }

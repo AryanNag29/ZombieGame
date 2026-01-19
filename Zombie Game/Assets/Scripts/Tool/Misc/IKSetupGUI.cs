@@ -30,6 +30,7 @@ namespace LifelikeMotion.IKFootPlacement
             serializedObject.Update();
 
             #region Labels
+
             GUILayout.Label("This script runs automatically.", title);
             GUILayout.Space(10);
             GUILayout.Label("Please ensure that:", title);
@@ -68,7 +69,10 @@ namespace LifelikeMotion.IKFootPlacement
             GUILayout.Space(5);
             GUILayout.Space(10);
 
-            GUILayout.Label("If the requirements have been met, You can press Find References button while in the SCENE VIEW.", title);
+            GUILayout.Label(
+                "If the requirements have been met, You can press Find References button while in the SCENE VIEW.",
+                title);
+
             #endregion
 
             GUILayout.Space(10);
@@ -81,17 +85,21 @@ namespace LifelikeMotion.IKFootPlacement
             GUILayout.Space(10);
 
             #region References
+
             GUILayout.Label("References", title);
             EditorGUILayout.PropertyField(hips);
             EditorGUILayout.PropertyField(leftLegsTransforms, true);
             EditorGUILayout.PropertyField(rightLegsTransforms, true);
+
             #endregion
 
             serializedObject.ApplyModifiedProperties();
 
             GUILayout.Space(10);
 
-            GUILayout.Label("If all of the references are attached, proceed by pressing Start Setup button in the scene view, or the isolated view of Your prefab.", title);
+            GUILayout.Label(
+                "If all of the references are attached, proceed by pressing Start Setup button in the scene view, or the isolated view of Your prefab.",
+                title);
             GUILayout.Space(5);
             GUILayout.Label("If not, try attaching each reference manually and press Start Setup button again.", title);
 
@@ -103,5 +111,4 @@ namespace LifelikeMotion.IKFootPlacement
             }
         }
     }
-
 }

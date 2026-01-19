@@ -8,7 +8,9 @@ public class TwoDimentionAnimationStateControl : MonoBehaviour
     private float VelocityX = 0.0f;
     private float VelocityZ = 0.0f;
     [SerializeField] protected float velocityAccelration = 2.0f;
+
     #endregion
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,7 +28,7 @@ public class TwoDimentionAnimationStateControl : MonoBehaviour
         bool forwaredLeftPressed = forwardPressed && Input.GetKey(KeyCode.A);
         bool backwardRightPressed = backwardPressed && Input.GetKey(KeyCode.D);
         bool backwardLeftPressed = backwardPressed && Input.GetKey(KeyCode.A);
-        
+
         //clamp
         VelocityX = Mathf.Clamp(VelocityX, -0.5f, 0.5f);
         VelocityZ = Mathf.Clamp(VelocityZ, -0.5f, 0.5f);
@@ -74,12 +76,13 @@ public class TwoDimentionAnimationStateControl : MonoBehaviour
             VelocityZ -= Time.deltaTime * velocityAccelration;
             VelocityX -= Time.deltaTime * velocityAccelration;
         }
-        
+
         else if (!forwardPressed && !backwardPressed && !leftPressed && !rightPressed)
         {
-            VelocityX =  0.0f;
-            VelocityZ =  0.0f;
+            VelocityX = 0.0f;
+            VelocityZ = 0.0f;
         }
+
         _animator.SetFloat("VelocityX", VelocityX);
         _animator.SetFloat("VelocityZ", VelocityZ);
     }

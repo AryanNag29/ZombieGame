@@ -4,14 +4,14 @@ public class EnumStates : MonoBehaviour
 {
     protected enum playerState
     {
-     idle,
-     walking,
-     running
+        idle,
+        walking,
+        running
     }
 
     protected enum daynightState
-     {
-         day,
-         night
-     }
- }
+    {
+        day,
+        night
+    }
+}

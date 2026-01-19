@@ -7,9 +7,9 @@ using UnityEngine.UIElements;
 
 public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
 {
-    protected Dictionary<EState,BaseState<EState>> States = new Dictionary<EState, BaseState<EState>>();
-    
-    protected  BaseState<EState> _currentState;
+    protected Dictionary<EState, BaseState<EState>> States = new Dictionary<EState, BaseState<EState>>();
+
+    protected BaseState<EState> _currentState;
 
     protected bool IsTranstionToState = false;
 
@@ -54,5 +54,4 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
     {
         _currentState.OnTriggerExit(other);
     }
-    
 }
