@@ -51,7 +51,6 @@ namespace LifelikeMotion.IKFootPlacement
             velocity.z = _velocity.z * movementSpeed;
             velocity.x = _velocity.x * movementSpeed;
             
-            velocity = transform.TransformPoint(transform.position);
             
             Debug.Log("veclocity x : " + velocity.x + " velocity z : " + velocity.z);
 
