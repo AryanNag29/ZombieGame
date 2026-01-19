@@ -38,6 +38,7 @@ namespace LifelikeMotion.IKFootPlacement
 
         public void CalculateMovement()
         {
+            
             Vector3 _velocity = Vector3.zero;
             _velocity.z = vertical;
             _velocity.x = horizontal;
@@ -46,9 +47,11 @@ namespace LifelikeMotion.IKFootPlacement
             animator.SetFloat("X", horizontal);
 
             _velocity = Vector3.ClampMagnitude(_velocity, 1);
-
+            
             velocity.z = _velocity.z * movementSpeed;
             velocity.x = _velocity.x * movementSpeed;
+            
+            velocity = transform.TransformPoint(transform.position);
             
             Debug.Log("veclocity x : " + velocity.x + " velocity z : " + velocity.z);
 
@@ -72,7 +75,7 @@ namespace LifelikeMotion.IKFootPlacement
                 isMoving = true;
             }
 
-            cc.Move(multiplyMatrix(transform.TransformVector(_currentMovement)) * movementSpeed * Time.deltaTime);
+            cc.Move(multiplyMatrix(transform.TransformVector(velocity)) * Time.deltaTime);
 
             if (!isMoving) { cc.transform.position = new Vector3(ccPosition.x, cc.transform.position.y, ccPosition.z); }
             else { ccPosition = cc.transform.position; }
