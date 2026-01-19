@@ -7,14 +7,14 @@ namespace LifelikeMotion.IKFootPlacement
     public class IKSetup : MonoBehaviour
     {
         // Skeleton
-        [Tooltip("If the namings of your bones are the same, then this will fill automatically")]
-        [SerializeField] private Transform hips;
+        [Tooltip("If the namings of your bones are the same, then this will fill automatically")] [SerializeField]
+        private Transform hips;
 
-        [Tooltip("If the namings of your bones are the same, then this will fill automatically")]
-        [SerializeField] private List<IKLeg> leftLegsTransforms = new List<IKLeg>();
+        [Tooltip("If the namings of your bones are the same, then this will fill automatically")] [SerializeField]
+        private List<IKLeg> leftLegsTransforms = new List<IKLeg>();
 
-        [Tooltip("If the namings of your bones are the same, then this will fill automatically")]
-        [SerializeField] private List<IKLeg> rightLegsTransforms = new List<IKLeg>();
+        [Tooltip("If the namings of your bones are the same, then this will fill automatically")] [SerializeField]
+        private List<IKLeg> rightLegsTransforms = new List<IKLeg>();
 
         private RigBuilder rigBuilder;
         private Rig rig;
@@ -33,33 +33,40 @@ namespace LifelikeMotion.IKFootPlacement
         public bool SetupIKRig()
         {
             #region Safety Checks
+
             if (hips != null)
             {
                 foreach (var leg in leftLegsTransforms)
                 {
                     if (leg.upLeg == null || leg.leg == null || leg.foot == null)
                     {
-                        Debug.LogError("Not all of the references are attached. Please try finding references again, or attach each component manually before proceeding.");
+                        Debug.LogError(
+                            "Not all of the references are attached. Please try finding references again, or attach each component manually before proceeding.");
                         return false;
                     }
                 }
+
                 foreach (var leg in rightLegsTransforms)
                 {
                     if (leg.upLeg == null || leg.leg == null || leg.foot == null)
                     {
-                        Debug.LogError("Not all of the references are attached. Please try finding references again, or attach each component manually before proceeding.");
+                        Debug.LogError(
+                            "Not all of the references are attached. Please try finding references again, or attach each component manually before proceeding.");
                         return false;
                     }
                 }
             }
             else
             {
-                Debug.LogError("Not all of the references are attached. Please try finding references again, or attach each component manually before proceeding.");
+                Debug.LogError(
+                    "Not all of the references are attached. Please try finding references again, or attach each component manually before proceeding.");
                 return false;
             }
+
             #endregion
 
             #region Adding Rig Builder and Rig components
+
             try
             {
                 rigBuilder = gameObject.AddComponent(typeof(RigBuilder)) as RigBuilder;
@@ -69,12 +76,15 @@ namespace LifelikeMotion.IKFootPlacement
             }
             catch
             {
-                Debug.LogError("Could not add Rig Builder and Rig components to the GameObject. Please try running the script again or add them manually.");
+                Debug.LogError(
+                    "Could not add Rig Builder and Rig components to the GameObject. Please try running the script again or add them manually.");
                 return false;
             }
+
             #endregion
 
             #region Building new Rig Builder
+
             try
             {
                 rigBuilder.layers.Clear();
@@ -83,13 +93,16 @@ namespace LifelikeMotion.IKFootPlacement
             }
             catch
             {
-                Debug.LogError("Could not implement newly added Rig Builder component on the GameObject. Please read console log, remove components that are listed and try running the script again.");
+                Debug.LogError(
+                    "Could not implement newly added Rig Builder component on the GameObject. Please read console log, remove components that are listed and try running the script again.");
 
                 return false;
             }
+
             #endregion
 
             #region Creating IK Controls
+
             GameObject iKLegs = new GameObject("IK");
             iKLegs.transform.parent = gameObject.transform;
             GameObject iKConstraints = new GameObject("IKConstraints");
@@ -113,6 +126,7 @@ namespace LifelikeMotion.IKFootPlacement
                     leftLegIKConstraints[i] = new GameObject(leftLegName + (i + 1) + "IKConstraint");
                     leftLegIKConstraints[i].transform.parent = iKConstraints.transform;
                 }
+
                 leftIKLegs = new GameObject("LeftIKLegs");
             }
 
@@ -129,6 +143,7 @@ namespace LifelikeMotion.IKFootPlacement
                     rightLegIKConstraints[i] = new GameObject(rightLegName + (i + 1) + "IKConstraint");
                     rightLegIKConstraints[i].transform.parent = iKConstraints.transform;
                 }
+
                 rightIKLegs = new GameObject("RightIKLegs");
             }
 
@@ -161,6 +176,7 @@ namespace LifelikeMotion.IKFootPlacement
                     leftHints[i].transform.position = leftLegsTransforms[i].leg.transform.position;
                 }
             }
+
             if (rightLegsTransforms.Count == 1)
             {
                 rightTargets[0] = new GameObject(rightLegName + "Target");
@@ -187,6 +203,7 @@ namespace LifelikeMotion.IKFootPlacement
             iKLegs.transform.localPosition = Vector3.zero;
 
             Debug.Log("Created IK Controls!");
+
             #endregion
 
             #region Adding IK Constraint components
@@ -196,12 +213,16 @@ namespace LifelikeMotion.IKFootPlacement
 
             for (int i = 0; i < leftLegsTransforms.Count; i++)
             {
-                leftLegsTwoBoneIK[i] = leftLegIKConstraints[i].AddComponent(typeof(TwoBoneIKConstraint)) as TwoBoneIKConstraint;
+                leftLegsTwoBoneIK[i] =
+                    leftLegIKConstraints[i].AddComponent(typeof(TwoBoneIKConstraint)) as TwoBoneIKConstraint;
             }
+
             for (int i = 0; i < rightLegsTransforms.Count; i++)
             {
-                rightLegsTwoBoneIK[i] = rightLegIKConstraints[i].AddComponent(typeof(TwoBoneIKConstraint)) as TwoBoneIKConstraint;
+                rightLegsTwoBoneIK[i] =
+                    rightLegIKConstraints[i].AddComponent(typeof(TwoBoneIKConstraint)) as TwoBoneIKConstraint;
             }
+
             Debug.Log("Added Two Bone Constraint components!");
 
             for (int i = 0; i < leftLegsTransforms.Count; i++)
@@ -213,6 +234,7 @@ namespace LifelikeMotion.IKFootPlacement
                 leftLegsTwoBoneIK[i].data.hint = leftHints[i].transform;
                 leftLegsTwoBoneIK[i].data.maintainTargetRotationOffset = true;
             }
+
             for (int i = 0; i < rightLegsTransforms.Count; i++)
             {
                 rightLegsTwoBoneIK[i].data.root = rightLegsTransforms[i].upLeg;
@@ -222,13 +244,23 @@ namespace LifelikeMotion.IKFootPlacement
                 rightLegsTwoBoneIK[i].data.hint = rightHints[i].transform;
                 rightLegsTwoBoneIK[i].data.maintainTargetRotationOffset = true;
             }
+
             #endregion
 
             #region Adding IK Foot Placement component
+
             IKFootPlacement iKFootPlacement = gameObject.AddComponent(typeof(IKFootPlacement)) as IKFootPlacement;
             iKFootPlacement.hips = hips;
-            for (int i = 0; i < leftLegIKConstraints.Length; i++) { iKFootPlacement.iKConstraints.Add(leftLegIKConstraints[i].GetComponent<TwoBoneIKConstraint>()); }
-            for (int i = rightLegIKConstraints.Length - 1; i >= 0; i--) { iKFootPlacement.iKConstraints.Add(rightLegIKConstraints[i].GetComponent<TwoBoneIKConstraint>()); }
+            for (int i = 0; i < leftLegIKConstraints.Length; i++)
+            {
+                iKFootPlacement.iKConstraints.Add(leftLegIKConstraints[i].GetComponent<TwoBoneIKConstraint>());
+            }
+
+            for (int i = rightLegIKConstraints.Length - 1; i >= 0; i--)
+            {
+                iKFootPlacement.iKConstraints.Add(rightLegIKConstraints[i].GetComponent<TwoBoneIKConstraint>());
+            }
+
             #endregion
 
             Debug.Log("Setup finished successfully!");
@@ -238,15 +270,23 @@ namespace LifelikeMotion.IKFootPlacement
         public void FindReferences()
         {
             #region Looking for Animator component
+
             if (gameObject.GetComponent<Animator>() == null)
             {
-                Debug.LogError("This GameObject does not have the Animator component attached. Please attach this script to the correct GameObject and try again.");
+                Debug.LogError(
+                    "This GameObject does not have the Animator component attached. Please attach this script to the correct GameObject and try again.");
                 return;
             }
+
             #endregion
 
             #region Attaching character skeleton
-            if (hips == null) { hips = GameObject.Find(hipsName).transform; }
+
+            if (hips == null)
+            {
+                hips = GameObject.Find(hipsName).transform;
+            }
+
             ;
             IKLeg iKLeg;
             if (leftLegsTransforms.Count == 0)
@@ -275,20 +315,24 @@ namespace LifelikeMotion.IKFootPlacement
                         iKLeg.upLeg = GameObject.Find(leftUpLegName + i).transform;
                     }
                     else break;
+
                     if (GameObject.Find(leftLegName + i) != null)
                     {
                         iKLeg.leg = GameObject.Find(leftLegName + i).transform;
                     }
                     else break;
+
                     if (GameObject.Find(leftFootName + i) != null)
                     {
                         iKLeg.foot = GameObject.Find(leftFootName + i).transform;
                     }
                     else break;
+
                     leftLegsTransforms.Add(iKLeg);
                     i++;
                 }
             }
+
             if (rightLegsTransforms.Count == 0)
             {
                 iKLeg = new IKLeg();
@@ -315,30 +359,35 @@ namespace LifelikeMotion.IKFootPlacement
                         iKLeg.upLeg = GameObject.Find(rightUpLegName + i).transform;
                     }
                     else break;
+
                     if (GameObject.Find(rightLegName + i) != null)
                     {
                         iKLeg.leg = GameObject.Find(rightLegName + i).transform;
                     }
                     else break;
+
                     if (GameObject.Find(rightFootName + i) != null)
                     {
                         iKLeg.foot = GameObject.Find(rightFootName + i).transform;
                     }
                     else break;
+
                     rightLegsTransforms.Add(iKLeg);
                     i++;
                 }
             }
+
             if (rightLegsTransforms.Count == 0 && leftLegsTransforms.Count == 0)
             {
-                Debug.LogError("Could not automatically detect character's legs references. Be sure that the namings of the joints are correct. " +
-                               "Try reseting IK Setup script or manully assign each reference.");
+                Debug.LogError(
+                    "Could not automatically detect character's legs references. Be sure that the namings of the joints are correct. " +
+                    "Try reseting IK Setup script or manully assign each reference.");
                 return;
             }
+
             #endregion
 
             Debug.Log("All references found successfully!");
         }
-
     }
 }
