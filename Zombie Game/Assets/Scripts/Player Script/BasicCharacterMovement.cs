@@ -9,16 +9,14 @@ namespace LifelikeMotion.IKFootPlacement
         [SerializeField] private float movementSpeed = 2;
         [SerializeField] private float jumpSpeed = 5;
         [SerializeField] private float gravity = 15;
-        
-        [Header("Movement")]
-        protected float _currentSpeed;
-        [SerializeField]protected float _maxSpeed = 5f;
-        [SerializeField]protected float _accelerationFactor = 3f;
-        [SerializeField]protected float _deaccelerationFactor = 30f;
-        
-        [Header("Sprint")]
-        [SerializeField]protected float sprintingSpeed = 15f;
-        [SerializeField]protected float sprintMultiplier = 3f;
+
+        [Header("Movement")] protected float _currentSpeed;
+        [SerializeField] protected float _maxSpeed = 5f;
+        [SerializeField] protected float _accelerationFactor = 3f;
+        [SerializeField] protected float _deaccelerationFactor = 30f;
+
+        [Header("Sprint")] [SerializeField] protected float sprintingSpeed = 15f;
+        [SerializeField] protected float sprintMultiplier = 3f;
 
         private bool receiveInput = true;
         private bool isMoving = true;
@@ -49,7 +47,6 @@ namespace LifelikeMotion.IKFootPlacement
 
         public void CalculateMovement()
         {
-            
             Vector3 _velocity = Vector3.zero;
             _velocity.z = vertical;
             _velocity.x = horizontal;
@@ -58,12 +55,15 @@ namespace LifelikeMotion.IKFootPlacement
             animator.SetFloat("X", horizontal);
 
             _velocity = Vector3.ClampMagnitude(_velocity, 1);
-            
+
             velocity.z = _velocity.z * _currentSpeed;
             velocity.x = _velocity.x * _currentSpeed;
-            
 
-            if (cc.isGrounded && !jumped) { velocity.y = -2; }
+
+            if (cc.isGrounded && !jumped)
+            {
+                velocity.y = -2;
+            }
 
             else if (cc.isGrounded && jumped)
             {
@@ -73,6 +73,7 @@ namespace LifelikeMotion.IKFootPlacement
                     iKFootPlacement.isGrounded = false;
                     iKFootPlacement.jumped = true;
                 }
+
                 isMoving = true;
                 jumped = false;
             }
@@ -85,18 +86,23 @@ namespace LifelikeMotion.IKFootPlacement
 
             cc.Move(multiplyMatrix(velocity) * Time.deltaTime);
 
-            if (!isMoving) { cc.transform.position = new Vector3(ccPosition.x, cc.transform.position.y, ccPosition.z); }
-            else { ccPosition = cc.transform.position; }
+            if (!isMoving)
+            {
+                cc.transform.position = new Vector3(ccPosition.x, cc.transform.position.y, ccPosition.z);
+            }
+            else
+            {
+                ccPosition = cc.transform.position;
+            }
         }
-        
+
         protected void ApplySprint()
         {
-        
-            if (_isSprintPressed && _currentSpeed > 0 )
+            if (_isSprintPressed && _currentSpeed > 0)
             {
                 StartSprint();
             }
-            else 
+            else
             {
                 StopSprint();
             }
@@ -116,7 +122,7 @@ namespace LifelikeMotion.IKFootPlacement
         {
             _maxSpeed = 5f; // Your walk speed
             _accelerationFactor = 3f;
-    
+
             if (_currentSpeed > _maxSpeed)
             {
                 _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
@@ -130,7 +136,10 @@ namespace LifelikeMotion.IKFootPlacement
                 vertical = _currentMovement.z;
                 horizontal = _currentMovement.x;
 
-                if (iKFootPlacement != null) { iKFootPlacement.isGrounded = cc.isGrounded; }
+                if (iKFootPlacement != null)
+                {
+                    iKFootPlacement.isGrounded = cc.isGrounded;
+                }
 
                 if (vertical != 0 || horizontal != 0)
                 {
@@ -143,8 +152,14 @@ namespace LifelikeMotion.IKFootPlacement
                     if (iKFootPlacement != null) iKFootPlacement.isMoving = false;
                 }
 
-                if (Input.GetAxis("Jump") > 0 && !jumped) { jumped = true; }
-                else { jumped = false; }
+                if (Input.GetAxis("Jump") > 0 && !jumped)
+                {
+                    jumped = true;
+                }
+                else
+                {
+                    jumped = false;
+                }
             }
         }
     }
