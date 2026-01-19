@@ -26,8 +26,8 @@ namespace LifelikeMotion.IKFootPlacement
             animator = GetComponent<Animator>();
 
             //Optional cursor lock and disabled visability
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            // Cursor.visible = false;
+            // Cursor.lockState = CursorLockMode.Locked;
         }
 
         void Update()
@@ -49,6 +49,8 @@ namespace LifelikeMotion.IKFootPlacement
 
             velocity.z = _velocity.z * movementSpeed;
             velocity.x = _velocity.x * movementSpeed;
+            
+            Debug.Log("veclocity x : " + velocity.x + " velocity z : " + velocity.z);
 
             if (cc.isGrounded && !jumped) { velocity.y = -2; }
 
@@ -70,7 +72,7 @@ namespace LifelikeMotion.IKFootPlacement
                 isMoving = true;
             }
 
-            cc.Move(multiplyMatrix(transform.TransformVector(velocity)) * Time.deltaTime);
+            cc.Move(multiplyMatrix(transform.TransformVector(_currentMovement)) * movementSpeed * Time.deltaTime);
 
             if (!isMoving) { cc.transform.position = new Vector3(ccPosition.x, cc.transform.position.y, ccPosition.z); }
             else { ccPosition = cc.transform.position; }
