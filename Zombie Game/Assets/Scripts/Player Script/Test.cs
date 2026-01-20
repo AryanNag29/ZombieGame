@@ -151,7 +151,7 @@ public class Test : PlayerInputParent
 
     #region Update
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         CalculateSpeed();
         ApplyMovement();
