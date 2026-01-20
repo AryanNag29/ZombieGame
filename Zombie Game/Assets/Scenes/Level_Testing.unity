@@ -670,7 +670,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 8ff6ddcc572aa9d48b9a18ef59d6fb08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -978,7 +978,7 @@ MonoBehaviour:
   _deaccelerationFactor: 30
   sprintingSpeed: 15
   sprintMultiplier: 3
-  gamepadSmoothing: 20
+  gamepadSmoothing: 0.01
   mouseSmoothing: 5
   mouseSensitivity: 1.5
 --- !u!1660057539 &9223372036854775807
