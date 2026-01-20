@@ -44,7 +44,7 @@ namespace LifelikeMotion.IKFootPlacement
 
                 float _rotation_Angle = rotationX_target / 90f;
                 animator.SetFloat("Rotation_Angle", _rotation_Angle);
-                // transform.localEulerAngles = rotation;
+
             }
             else if (smoothing > 0 && _isRotationPressed)
             {
@@ -57,16 +57,10 @@ namespace LifelikeMotion.IKFootPlacement
                 rotationX = Mathf.Lerp(rotationX, rotationX_target, Time.deltaTime / smoothing);
                 float _rotation_Angle = rotationX / 90f;
                 animator.SetFloat("Rotation_Angle", _rotation_Angle);
-                // transform.localEulerAngles = rotation;
-                // if (!_isRotationPressed)
-                // {
-                //     rotation.y = rotation.y;
-                //     transform.eulerAngles = rotation;
-                // }
+
             }
 
-            Quaternion _SkewedRotaion =
-                Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up); //skewed rotation towards y axis
+            Quaternion _SkewedRotaion = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up); //skewed rotation towards y axis
             Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
             {
