@@ -30,9 +30,8 @@ public class Test : PlayerInputParent
     private Vector3 rotation;
     
     //test variables
-    
-    Vector3 lerpVector = new Vector3(0, 0, 0);
-    Vector3 lerpedCurrentRotation;
+
+    private Quaternion targetRotation;
 
     #endregion
 
@@ -64,16 +63,25 @@ public class Test : PlayerInputParent
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
             }
         }
-            
-        lerpedCurrentRotation = Vector3.Slerp(lerpVector,_currentRotation,gamepadSmoothing);
-        Debug.Log("lerprotation: " + lerpedCurrentRotation);
+        
         
         if (_isRotationPressed)
         {
-            transform.rotation = Quaternion.LookRotation(lerpedCurrentRotation, Vector3.up);
-            transform.rotation =
+            transform.rotation = Quaternion.LookRotation(_currentRotation, Vector3.up);
+            Debug.Log(_SkewedRotaion.eulerAngles);
+            targetRotation =
                 Quaternion.Slerp(transform.rotation, _SkewedRotaion,
                     Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
+            
+            //it can work
+            // targetRotation =
+            //     Quaternion.Lerp(transform.rotation, Quaternion.Euler(_currentRotation),
+            //         gamepadSmoothing); // smoothing rotaion with slerp
+            transform.rotation = targetRotation;
+        }
+        else
+        {
+            transform.rotation = targetRotation;
         }
     }
 
