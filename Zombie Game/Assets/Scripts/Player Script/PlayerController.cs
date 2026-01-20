@@ -75,9 +75,9 @@ public class PlayerController : PlayerInputParent
             //     transform.eulerAngles = rotation;
             // }
         }
-
+        Debug.Log(_currentRotation);
         // Quaternion _SkewedRotaion = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);//skewed rotation towards y axis
-        Quaternion _SkewedRotaion = Quaternion.LookRotation(rotation, Vector3.up);
+        Quaternion _SkewedRotaion = Quaternion.LookRotation(_currentRotation, Vector3.up);
         transform.rotation =
             Quaternion.Slerp(transform.rotation, _SkewedRotaion,
                 Time.deltaTime / smoothing); // smoothing rotaion with slerp
