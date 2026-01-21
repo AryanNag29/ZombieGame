@@ -50,7 +50,7 @@ namespace LifelikeMotion.IKFootPlacement
                 rotationX = rotationX_target;
 
                 float _rotation_Angle = rotationX_target / 90f;
-                animator.SetFloat("Rotation_Angle", _rotation_Angle);
+                // animator.SetFloat("Rotation_Angle", _rotation_Angle);
 
                 Quaternion _SkewedRotaion =
                     Quaternion.LookRotation(multiplyMatrix(_currentRotation),
@@ -89,7 +89,7 @@ namespace LifelikeMotion.IKFootPlacement
 
                 rotationX = Mathf.Lerp(rotationX, rotationX_target, Time.deltaTime / smoothing);
                 float _rotation_Angle = rotationX / 90f;
-                animator.SetFloat("Rotation_Angle", _rotation_Angle);
+                // animator.SetFloat("Rotation_Angle", _rotation_Angle);
 
                 Quaternion _SkewedRotaion =
                     Quaternion.LookRotation(multiplyMatrix(_currentRotation),
