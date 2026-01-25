@@ -5,10 +5,12 @@ namespace LifelikeMotion.IKFootPlacement
     public class BasicCharacterRotation : PlayerInputParent
     {
         #region Variables
+
         [SerializeField] private float mouseSensitivity = 1.5f;
         [SerializeField] private float mouseSmoothing = 0;
         [SerializeField] private float gamepadSmoothing = 0f;
         [SerializeField] private float smoothing = 0f;
+
         private Vector3 rotation;
         private Animator animator;
         private float mouseX;
@@ -17,33 +19,40 @@ namespace LifelikeMotion.IKFootPlacement
         private float rotationX_target = 0;
         private float rotationY_target = 0;
         private bool receiveInput = true;
+
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private Camera _mainCamera;
+
         #endregion
 
+
         #region Start
+
         private void Start()
         {
             animator = GetComponent<Animator>();
             rotation.y = transform.eulerAngles.y;
         }
+
         #endregion
 
         #region Update
+
         private void Update()
         {
             GetInputData();
             ApplyRotation();
         }
+
         #endregion
 
         #region function
+
         private void ApplyRotation()
         {
             if (gamepadSmoothing <= 0 && mouseSmoothing <= 0 && _isRotationPressed)
             {
                 rotation.y += mouseX * mouseSensitivity;
-
                 rotationY_target = rotation.y;
                 rotationX_target += mouseY * mouseSensitivity;
                 rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
@@ -131,6 +140,7 @@ namespace LifelikeMotion.IKFootPlacement
                 mouseY = _currentRotation.z;
             }
         }
+
         #endregion
     }
 }

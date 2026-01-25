@@ -18,6 +18,7 @@ namespace LifelikeMotion.IKFootPlacement
         [Header("Sprint")] [SerializeField] protected float sprintingSpeed = 15f;
         [SerializeField] protected float sprintMultiplier = 3f;
 
+
         private bool receiveInput = true;
         private bool isMoving = true;
         private float horizontal;
@@ -58,7 +59,6 @@ namespace LifelikeMotion.IKFootPlacement
 
             velocity.z = _velocity.z * _currentSpeed;
             velocity.x = _velocity.x * _currentSpeed;
-
 
             if (cc.isGrounded && !jumped)
             {
@@ -127,6 +127,15 @@ namespace LifelikeMotion.IKFootPlacement
             if (_currentSpeed > _maxSpeed)
             {
                 _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
+            }
+
+            if (!isMoving)
+            {
+                cc.transform.position = new Vector3(ccPosition.x, cc.transform.position.y, ccPosition.z);
+            }
+            else
+            {
+                ccPosition = cc.transform.position;
             }
         }
 

@@ -6,7 +6,6 @@ namespace LifelikeMotion.IKFootPlacement
     public struct IKFootPlacementJob : IAnimationJob
     {
         #region Struct Variables
-
         // IK Targets
         public TransformStreamHandle[] targets;
 
@@ -61,16 +60,9 @@ namespace LifelikeMotion.IKFootPlacement
 
         // Control bools
         public bool isActive;
-
-        public bool
-            isGrounded; // Important! "IKFootPlacement.isGrounded" variable should be controlled by another script for character movement!
-
-        public bool
-            isMoving; // Important! "IKFootPlacement.isMoving" variable should be controlled by another script for character movement!
-
-        public bool
-            jumped; // Important! "IKFootPlacement.jumped" variable should be controlled by another script for character movement!
-
+        public bool isGrounded; // Important! "IKFootPlacement.isGrounded" variable should be controlled by another script for character movement!
+        public bool isMoving; // Important! "IKFootPlacement.isMoving" variable should be controlled by another script for character movement!
+        public bool jumped; // Important! "IKFootPlacement.jumped" variable should be controlled by another script for character movement!
         public bool adjustFeet;
         public bool[] adjustedFoot;
         private bool startup;
@@ -78,19 +70,13 @@ namespace LifelikeMotion.IKFootPlacement
         // Other
         public string adjustDirection;
         public float lerpSpeed;
-
         #endregion
 
-        public void ProcessRootMotion(AnimationStream stream)
-        {
-        } // Leave empty
+        public void ProcessRootMotion(AnimationStream stream) { } // Leave empty
 
         public void ProcessAnimation(AnimationStream stream)
         {
-            if (startup)
-            {
-                isMoving = true;
-            }
+            if (startup) { isMoving = true; }
 
             lowestLegRaycastHitPoint = new Vector3(0, rootPosition.y, 0);
 
@@ -100,22 +86,13 @@ namespace LifelikeMotion.IKFootPlacement
             {
                 OffsetTarget(stream);
                 CheckFeetAdjustment();
-                if (bodyRotationOffsetWeight > 0)
-                {
-                    OffsetBodyRotation(stream);
-                }
+                if (bodyRotationOffsetWeight > 0) { OffsetBodyRotation(stream); }
 
                 startup = false;
             }
-            else
-            {
-                startup = true;
-            }
+            else { startup = true; }
 
-            if (bodyPositionOffsetWeight > 0)
-            {
-                OffsetBodyPosition(stream);
-            }
+            if (bodyPositionOffsetWeight > 0) { OffsetBodyPosition(stream); }
         }
 
 
@@ -144,25 +121,17 @@ namespace LifelikeMotion.IKFootPlacement
         private void CalculateTargetOffsetPosition(AnimationStream stream, int i)
         {
             #region Get position from animation
-
-            if (startup)
-            {
-                targetPositions[i] = targets[i].GetPosition(stream);
-            }
-
+            if (startup) { targetPositions[i] = targets[i].GetPosition(stream); }
             if (isMoving || !isGrounded)
             {
                 if (lerpSpeed != 0)
                 {
                     targetPositions[i].y = targets[i].GetPosition(stream).y;
                     targetPositions[i] = Vector3.Lerp(targetPositions[i],
-                        targets[i].GetPosition(stream),
-                        deltaTime / (stationaryToWalkSmoothing * lerpSpeed));
+                                                      targets[i].GetPosition(stream),
+                                                      deltaTime / (stationaryToWalkSmoothing * lerpSpeed));
                 }
-                else
-                {
-                    targetPositions[i] = targets[i].GetPosition(stream);
-                }
+                else { targetPositions[i] = targets[i].GetPosition(stream); }
             }
             else if (!isMoving && isGrounded)
             {
@@ -173,25 +142,17 @@ namespace LifelikeMotion.IKFootPlacement
                     if (distanceToTaget > 0.025f)
                     {
                         targetPositions[i] = Vector3.Lerp(targetPositions[i],
-                            targets[i].GetPosition(stream),
-                            deltaTime / stationaryToRotateSmoothing);
+                                                          targets[i].GetPosition(stream),
+                                                          deltaTime / stationaryToRotateSmoothing);
                         adjustFeet = false;
                     }
                 }
-                else
-                {
-                    targetPositions[i].y = targets[i].GetPosition(stream).y;
-                }
+                else { targetPositions[i].y = targets[i].GetPosition(stream).y; }
             }
-            else
-            {
-                targetPositions[i] = targets[i].GetPosition(stream);
-            }
-
+            else { targetPositions[i] = targets[i].GetPosition(stream); }
             #endregion
 
             #region Calculate and apply position offset
-
             float footPositionOffset = 0;
             if (targetPositionOffsetWeight <= 0)
             {
@@ -200,10 +161,7 @@ namespace LifelikeMotion.IKFootPlacement
                 // Check if RaycastHit point and origin are not Vector3.zero
                 if (legRaycastHitPoint[i].y != 0 || legRaycastOrigin[i].y != 0)
                 {
-                    if (legRaycastHitPoint[i].y < lowestLegRaycastHitPoint.y)
-                    {
-                        lowestLegRaycastHitPoint = legRaycastHitPoint[i];
-                    }
+                    if (legRaycastHitPoint[i].y < lowestLegRaycastHitPoint.y) { lowestLegRaycastHitPoint = legRaycastHitPoint[i]; }
                 }
             }
             else
@@ -213,72 +171,50 @@ namespace LifelikeMotion.IKFootPlacement
                     // Check if RaycastHit point and origin are not Vector3.zero
                     if (legRaycastHitPoint[i].y != 0 || legRaycastOrigin[i].y != 0)
                     {
-                        if (legRaycastHitPoint[i].y < lowestLegRaycastHitPoint.y)
-                        {
-                            lowestLegRaycastHitPoint = legRaycastHitPoint[i];
-                        }
+                        if (legRaycastHitPoint[i].y < lowestLegRaycastHitPoint.y) { lowestLegRaycastHitPoint = legRaycastHitPoint[i]; }
 
-                        legRaycastOrigin[i] = new Vector3(targetPositions[i].x, legRaycastOrigin[i].y,
-                            targetPositions[i].z);
-                        legRaycastHitPoint[i] = new Vector3(targetPositions[i].x, legRaycastHitPoint[i].y,
-                            targetPositions[i].z);
+                        legRaycastOrigin[i] = new Vector3(targetPositions[i].x, legRaycastOrigin[i].y, targetPositions[i].z);
+                        legRaycastHitPoint[i] = new Vector3(targetPositions[i].x, legRaycastHitPoint[i].y, targetPositions[i].z);
 
-                        float distanceToIKFoot = Vector3.Distance(legRaycastOrigin[i], targetPositions[i]) +
-                                                 (targetPositions[i].y - rootPosition.y);
+                        float distanceToIKFoot = Vector3.Distance(legRaycastOrigin[i], targetPositions[i]) + (targetPositions[i].y - rootPosition.y);
                         float distanceToRaycastHit = Vector3.Distance(legRaycastOrigin[i], legRaycastHitPoint[i]);
 
                         if (distanceToRaycastHit < distanceToIKFoot - 0.001f ||
-                            distanceToRaycastHit > distanceToIKFoot + 0.001f)
+                           distanceToRaycastHit > distanceToIKFoot + 0.001f)
                         {
                             footPositionOffset = distanceToIKFoot - distanceToRaycastHit;
                         }
                     }
                 }
 
-                if (targetPositionOffsetWeight != 1)
-                {
-                    footPositionOffset = Mathf.Lerp(0, footPositionOffset, targetPositionOffsetWeight);
-                }
-
+                if (targetPositionOffsetWeight != 1) { footPositionOffset = Mathf.Lerp(0, footPositionOffset, targetPositionOffsetWeight); }
                 if (feetPositionOffsetSmoothing > 0)
                 {
                     targetPositionOffsets[i] = Mathf.Lerp(targetPositionOffsets[i],
-                        footPositionOffset,
-                        deltaTime / feetPositionOffsetSmoothing);
+                                                          footPositionOffset,
+                                                          deltaTime / feetPositionOffsetSmoothing);
                 }
-                else
-                {
-                    targetPositionOffsets[i] = footPositionOffset;
-                }
+                else { targetPositionOffsets[i] = footPositionOffset; }
             }
 
             targetPositions[i].y += targetPositionOffsets[i];
             targets[i].SetPosition(stream, targetPositions[i]);
-
             #endregion
         }
 
         private void CalculateTargetOffsetRotation(AnimationStream stream, int i)
         {
             #region Get rotation from animation
-
-            if (startup)
-            {
-                targetRotationOffsets[i] = targets[i].GetRotation(stream);
-            }
-
+            if (startup) { targetRotationOffsets[i] = targets[i].GetRotation(stream); }
             if (isMoving || !isGrounded)
             {
                 if (lerpSpeed != 0)
                 {
                     targetRotations[i] = Quaternion.Lerp(targetRotations[i],
-                        targets[i].GetRotation(stream),
-                        deltaTime / (stationaryToWalkSmoothing * lerpSpeed));
+                                                         targets[i].GetRotation(stream),
+                                                         deltaTime / (stationaryToWalkSmoothing * lerpSpeed));
                 }
-                else
-                {
-                    targetRotations[i] = targets[i].GetRotation(stream);
-                }
+                else { targetRotations[i] = targets[i].GetRotation(stream); }
             }
             else if (!isMoving && isGrounded)
             {
@@ -287,76 +223,55 @@ namespace LifelikeMotion.IKFootPlacement
                     if (!adjustFeet)
                     {
                         targetRotations[i] = Quaternion.Lerp(targetRotations[i],
-                            targets[i].GetRotation(stream),
-                            deltaTime / stationaryToRotateSmoothing);
+                                                             targets[i].GetRotation(stream),
+                                                             deltaTime / stationaryToRotateSmoothing);
                     }
                 }
             }
-            else
-            {
-                targetRotationOffsets[i] = targets[i].GetRotation(stream);
-            }
-
+            else { targetRotationOffsets[i] = targets[i].GetRotation(stream); }
             #endregion
 
             #region Calculate and apply rotation offset
-
             Quaternion targetRotationOffset;
 
-            if (targetRotationOffsetWeight <= 0)
-            {
-                targetRotationOffsets[i] = Quaternion.identity;
-            }
+            if (targetRotationOffsetWeight <= 0) { targetRotationOffsets[i] = Quaternion.identity; }
             else
             {
                 targetRotationOffset = Quaternion.FromToRotation(Vector3.up, legRaycastHitNormal[i]);
                 if (targetRotationOffsetWeight != 1)
                 {
                     targetRotationOffset = Quaternion.Slerp(Quaternion.identity,
-                        targetRotationOffset,
-                        targetRotationOffsetWeight);
+                                                            targetRotationOffset,
+                                                            targetRotationOffsetWeight);
                 }
-
                 if (feetRotationOffsetSmoothing > 0 && !startup)
                 {
                     targetRotationOffsets[i] = Quaternion.Lerp(targetRotationOffsets[i],
-                        targetRotationOffset,
-                        deltaTime / feetRotationOffsetSmoothing);
+                                                               targetRotationOffset,
+                                                               deltaTime / feetRotationOffsetSmoothing);
                 }
-                else
-                {
-                    targetRotationOffsets[i] = targetRotationOffset;
-                }
+                else { targetRotationOffsets[i] = targetRotationOffset; }
             }
 
             targetRotationOffset = targetRotationOffsets[i] * targetRotations[i];
             targets[i].SetRotation(stream, targetRotationOffset);
-
             #endregion
         }
 
         private void CalculateHintOffsetPosition(AnimationStream stream, int i)
         {
             #region Get position from animation
-
-            if (startup)
-            {
-                hintPositions[i] = hints[i].GetPosition(stream);
-            }
-
+            if (startup) { hintPositions[i] = hints[i].GetPosition(stream); }
             if (isMoving || !isGrounded)
             {
                 if (lerpSpeed != 0)
                 {
                     hintPositions[i] = Vector3.Lerp(hintPositions[i],
-                        hints[i].GetPosition(stream),
-                        deltaTime / (stationaryToWalkSmoothing * lerpSpeed));
+                                                    hints[i].GetPosition(stream),
+                                                    deltaTime / (stationaryToWalkSmoothing * lerpSpeed));
                     hintPositions[i].y = hints[i].GetPosition(stream).y;
                 }
-                else
-                {
-                    hintPositions[i] = hints[i].GetPosition(stream);
-                }
+                else { hintPositions[i] = hints[i].GetPosition(stream); }
             }
             else if (!isMoving && isGrounded)
             {
@@ -365,120 +280,84 @@ namespace LifelikeMotion.IKFootPlacement
                     if (!adjustFeet)
                     {
                         hintPositions[i] = Vector3.Lerp(hintPositions[i],
-                            hints[i].GetPosition(stream),
-                            deltaTime / stationaryToRotateSmoothing);
+                                                        hints[i].GetPosition(stream),
+                                                        deltaTime / stationaryToRotateSmoothing);
                     }
                 }
-
                 hintPositions[i].y = hints[i].GetPosition(stream).y;
             }
-            else
-            {
-                hintPositions[i] = hints[i].GetPosition(stream);
-            }
-
+            else { hintPositions[i] = hints[i].GetPosition(stream); }
             #endregion
 
             #region Apply position offset
-
             hints[i].SetPosition(stream, hintPositions[i]);
-
             #endregion
         }
 
         private void OffsetBodyPosition(AnimationStream stream)
         {
             #region Get position from animation
-
             float bodyPositionOffestTarget = 0;
             if (isGrounded)
             {
-                if (!invertBodyPositionOffset)
-                {
-                    bodyPositionOffestTarget = (rootPosition.y - lowestLegRaycastHitPoint.y);
-                }
-                else
-                {
-                    bodyPositionOffestTarget = (rootPosition.y - lowestLegRaycastHitPoint.y) * -1;
-                }
+                if (!invertBodyPositionOffset) { bodyPositionOffestTarget = (rootPosition.y - lowestLegRaycastHitPoint.y); }
+                else { bodyPositionOffestTarget = (rootPosition.y - lowestLegRaycastHitPoint.y) * -1; }
             }
-
             if (isActive)
             {
                 if (bodyPositionOffsetSmoothing > 0)
                 {
                     bodyPositionOffset = Mathf.Lerp(bodyPositionOffset,
-                        bodyPositionOffestTarget,
-                        deltaTime / bodyPositionOffsetSmoothing);
+                                                    bodyPositionOffestTarget,
+                                                    deltaTime / bodyPositionOffsetSmoothing);
                 }
-                else
-                {
-                    bodyPositionOffset = bodyPositionOffestTarget;
-                }
+                else { bodyPositionOffset = bodyPositionOffestTarget; }
             }
             else
             {
                 if (bodyPositionOffsetSmoothing > 0 && bodyPositionOffset != 0)
                 {
                     bodyPositionOffset = Mathf.Lerp(bodyPositionOffset,
-                        0,
-                        deltaTime / bodyPositionOffsetSmoothing);
+                                                    0,
+                                                    deltaTime / bodyPositionOffsetSmoothing);
                 }
-                else
-                {
-                    bodyPositionOffset = 0;
-                }
+                else { bodyPositionOffset = 0; }
             }
-
             #endregion
 
             #region Calculate and apply position offset
-
             Vector3 currentBodyPosition = hips.GetPosition(stream);
             currentBodyPosition.y -= bodyPositionOffset * bodyPositionOffsetWeight;
             hips.SetPosition(stream, currentBodyPosition);
-
             #endregion
         }
 
         private void OffsetBodyRotation(AnimationStream stream)
         {
             #region Get rotation from animation
-
             bodyRotations = hips.GetRotation(stream);
-            if (startup)
-            {
-                bodyRotationOffset = Quaternion.identity;
-            }
-
+            if (startup) { bodyRotationOffset = Quaternion.identity; }
             #endregion
 
             #region Calculate and apply rotation offset
-
             Quaternion targetRotationOffset = Quaternion.FromToRotation(Vector3.up, bodyRaycastHitNormal);
-            if (invertBodyRotationOffset)
-            {
-                targetRotationOffset = Quaternion.Inverse(targetRotationOffset);
-            }
+            if (invertBodyRotationOffset) { targetRotationOffset = Quaternion.Inverse(targetRotationOffset); }
 
             if (feetRotationOffsetSmoothing > 0)
             {
                 bodyRotationOffset = Quaternion.Lerp(bodyRotationOffset,
-                    targetRotationOffset,
-                    deltaTime / bodyRotationOffsetSmoothing);
+                                                      targetRotationOffset,
+                                                      deltaTime / bodyRotationOffsetSmoothing);
             }
-            else
-            {
-                bodyRotationOffset = targetRotationOffset;
-            }
+            else { bodyRotationOffset = targetRotationOffset; }
 
             targetRotationOffset = (bodyRotationOffset * bodyRotations);
 
             if (bodyRotationOffsetWeight != 1)
             {
                 targetRotationOffset = Quaternion.Slerp(bodyRotations,
-                    targetRotationOffset,
-                    bodyRotationOffsetWeight);
+                                                        targetRotationOffset,
+                                                        bodyRotationOffsetWeight);
             }
 
             Vector3 hipsEuler = hips.GetLocalRotation(stream).eulerAngles;
@@ -487,7 +366,6 @@ namespace LifelikeMotion.IKFootPlacement
             currentHipsEuler.y = hipsEuler.y;
             currentHipsEuler.z = hipsEuler.z;
             hips.SetLocalRotation(stream, Quaternion.Euler(currentHipsEuler));
-
             #endregion
         }
 
@@ -499,10 +377,7 @@ namespace LifelikeMotion.IKFootPlacement
             {
                 for (int i = 0; i < targets.Length; i++)
                 {
-                    if (adjustedFoot[i])
-                    {
-                        adjustFeet = true;
-                    }
+                    if (adjustedFoot[i]) { adjustFeet = true; }
                 }
             }
             // Check if adjustment should continue or stop
@@ -523,10 +398,7 @@ namespace LifelikeMotion.IKFootPlacement
                                 break;
                             }
                             // Stop adjustment
-                            else
-                            {
-                                adjustFeet = false;
-                            }
+                            else { adjustFeet = false; }
                         }
                     }
                 }
@@ -545,21 +417,14 @@ namespace LifelikeMotion.IKFootPlacement
                                 break;
                             }
                             // Stop adjustment
-                            else
-                            {
-                                adjustFeet = false;
-                            }
+                            else { adjustFeet = false; }
                         }
                     }
                 }
                 // Stop adjustment if all feet are done adjusting
                 else
                 {
-                    for (int i = 0; i < targets.Length; i++)
-                    {
-                        adjustedFoot[i] = false;
-                    }
-
+                    for (int i = 0; i < targets.Length; i++) { adjustedFoot[i] = false; }
                     adjustFeet = false;
                 }
             }
@@ -575,7 +440,6 @@ namespace LifelikeMotion.IKFootPlacement
                     adjustFeet = false;
                     lerpSpeed = 1;
                 }
-
                 if (stationaryToWalkSmoothing > 0 && lerpSpeed > 0.001f && isGrounded && !jumped)
                 {
                     lerpSpeed = Mathf.Lerp(lerpSpeed, 0, deltaTime / (stationaryToWalkSmoothing / 2f));
@@ -636,4 +500,5 @@ namespace LifelikeMotion.IKFootPlacement
             }
         }
     }
+
 }
