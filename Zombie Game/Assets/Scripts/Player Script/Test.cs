@@ -85,6 +85,33 @@ public class Test : PlayerInputParent
         }
     }
 
+    protected void controllerRaycast()
+    {
+        Quaternion _SkewedRotaion =
+            Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);
+        Vector3 controllerAxis = new Vector3(Input.GetAxis("RightStickHorizontal"),0, Input.GetAxis("RightStickVertical"));
+        Debug.Log("controllerAxis: " + controllerAxis.sqrMagnitude);
+        Ray ray = _mainCamera.ScreenPointToRay(controllerAxis);
+        
+        if (controllerAxis.sqrMagnitude > 0.01f) 
+        {
+            if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
+            {
+                Vector3 targetPostion = hit.point;
+
+                Vector3 direction = targetPostion - transform.position;
+                direction.y = 0;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                    Quaternion targetAngle = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
+                }
+            }
+        }
+        
+        
+    }
 
     protected void ApplyRotation()
     {
@@ -157,6 +184,7 @@ public class Test : PlayerInputParent
         ApplyMovement();
         ApplyRotation();
         MouseRaycast();
+        controllerRaycast();
         ApplySprint();
     }
 
