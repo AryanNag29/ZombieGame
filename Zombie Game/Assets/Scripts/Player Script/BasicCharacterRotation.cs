@@ -54,12 +54,12 @@ namespace LifelikeMotion.IKFootPlacement
             {
                 rotation.y += mouseX * mouseSensitivity;
                 rotationY_target = rotation.y;
-                rotationX_target += mouseY * mouseSensitivity;
+                rotationX_target += mouseX * mouseSensitivity;
                 rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
                 rotationX = rotationX_target;
 
                 float _rotation_Angle = rotationX_target / 90f;
-                // animator.SetFloat("Rotation_Angle", _rotation_Angle);
+                animator.SetFloat("Rotation_Angle", _rotation_Angle);
 
                 Quaternion _SkewedRotaion =
                     Quaternion.LookRotation(multiplyMatrix(_currentRotation),
@@ -93,12 +93,12 @@ namespace LifelikeMotion.IKFootPlacement
                 rotationY_target += mouseX * mouseSensitivity;
 
 
-                rotationX_target += mouseY * mouseSensitivity;
+                rotationX_target += mouseX * mouseSensitivity;
                 rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
 
                 rotationX = Mathf.Lerp(rotationX, rotationX_target, Time.deltaTime / smoothing);
                 float _rotation_Angle = rotationX / 90f;
-                // animator.SetFloat("Rotation_Angle", _rotation_Angle);
+                animator.SetFloat("Rotation_Angle", _rotation_Angle);
 
                 Quaternion _SkewedRotaion =
                     Quaternion.LookRotation(multiplyMatrix(_currentRotation),
