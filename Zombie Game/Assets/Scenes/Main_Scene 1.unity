@@ -1120,6 +1120,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &861893873 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1310665385269864794, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+  m_PrefabInstance: {fileID: 1674860729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &861893874 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4846133752082314191, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+  m_PrefabInstance: {fileID: 1674860729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &861893877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861893873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.BoneRenderer
+  boneShape: 1
+  drawBones: 1
+  drawTripods: 0
+  boneSize: 1
+  tripodSize: 1
+  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
+  m_Transforms:
+  - {fileID: 861893874}
 --- !u!1 &916569211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,6 +1487,37 @@ Transform:
   - {fileID: 1468847549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1436443971 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8797837581175579978, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+  m_PrefabInstance: {fileID: 1674860729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1436443972 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1149852085802160494, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+  m_PrefabInstance: {fileID: 1674860729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1436443976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436443971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.BoneRenderer
+  boneShape: 1
+  drawBones: 1
+  drawTripods: 0
+  boneSize: 1
+  tripodSize: 1
+  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
+  m_Transforms:
+  - {fileID: 1436443972}
+  - {fileID: 861893874}
 --- !u!1 &1449750891
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,6 +2506,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3087592883513800866, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1674860783}
+    - targetCorrespondingSourceObject: {fileID: 8797837581175579978, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1436443976}
+    - targetCorrespondingSourceObject: {fileID: 1310665385269864794, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 861893877}
   m_SourcePrefab: {fileID: 100100000, guid: fd5be544d96609c4bb2e7c9feba23029, type: 3}
 --- !u!4 &1674860730 stripped
 Transform:
