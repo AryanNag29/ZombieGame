@@ -98,7 +98,7 @@ namespace LifelikeMotion.IKFootPlacement
 
         protected void ApplySprint()
         {
-            Debug.Log("Current Speed: " + _currentSpeed);
+            // Debug.Log("Current Speed: " + _currentSpeed);
             if (_isSprintPressed && _currentSpeed > 0)
             {
                 StartSprint();
