@@ -4,7 +4,8 @@ public class HipsMovement : MonoBehaviour
 {
     #region Variables
 
-    private Quaternion hipsCurrentRotation;
+    private Quaternion hipsCurrentRotationLocal;
+    private Quaternion hipsCurrentRotationWorld;
     private float hipsYRoration = 14.305f;
 
     #endregion
@@ -15,12 +16,16 @@ public class HipsMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        // if (Input.GetKeyDown(KeyCode.W))
-        // {
-        //     hipsCurrentRotation = transform.rotation;
-        //     transform.rotation = new Quaternion(hipsCurrentRotation.x,hipsYRoration,hipsCurrentRotation.z,hipsCurrentRotation.w);
-        // }
+        hipsCurrentRotationLocal = transform.rotation;
+        Matrix4x4 mworld = transform.localToWorldMatrix;
+        hipsCurrentRotationWorld = mworld.rotation;
+        // Debug.Log(hipsCurrentRotationWorld.eulerAngles);
+        if (Input.GetKeyDown(KeyCode.W))
+        { 
+            transform.rotation = Quaternion.Euler(hipsCurrentRotationWorld.x,hipsYRoration,hipsCurrentRotationWorld.z);
+            Debug.Log(transform.rotation.eulerAngles);
+        }
     }
 }
