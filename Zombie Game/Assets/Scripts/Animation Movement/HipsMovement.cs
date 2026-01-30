@@ -27,5 +27,5 @@ public class HipsMovement : MonoBehaviour
         //     transform.rotation = Quaternion.Euler(hipsCurrentRotationWorld.x,hipsYRoration,hipsCurrentRotationWorld.z);
         //     Debug.Log(transform.rotation.eulerAngles);
         }
-    }
 }
+
