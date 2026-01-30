@@ -18,14 +18,14 @@ public class HipsMovement : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        hipsCurrentRotationLocal = transform.rotation;
-        Matrix4x4 mworld = transform.localToWorldMatrix;
-        hipsCurrentRotationWorld = mworld.rotation;
-        // Debug.Log(hipsCurrentRotationWorld.eulerAngles);
-        if (Input.GetKeyDown(KeyCode.W))
-        { 
-            transform.rotation = Quaternion.Euler(hipsCurrentRotationWorld.x,hipsYRoration,hipsCurrentRotationWorld.z);
-            Debug.Log(transform.rotation.eulerAngles);
+        // hipsCurrentRotationLocal = transform.rotation;
+        // Matrix4x4 mworld = transform.localToWorldMatrix;
+        // hipsCurrentRotationWorld = mworld.rotation;
+        // // Debug.Log(hipsCurrentRotationWorld.eulerAngles);
+        // if (Input.GetKeyDown(KeyCode.W))
+        // { 
+        //     transform.rotation = Quaternion.Euler(hipsCurrentRotationWorld.x,hipsYRoration,hipsCurrentRotationWorld.z);
+        //     Debug.Log(transform.rotation.eulerAngles);
         }
     }
 }
