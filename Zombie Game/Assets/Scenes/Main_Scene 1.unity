@@ -1231,6 +1231,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916569211}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &932881754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 932881755}
+  m_Layer: 0
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &932881755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932881754}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000001475215, y: -0.000002220273, z: -0.000003784895, w: 1}
+  m_LocalPosition: {x: 0.016692312, y: 0.04927537, z: 0.5569718}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4456479307946071069}
+  m_LocalEulerAnglesHint: {x: 1.315, y: 111.05, z: 88.971}
 --- !u!1 &1071123319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,14 +1419,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.Rig
   m_Weight: 1
   m_Effectors:
-  - m_Transform: {fileID: 1112421125}
-    m_Style:
-      shape: {fileID: 4300000, guid: c6793350c150f456688e39a81f97364a, type: 2}
-      color: {r: 1, g: 0, b: 0, a: 0.5}
-      size: 0.1
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
-    m_Visible: 1
   - m_Transform: {fileID: 0}
     m_Style:
       shape: {fileID: 289301614986012343, guid: 9e1c97fc44f9a8744b61b58f72c56de4, type: 3}
@@ -2872,6 +2895,8 @@ MonoBehaviour:
   _deaccelerationFactor: 30
   sprintingSpeed: 15
   sprintMultiplier: 3
+  bulletPrefab: {fileID: 536490988490706927, guid: 41865bcfc26e4664bbb35fb60f76a319, type: 3}
+  bulletSpawn: {fileID: 932881755}
   jumped: 0
 --- !u!114 &2745010560085832809
 MonoBehaviour:
@@ -4109,7 +4134,8 @@ Transform:
   m_LocalPosition: {x: 0.66506827, y: 1.4125099, z: -0.2802549}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 932881755}
   m_Father: {fileID: 1033286232878641954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!223 &4458420545548922807

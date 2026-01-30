@@ -17,6 +17,8 @@ namespace LifelikeMotion.IKFootPlacement
 
         [Header("Sprint")] [SerializeField] protected float sprintingSpeed = 15f;
         [SerializeField] protected float sprintMultiplier = 3f;
+        [SerializeField] protected Transform bulletPrefab;
+        [SerializeField] protected Transform bulletSpawn;
 
 
         private bool receiveInput = true;
@@ -45,6 +47,10 @@ namespace LifelikeMotion.IKFootPlacement
             CalculateMovement();
             CalculateSpeed();
             ApplySprint();
+            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+                
+                Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+            }
         }
 
         public void CalculateMovement()
@@ -155,7 +161,7 @@ namespace LifelikeMotion.IKFootPlacement
             {
                 ccPosition = cc.transform.position;
             }
-            animator.speed = 1f;
+            animator.speed = 1.5f;
         }
 
         private void GetInputData()
