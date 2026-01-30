@@ -6,12 +6,12 @@ namespace LifelikeMotion.IKFootPlacement
     {
         private CharacterController cc;
         [SerializeField] private IKFootPlacement iKFootPlacement;
-        [SerializeField] private float movementSpeed = 2;
+        [SerializeField] private float movementSpeed = 5;
         [SerializeField] private float jumpSpeed = 5;
         [SerializeField] private float gravity = 15;
 
         [Header("Movement")] protected float _currentSpeed;
-        [SerializeField] protected float _maxSpeed = 5f;
+        [SerializeField] protected float _maxSpeed = 10f;
         [SerializeField] protected float _accelerationFactor = 3f;
         [SerializeField] protected float _deaccelerationFactor = 30f;
 
@@ -43,6 +43,7 @@ namespace LifelikeMotion.IKFootPlacement
         {
             GetInputData();
             CalculateMovement();
+            CalculateSpeed();
             ApplySprint();
         }
 
@@ -59,6 +60,7 @@ namespace LifelikeMotion.IKFootPlacement
 
             velocity.z = _velocity.z * _currentSpeed;
             velocity.x = _velocity.x * _currentSpeed;
+            Debug.Log("currentSpeed: " + _currentSpeed);
 
             if (cc.isGrounded && !jumped)
             {
@@ -95,6 +97,21 @@ namespace LifelikeMotion.IKFootPlacement
                 ccPosition = cc.transform.position;
             }
         }
+        protected void CalculateSpeed()
+        {
+            // if the input will become 0 form the keyboard and the current speed > 0 deceleration
+            if (!_isMovementPressed && _currentSpeed > 0)
+            {
+                _currentSpeed -= _deaccelerationFactor * Time.deltaTime;
+            }
+            //if the input is not zero and the current speed is less then max speed acceleration
+            else if (_isMovementPressed && _currentSpeed < _maxSpeed)
+            {
+                _currentSpeed += _accelerationFactor * Time.deltaTime;
+            }
+
+            _currentSpeed = Mathf.Clamp(_currentSpeed, 0, _maxSpeed);
+        }
 
         protected void ApplySprint()
         {
@@ -117,6 +134,7 @@ namespace LifelikeMotion.IKFootPlacement
             _maxSpeed = sprintingSpeed;
             _accelerationFactor *= sprintMultiplier;
             _currentSpeed += _accelerationFactor * Time.deltaTime;
+            animator.speed = 1.5f;
         }
 
         protected override void StopSprint()
@@ -137,6 +155,7 @@ namespace LifelikeMotion.IKFootPlacement
             {
                 ccPosition = cc.transform.position;
             }
+            animator.speed = 1f;
         }
 
         private void GetInputData()
