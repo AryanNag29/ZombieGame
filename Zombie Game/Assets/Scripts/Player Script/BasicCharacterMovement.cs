@@ -1,6 +1,4 @@
-namespace ZombieGame
-{
-    namespace LifelikeMotion.IKFootPlacement
+namespace LifelikeMotion.IKFootPlacement
     {
         using UnityEngine;
 
@@ -204,5 +202,3 @@ namespace ZombieGame
             }
         }
     }
-
-}
