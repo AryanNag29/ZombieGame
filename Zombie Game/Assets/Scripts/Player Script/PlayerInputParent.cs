@@ -56,7 +56,7 @@ public abstract class PlayerInputParent : MonoBehaviour
     [Header("Character Sprint")] [SerializeField]
     protected bool _isSprintPressed = false;
 
-    [Header("Shoot")] protected bool _shoot;
+    [Header("Shoot")] public bool _shoot;
     #endregion
 
     #region Functions

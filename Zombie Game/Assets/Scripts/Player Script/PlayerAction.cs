@@ -7,11 +7,17 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] protected PlayerInputParent playerInput;
     #endregion
 
+    #region Variables
+
+    protected bool onattack;
+
+    #endregion
+
     #region Funtions
 
     private void OnShoot()
     {
-        
+        onattack = playerInput._shoot;
     }
 
     #endregion
