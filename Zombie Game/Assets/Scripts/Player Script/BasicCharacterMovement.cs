@@ -67,7 +67,6 @@ namespace LifelikeMotion.IKFootPlacement
 
                 velocity.z = _velocity.z * _currentSpeed;
                 velocity.x = _velocity.x * _currentSpeed;
-                Debug.Log("currentSpeed: " + _currentSpeed);
 
                 if (cc.isGrounded && !jumped)
                 {

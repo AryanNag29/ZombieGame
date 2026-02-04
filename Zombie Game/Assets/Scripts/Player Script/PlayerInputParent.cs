@@ -56,6 +56,7 @@ public abstract class PlayerInputParent : MonoBehaviour
     [Header("Character Sprint")] [SerializeField]
     protected bool _isSprintPressed = false;
 
+    [Header("Shoot")] protected bool _shoot;
     #endregion
 
     #region Functions
@@ -84,6 +85,11 @@ public abstract class PlayerInputParent : MonoBehaviour
         _currentRotation.x = _inputRotation.x;
         _currentRotation.z = _inputRotation.y;
         _isRotationPressed = _inputRotation.sqrMagnitude > 0.1f;
+    }
+
+    protected void OnAttack(InputAction.CallbackContext context)
+    {
+        _shoot = true;
     }
 
     protected void OnSprint(InputAction.CallbackContext context)
@@ -127,6 +133,11 @@ public abstract class PlayerInputParent : MonoBehaviour
         //keyboard input
         _playerActions.Player.Sprint.started += OnSprint;
         _playerActions.Player.Sprint.canceled += OnSprint;
+        
+        //Attack(Shoot)
+        _playerActions.Player.Attack.started += OnAttack;
+        _playerActions.Player.Attack.canceled += OnAttack;
+        _playerActions.Player.Attack.performed += OnAttack;
     }
 
     #endregion
