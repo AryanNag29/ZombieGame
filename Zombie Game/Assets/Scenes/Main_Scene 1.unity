@@ -1240,6 +1240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 932881755}
+  - component: {fileID: 932881756}
   m_Layer: 0
   m_Name: ShootingPoint
   m_TagString: Untagged
@@ -1262,6 +1263,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4456479307946071069}
   m_LocalEulerAnglesHint: {x: 1.315, y: 111.05, z: 88.971}
+--- !u!114 &932881756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932881754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82b3d316298970346862c7b97d5dca64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gun
 --- !u!1 &1071123319
 GameObject:
   m_ObjectHideFlags: 0
@@ -2886,6 +2899,7 @@ MonoBehaviour:
   _isMovementPressed: 0
   _isRotationPressed: 0
   _isSprintPressed: 0
+  _shoot: 0
   iKFootPlacement: {fileID: 2745010560085832813}
   movementSpeed: 2
   jumpSpeed: 5
@@ -2915,6 +2929,7 @@ MonoBehaviour:
   _isMovementPressed: 0
   _isRotationPressed: 0
   _isSprintPressed: 0
+  _shoot: 0
   mouseSensitivity: 1
   mouseSmoothing: 2
   gamepadSmoothing: 0.1
@@ -3801,6 +3816,7 @@ GameObject:
   - component: {fileID: 2745010560085832815}
   - component: {fileID: 2745010560085832814}
   - component: {fileID: 1674860783}
+  - component: {fileID: 8607127818880737500}
   m_Layer: 2
   m_Name: Alpha
   m_TagString: Player
@@ -5425,6 +5441,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8607127818880737500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3087592881939636251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd2da74ffba3584abccc1d6e1315063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAction
+  gun: {fileID: 932881756}
+  playerInput: {fileID: 2745010560085832809}
 --- !u!4 &8657612675911207454
 Transform:
   m_ObjectHideFlags: 0
