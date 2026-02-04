@@ -47,11 +47,6 @@ namespace LifelikeMotion.IKFootPlacement
                 CalculateMovement();
                 CalculateSpeed();
                 ApplySprint();
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-
-                    Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
-                }
             }
 
             public void CalculateMovement()
