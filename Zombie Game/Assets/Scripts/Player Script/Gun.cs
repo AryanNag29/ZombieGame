@@ -1,16 +1,13 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Gun : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+   #region Variables
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   [SerializeField] private bool addBulletSpread = true;
+   [SerializeField] private Vector3 bulletSpreadVariance = new Vector3(0.1f, 0.1f, 0.1f);
+   []
+
+   #endregion
 }
