@@ -47,6 +47,7 @@ namespace LifelikeMotion.IKFootPlacement
                 CalculateMovement();
                 CalculateSpeed();
                 ApplySprint();
+               
             }
 
             public void CalculateMovement()
