@@ -20,7 +20,7 @@ public class PlayerAction : MonoBehaviour
     private void OnAttack()
     {
         onattack = true;
-        gun.Attack();
+        // gun.Attack();
     }
 
     #endregion
