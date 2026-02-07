@@ -120,7 +120,6 @@ namespace LifelikeMotion.IKFootPlacement
                         transform.rotation =
                             Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
                     }
-                    
                 }
 
                 if (_isRotationPressed)

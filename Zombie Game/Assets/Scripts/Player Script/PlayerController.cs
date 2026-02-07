@@ -75,6 +75,7 @@ public class PlayerController : PlayerInputParent
             //     transform.eulerAngles = rotation;
             // }
         }
+
         // Quaternion _SkewedRotaion = Quaternion.LookRotation(multiplyMatrix(_currentRotation), Vector3.up);//skewed rotation towards y axis
         Quaternion _SkewedRotaion = Quaternion.LookRotation(_currentRotation, Vector3.up);
         transform.rotation =
