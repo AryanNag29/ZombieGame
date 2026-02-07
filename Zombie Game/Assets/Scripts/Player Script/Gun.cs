@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Animator))]
 public class Gun : MonoBehaviour
 {
     #region Variables
@@ -12,6 +11,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private ParticleSystem impactParticleSystem;
     [SerializeField] private float shootingDelay = 0.05f;
+    [SerializeField] private TrailRenderer bulletTrail;
     [SerializeField] private LayerMask _mask;
     private Animator _animator;
     private float lastShotTime;
@@ -57,10 +57,11 @@ public class Gun : MonoBehaviour
             direction += new Vector3(
                 Random.Range(-bulletSpreadVariance.x, bulletSpreadVariance.x),
                 Random.Range(-bulletSpreadVariance.y, bulletSpreadVariance.y),
-                    Random.Range(-bulletSpreadVariance.z, bulletSpreadVariance.z)
-                );
+                Random.Range(-bulletSpreadVariance.z, bulletSpreadVariance.z)
+            );
             direction.Normalize();
         }
+
         return direction;
     }
 
@@ -68,15 +69,17 @@ public class Gun : MonoBehaviour
     {
         float time = 0f;
         Vector3 startPostion = trail.transform.position;
-
+    
         while (time < 1f)
         {
             trail.transform.position = Vector3.Lerp(startPostion, hit.point, time);
             time += Time.deltaTime / trail.time;
         }
         trail.transform.position = hit.point;
-        Instantiate(GetComponent<ParticleSystem>(),hit.point,Quaternion.LookRotation(hit.normal));
+        Instantiate(GetComponent<ParticleSystem>(), hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(trail,trail.time);
+        yield return null;
     }
 
-    #endregion
+#endregion
 }
