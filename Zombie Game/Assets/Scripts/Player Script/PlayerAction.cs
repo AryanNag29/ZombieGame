@@ -4,9 +4,11 @@ using UnityEngine;
 public class PlayerAction : MonoBehaviour
 {
     #region References
+
     [SerializeField] protected Gun gun;
     [SerializeField] protected PlayerInputParent playerInput;
     [SerializeField] protected InputSystem_Actions controls;
+
     #endregion
 
     #region Variables
@@ -21,6 +23,27 @@ public class PlayerAction : MonoBehaviour
     {
         onattack = true;
         gun.Attack();
+    }
+
+    private void OnStopAttacking()
+    {
+        onattack = false;
+    }
+
+    #endregion
+
+    #region Update
+
+    private void Update()
+    {
+        if (playerInput._shoot)
+        {
+            OnAttack();
+        }
+        else
+        {
+            OnStopAttacking();
+        }
     }
 
     #endregion

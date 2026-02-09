@@ -69,17 +69,18 @@ public class Gun : MonoBehaviour
     {
         float time = 0f;
         Vector3 startPostion = trail.transform.position;
-    
+
         while (time < 1f)
         {
             trail.transform.position = Vector3.Lerp(startPostion, hit.point, time);
             time += Time.deltaTime / trail.time;
         }
+
         trail.transform.position = hit.point;
         Instantiate(GetComponent<ParticleSystem>(), hit.point, Quaternion.LookRotation(hit.normal));
-        Destroy(trail,trail.time);
+        Destroy(trail, trail.time);
         yield return null;
     }
 
-#endregion
+    #endregion
 }
