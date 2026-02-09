@@ -35,7 +35,10 @@ public class Gun : MonoBehaviour
         if (lastShotTime + shootingDelay < Time.time)
         {
             //not gonna use object pulling
-            shootingSystem.Play();
+            if (!shootingSystem.isPlaying)
+            {
+                shootingSystem.Play();
+            }
             Vector3 direction = getDirection();
 
             if (Physics.Raycast(bulletSpawn.position, direction, out RaycastHit hit, float.MaxValue, _mask))
@@ -47,6 +50,11 @@ public class Gun : MonoBehaviour
                 lastShotTime = Time.time;
             }
         }
+    }
+
+    public void StopAttacking()
+    {
+        if(shootingSystem.isPlaying) shootingSystem.Stop();
     }
 
     private Vector3 getDirection()
@@ -74,12 +82,16 @@ public class Gun : MonoBehaviour
         {
             trail.transform.position = Vector3.Lerp(startPostion, hit.point, time);
             time += Time.deltaTime / trail.time;
+            yield return null;
         }
 
         trail.transform.position = hit.point;
-        Instantiate(GetComponent<ParticleSystem>(), hit.point, Quaternion.LookRotation(hit.normal));
-        Destroy(trail, trail.time);
-        yield return null;
+        if (impactParticleSystem != null)
+        {
+            Instantiate(impactParticleSystem, hit.point, Quaternion.LookRotation(hit.normal));
+        }
+        
+        Destroy(trail.gameObject, trail.time);
     }
 
     #endregion
