@@ -28,6 +28,7 @@ public class PlayerAction : MonoBehaviour
     private void OnStopAttacking()
     {
         onattack = false;
+        gun.StopAttacking();
     }
 
     #endregion
@@ -40,7 +41,7 @@ public class PlayerAction : MonoBehaviour
         {
             OnAttack();
         }
-        else
+        else if(!playerInput._shoot || onattack)
         {
             OnStopAttacking();
         }
