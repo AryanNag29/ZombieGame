@@ -90,6 +90,10 @@ public abstract class PlayerInputParent : MonoBehaviour
     protected void OnAttack(InputAction.CallbackContext context)
     {
         _shoot = true;
+        if (context.canceled)
+        {
+            _shoot = false;
+        }
     }
 
     protected void OnSprint(InputAction.CallbackContext context)
