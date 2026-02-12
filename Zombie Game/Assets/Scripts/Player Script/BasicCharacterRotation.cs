@@ -50,6 +50,22 @@ namespace LifelikeMotion.IKFootPlacement
 
         #region function
 
+        private Quaternion _SkewedRotaion()
+        {
+            Vector3 lookDirection = multiplyMatrix(_currentRotation);
+
+
+            if (lookDirection != Vector3.zero) 
+            {
+                return Quaternion.LookRotation(lookDirection, Vector3.up);
+                
+            }
+            else 
+            {
+                return transform.rotation; 
+            }
+        }
+
         private void ApplyRotation()
         {
             if (gamepadSmoothing <= 0 && mouseSmoothing <= 0 && _isRotationPressed)
@@ -102,9 +118,9 @@ namespace LifelikeMotion.IKFootPlacement
                 float _rotation_Angle = rotationX / 90f;
                 animator.SetFloat("Rotation_Angle", _rotation_Angle);
 
-                Quaternion _SkewedRotaion =
-                    Quaternion.LookRotation(multiplyMatrix(_currentRotation),
-                        Vector3.up); //skewed rotation towards y axis
+                // Quaternion _SkewedRotaion =
+                //     Quaternion.LookRotation(multiplyMatrix(_currentRotation),
+                //         Vector3.up); //skewed rotation towards y axis
                 Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
                 if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
@@ -127,7 +143,7 @@ namespace LifelikeMotion.IKFootPlacement
                     rotation.y = Mathf.Lerp(rotation.y, rotationY_target, Time.deltaTime / gamepadSmoothing);
                     transform.rotation = Quaternion.LookRotation(_currentRotation, Vector3.up);
                     transform.rotation =
-                        Quaternion.Slerp(transform.rotation, _SkewedRotaion,
+                        Quaternion.Slerp(transform.rotation, _SkewedRotaion(),
                             Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
                 }
             }

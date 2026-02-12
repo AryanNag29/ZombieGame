@@ -84,6 +84,7 @@ public class Gun : MonoBehaviour
         {
             if (hit.collider.CompareTag("Enemy"))
             {
+                Debug.Log(hit.collider);
                 if (_enemyLogics != null)
                 {
                     _enemyLogics.DealDamage();
