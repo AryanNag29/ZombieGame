@@ -11,7 +11,7 @@ public class EnemyLogics : MonoBehaviour
 
     #region Variables
 
-    [Header("Health")] private float currentHealth;
+    [Header("Health")] public float currentHealth;
     private float maxHealth = 100f;
 
     [Header("Damage/Heal")] private float damage = 10f;
@@ -25,9 +25,9 @@ public class EnemyLogics : MonoBehaviour
 
     public void DealDamage()
     {
-        maxHealth =  currentHealth;
+        currentHealth = maxHealth;
         currentHealth -= damage;
-        Debug.Log(" damaged " + currentHealth);
+        
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
