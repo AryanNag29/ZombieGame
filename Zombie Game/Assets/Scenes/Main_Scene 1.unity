@@ -1228,7 +1228,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1596,7 +1596,7 @@ GameObject:
   - component: {fileID: 916569216}
   m_Layer: 0
   m_Name: LowerBody
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1633,7 +1633,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1708,6 +1708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyLogics
   gun: {fileID: 932881756}
+  currentHealth: 0
 --- !u!1 &932881754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2299,7 +2300,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -3681,7 +3682,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3087592881939636251}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.31605855, z: -0, w: 0.94873977}
+  m_LocalRotation: {x: -0, y: 0.288117, z: -0, w: 0.9575952}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5114,8 +5115,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4190906472972635888}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.58225894, y: 0.58353853, z: 0.3898737, w: 0.4104338}
-  m_LocalPosition: {x: 0.6650684, y: 1.4125099, z: -0.28025487}
+  m_LocalRotation: {x: 0.58225876, y: 0.58353865, z: 0.3898737, w: 0.41043377}
+  m_LocalPosition: {x: 0.66506827, y: 1.4125099, z: -0.2802549}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6348,7 +6349,7 @@ Transform:
   m_GameObject: {fileID: 5368546534335343733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.014951663, y: 1.6143892, z: -0.05364812}
+  m_LocalPosition: {x: -0.014951661, y: 1.6143892, z: -0.053648118}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

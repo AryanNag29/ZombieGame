@@ -26,7 +26,7 @@ public class EnemyLogics : MonoBehaviour
     public void DealDamage()
     {
         currentHealth = maxHealth;
-        currentHealth -= damage;
+        maxHealth -= damage;
         
         if (currentHealth <= 0)
         {
