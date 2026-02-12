@@ -2486,7 +2486,7 @@ GameObject:
   - component: {fileID: 1972053170}
   - component: {fileID: 1972053169}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: testBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2579,7 +2579,7 @@ Transform:
   m_GameObject: {fileID: 1972053168}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.15, y: 5.05, z: 3.90678}
+  m_LocalPosition: {x: -51.2, y: 5.05, z: 3.90678}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3442,7 +3442,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3087592881939636251}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.32691857, z: -0, w: 0.94505256}
+  m_LocalRotation: {x: -0, y: -0.9998307, z: 0, w: -0.018401138}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4875,8 +4875,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4190906472972635888}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.582259, y: 0.5835384, z: 0.38987368, w: 0.41043377}
-  m_LocalPosition: {x: 0.66506827, y: 1.4125099, z: -0.2802549}
+  m_LocalRotation: {x: 0.5822588, y: 0.5835386, z: 0.38987365, w: 0.41043383}
+  m_LocalPosition: {x: 0.6650684, y: 1.4125099, z: -0.2802549}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6109,7 +6109,7 @@ Transform:
   m_GameObject: {fileID: 5368546534335343733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.014951663, y: 1.6143892, z: -0.053648118}
+  m_LocalPosition: {x: -0.014951664, y: 1.6143892, z: -0.053648125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
