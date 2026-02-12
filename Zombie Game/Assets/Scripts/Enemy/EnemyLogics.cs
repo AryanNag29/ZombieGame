@@ -27,7 +27,7 @@ public class EnemyLogics : MonoBehaviour
     {
         currentHealth = maxHealth;
         maxHealth -= damage;
-        
+
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
@@ -35,9 +35,10 @@ public class EnemyLogics : MonoBehaviour
     }
 
     #endregion
-    
-    
+
+
     #region Start/Update
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,5 +48,6 @@ public class EnemyLogics : MonoBehaviour
     void Update()
     {
     }
+
     #endregion
 }
