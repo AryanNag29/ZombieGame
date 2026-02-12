@@ -21,6 +21,23 @@ public class EnemyLogics : MonoBehaviour
     #endregion
 
 
+    #region Functions
+
+    public void DealDamage()
+    {
+        maxHealth =  currentHealth;
+        currentHealth -= damage;
+        Debug.Log(" damaged " + currentHealth);
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    #endregion
+    
+    
+    #region Start/Update
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,4 +47,5 @@ public class EnemyLogics : MonoBehaviour
     void Update()
     {
     }
+    #endregion
 }

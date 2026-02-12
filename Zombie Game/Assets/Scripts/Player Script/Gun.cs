@@ -1,10 +1,18 @@
+using System;
 using UnityEngine;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 public class Gun : MonoBehaviour
 {
-    #region Variables
+    #region References
 
+    [Header("References")] [SerializeField]
+    private EnemyLogics _enemyLogics;
+
+    #endregion
+    
+    #region Variables
     [SerializeField] private bool addBulletSpread = true;
     [SerializeField] private Vector3 bulletSpreadVariance = new Vector3(0.1f, 0.1f, 0.1f);
     [SerializeField] private ParticleSystem shootingSystem;
@@ -23,6 +31,15 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+    }
+
+    #endregion
+
+    #region Start
+
+    private void Start()
+    {
+        _enemyLogics = GameObject.FindWithTag("Enemy").GetComponent<EnemyLogics>();
     }
 
     #endregion
@@ -55,6 +72,38 @@ public class Gun : MonoBehaviour
     public void StopAttacking()
     {
         if(shootingSystem.isPlaying) shootingSystem.Stop();
+    }
+
+    public void DealDamage()
+    {
+        if (lastShotTime + shootingDelay < Time.time)
+        {
+            //not gonna use object pulling
+            if (!shootingSystem.isPlaying)
+            {
+                shootingSystem.Play();
+            }
+            Vector3 direction = getDirection();
+
+            if (Physics.Raycast(bulletSpawn.position, direction, out RaycastHit hit, float.MaxValue, _mask))
+            {
+                TrailRenderer trail = Instantiate(bulletTrail, bulletSpawn.position, Quaternion.identity);
+
+                StartCoroutine(spawnTrail(trail, hit));
+
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    if (_enemyLogics != null)
+                    {
+                        _enemyLogics.DealDamage();
+                    }
+                }
+                
+                
+                lastShotTime = Time.time;
+            }
+            
+        }
     }
 
     private Vector3 getDirection()

@@ -40,11 +40,13 @@ public class PlayerAction : MonoBehaviour
         if (playerInput._shoot)
         {
             OnAttack();
+            gun.DealDamage();
         }
         else if(!playerInput._shoot || onattack)
         {
             OnStopAttacking();
         }
+        
     }
 
     #endregion
