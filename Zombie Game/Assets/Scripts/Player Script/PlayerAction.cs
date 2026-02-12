@@ -23,6 +23,7 @@ public class PlayerAction : MonoBehaviour
     {
         onattack = true;
         gun.Attack();
+        gun.DealDamage();
     }
 
     private void OnStopAttacking()

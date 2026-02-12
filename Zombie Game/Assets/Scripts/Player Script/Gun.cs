@@ -11,8 +11,9 @@ public class Gun : MonoBehaviour
     private EnemyLogics _enemyLogics;
 
     #endregion
-    
+
     #region Variables
+
     [SerializeField] private bool addBulletSpread = true;
     [SerializeField] private Vector3 bulletSpreadVariance = new Vector3(0.1f, 0.1f, 0.1f);
     [SerializeField] private ParticleSystem shootingSystem;
@@ -56,6 +57,7 @@ public class Gun : MonoBehaviour
             {
                 shootingSystem.Play();
             }
+
             Vector3 direction = getDirection();
 
             if (Physics.Raycast(bulletSpawn.position, direction, out RaycastHit hit, float.MaxValue, _mask))
@@ -71,38 +73,23 @@ public class Gun : MonoBehaviour
 
     public void StopAttacking()
     {
-        if(shootingSystem.isPlaying) shootingSystem.Stop();
+        if (shootingSystem.isPlaying) shootingSystem.Stop();
     }
 
     public void DealDamage()
     {
-        if (lastShotTime + shootingDelay < Time.time)
+        Vector3 direction = getDirection();
+
+        if (Physics.Raycast(bulletSpawn.position, direction, out RaycastHit hit, float.MaxValue, _mask))
         {
-            //not gonna use object pulling
-            if (!shootingSystem.isPlaying)
+            if (hit.collider.CompareTag("Enemy"))
             {
-                shootingSystem.Play();
-            }
-            Vector3 direction = getDirection();
-
-            if (Physics.Raycast(bulletSpawn.position, direction, out RaycastHit hit, float.MaxValue, _mask))
-            {
-                TrailRenderer trail = Instantiate(bulletTrail, bulletSpawn.position, Quaternion.identity);
-
-                StartCoroutine(spawnTrail(trail, hit));
-
-                if (hit.collider.CompareTag("Enemy"))
+                if (_enemyLogics != null)
                 {
-                    if (_enemyLogics != null)
-                    {
-                        _enemyLogics.DealDamage();
-                    }
+                    _enemyLogics.DealDamage();
+                    Debug.Log("Current Health" + _enemyLogics.currentHealth);
                 }
-                
-                
-                lastShotTime = Time.time;
             }
-            
         }
     }
 
@@ -139,7 +126,7 @@ public class Gun : MonoBehaviour
         {
             Instantiate(impactParticleSystem, hit.point, Quaternion.LookRotation(hit.normal));
         }
-        
+
         Destroy(trail.gameObject, trail.time);
     }
 
