@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class ShootConfigrationObject : MonoBehaviour
+[CreateAssetMenu(fileName = "Shoot Config", menuName = "Guns/Shoot Configration" , order = 2)]
+public class ShootConfigrationObject : ScriptableObject
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    #region References
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private LayerMask HitMask;
+    public Material material;
+    
+    #endregion
+
+
+    #region Variables
+
+    private Vector3 spread = new Vector3(0.1f, 0.1f, 0.1f);
+    private float fireRate = 0.25f;
+
+    #endregion
 }
