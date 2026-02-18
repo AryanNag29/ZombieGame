@@ -32,6 +32,7 @@ namespace LifelikeMotion.IKFootPlacement
 
         private void Start()
         {
+            transform.rotation = Quaternion.Euler(0f, -45f, 0f);
             animator = GetComponent<Animator>();
             rotation.y = transform.eulerAngles.y;
         }

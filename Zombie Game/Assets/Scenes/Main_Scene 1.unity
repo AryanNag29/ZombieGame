@@ -4646,7 +4646,7 @@ GameObject:
   - component: {fileID: 1674860783}
   - component: {fileID: 8607127818880737500}
   m_Layer: 2
-  m_Name: Alpha
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5173,7 +5173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2858339129601638652}
   m_Layer: 0
-  m_Name: Pre_Alpha
+  m_Name: PlayerControl
   m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

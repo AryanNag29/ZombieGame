@@ -26,8 +26,13 @@ public class GunScriptObject : MonoBehaviour
 
     #region Functions
 
-    
-    
+
+    public void Spawn(Transform Parent, MonoBehaviour ActiveMonobehaviour)
+    {
+        this.ActiveMonobehaviour = ActiveMonobehaviour;
+        lastShootTime = 0f;
+
+    }
 
     #endregion
     
