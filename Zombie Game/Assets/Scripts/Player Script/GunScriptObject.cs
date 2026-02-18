@@ -1,16 +1,34 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
+[CreateAssetMenu(fileName = "Gun config" , menuName = "Guns/Gun" , order = 0)]
 public class GunScriptObject : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    #region Variables/References
+    
+    //public members
+    public GunType gunType;
+    public string name;
+    public GameObject modelPrefab;
+    public Vector3 spawnPosition;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public ShootConfigrationObject shootConfig;
+    public TrailConfig trailConfig;
+    
+    //private members
+    private MonoBehaviour ActiveMonobehaviour;
+    private GameObject model;
+    private float lastShootTime;
+    private ParticleSystem shootSystem;
+    private ObjectPool<TrailRenderer>  trailPool;
+    #endregion
+
+
+    #region Functions
+
+    
+
+    #endregion
+    
+    
 }
