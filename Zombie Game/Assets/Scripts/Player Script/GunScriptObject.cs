@@ -76,6 +76,47 @@ public class GunScriptObject : MonoBehaviour
 
     }
 
+    public void Shoot()
+    {
+        if (Time.time > shootConfig.fireRate + lastShootTime)
+        {
+            lastShootTime = Time.time;
+            shootSystem.Play();
+            Vector3 shootDirection = shootSystem.transform.forward + new Vector3(
+                Random.Range(-shootConfig.spread.x , shootConfig.spread.x),
+                Random.Range(-shootConfig.spread.y , shootConfig.spread.y),
+                Random.Range(-shootConfig.spread.z , shootConfig.spread.z)
+                );
+            shootDirection.Normalize();
+
+            if (Physics.Raycast(shootSystem.transform.position, 
+                    shootDirection, 
+                    out RaycastHit hit,
+                    float.MaxValue,
+                    shootConfig.HitMask))
+
+            {
+                ActiveMonobehaviour.StartCoroutine(
+                    playTrail(
+                        shootSystem.transform.position,
+                        hit.point,
+                        hit
+                    )
+                );
+            }
+            else
+            {
+                ActiveMonobehaviour.StartCoroutine(
+                    playTrail(
+                        shootSystem.transform.position,
+                        shootSystem.transform.position + (shootDirection * trailConfig.missDistance),
+                        new RaycastHit()
+                    )
+                );
+            }
+        }
+    }
+
     private TrailRenderer CreateTrail()
     {
         GameObject instance = new GameObject("Bullet Trail");
