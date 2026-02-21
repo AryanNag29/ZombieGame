@@ -1,13 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.Rendering;
 
-[CreateAssetMenu(fileName = "Gun config" , menuName = "Guns/Gun" , order = 0)]
+[CreateAssetMenu(fileName = "Gun config", menuName = "Guns/Gun", order = 0)]
 public class GunScriptObject : MonoBehaviour
 {
     #region Variables/References
-    
+
     //public members
+    // public ImpactType impactType;
     public GunType gunType;
     public string name;
     public GameObject modelPrefab;
@@ -16,18 +18,18 @@ public class GunScriptObject : MonoBehaviour
 
     public ShootConfigrationObject shootConfig;
     public TrailConfig trailConfig;
-    
+
     //private members
     private MonoBehaviour ActiveMonobehaviour;
     private GameObject model;
     private float lastShootTime;
     private ParticleSystem shootSystem;
-    private ObjectPool<TrailRenderer>  trailPool;
+    private ObjectPool<TrailRenderer> trailPool;
+
     #endregion
 
 
     #region Functions
-
 
     public void Spawn(Transform Parent, MonoBehaviour ActiveMonobehaviour)
     {
@@ -35,7 +37,7 @@ public class GunScriptObject : MonoBehaviour
         lastShootTime = 0f; // in editor this will not be properly rest, in built it's fine
         trailPool = new ObjectPool<TrailRenderer>(CreateTrail);
         model = Instantiate(modelPrefab);
-        model.transform.SetParent(Parent,false);
+        model.transform.SetParent(Parent, false);
         model.transform.localPosition = spawnPosition;
         model.transform.localRotation = Quaternion.Euler(spawnRotation);
 
@@ -47,9 +49,9 @@ public class GunScriptObject : MonoBehaviour
         TrailRenderer instance = trailPool.Get();
         instance.gameObject.SetActive(true);
         instance.transform.position = startPoint;
-        
-        yield return null;  //avoid position carry-over from last frame if reused
-        
+
+        yield return null; //avoid position carry-over from last frame if reused
+
         instance.emitting = true;
 
         float distance = Vector3.Distance(startPoint, endpoint);
@@ -59,21 +61,29 @@ public class GunScriptObject : MonoBehaviour
             instance.transform.position = Vector3.Lerp(
                 startPoint,
                 endpoint,
-                Mathf.Clamp01(1-(remainingDistance / distance))
-                );
+                Mathf.Clamp01(1 - (remainingDistance / distance))
+            );
             remainingDistance -= trailConfig.simulationSpeed * Time.deltaTime;
-            
+
             yield return null;
         }
+
         instance.transform.position = endpoint;
-        
+
+        // if (hit.collider != null)
+        //     SurfaceManager.Instance.HandleImpact(
+        //     hit.transform.gameObject,
+        //     EndPoint,
+        //     Hit.normal,
+        //     ImpactType,
+        //     0
+        // }
+
         yield return new WaitForSeconds(trailConfig.duration);
         yield return null;
         instance.emitting = false;
         instance.gameObject.SetActive(false);
         trailPool.Release(instance);
-
-
     }
 
     public void Shoot()
@@ -83,14 +93,14 @@ public class GunScriptObject : MonoBehaviour
             lastShootTime = Time.time;
             shootSystem.Play();
             Vector3 shootDirection = shootSystem.transform.forward + new Vector3(
-                Random.Range(-shootConfig.spread.x , shootConfig.spread.x),
-                Random.Range(-shootConfig.spread.y , shootConfig.spread.y),
-                Random.Range(-shootConfig.spread.z , shootConfig.spread.z)
-                );
+                Random.Range(-shootConfig.spread.x, shootConfig.spread.x),
+                Random.Range(-shootConfig.spread.y, shootConfig.spread.y),
+                Random.Range(-shootConfig.spread.z, shootConfig.spread.z)
+            );
             shootDirection.Normalize();
 
-            if (Physics.Raycast(shootSystem.transform.position, 
-                    shootDirection, 
+            if (Physics.Raycast(shootSystem.transform.position,
+                    shootDirection,
                     out RaycastHit hit,
                     float.MaxValue,
                     shootConfig.HitMask))
@@ -132,6 +142,4 @@ public class GunScriptObject : MonoBehaviour
     }
 
     #endregion
-    
-    
 }
