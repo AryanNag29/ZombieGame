@@ -5,7 +5,7 @@ public class ShootConfigrationObject : ScriptableObject
 {
     #region References
 
-    private LayerMask HitMask;
+    public LayerMask HitMask;
     public Material material;
     
     #endregion
@@ -13,8 +13,8 @@ public class ShootConfigrationObject : ScriptableObject
 
     #region Variables
 
-    private Vector3 spread = new Vector3(0.1f, 0.1f, 0.1f);
-    private float fireRate = 0.25f;
+    public Vector3 spread = new Vector3(0.1f, 0.1f, 0.1f);
+    public float fireRate = 0.25f;
 
     #endregion
 }
