@@ -30,7 +30,9 @@ public class GunScriptObject : MonoBehaviour
     public void Spawn(Transform Parent, MonoBehaviour ActiveMonobehaviour)
     {
         this.ActiveMonobehaviour = ActiveMonobehaviour;
-        lastShootTime = 0f;
+        lastShootTime = 0f; // in editor this will not be properly rest, in built it's fine
+        
+        
 
     }
 
