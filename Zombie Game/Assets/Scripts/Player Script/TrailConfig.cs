@@ -4,7 +4,7 @@ using UnityEngine;
 public class TrailConfig : ScriptableObject
 {
     public Material material;
-    public AnimationCurve animationCurve;
+    public AnimationCurve widthCurve;
     public float duration = 0.5f;
     public float minVertexDistance = 0.1f;
     public Gradient color;
