@@ -1,10 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
-using UnityEngine.Rendering;
 
-[CreateAssetMenu(fileName = "Gun config", menuName = "Guns/Gun", order = 0)]
-public class GunScriptObject : MonoBehaviour
+[CreateAssetMenu(fileName = "Gun Config", menuName = "Guns/Gun configue", order = 0)]
+public class GunScriptObject : ScriptableObject
 {
     #region Variables/References
 
@@ -35,7 +34,7 @@ public class GunScriptObject : MonoBehaviour
     {
         this.ActiveMonobehaviour = ActiveMonobehaviour;
         lastShootTime = 0f; // in editor this will not be properly rest, in built it's fine
-        trailPool = new ObjectPool<TrailRenderer>(CreateTrail);
+        trailPool = new ObjectPool<TrailRenderer>(createFunc: CreateTrail);
         model = Instantiate(modelPrefab);
         model.transform.SetParent(Parent, false);
         model.transform.localPosition = spawnPosition;
@@ -137,7 +136,7 @@ public class GunScriptObject : MonoBehaviour
         trail.time = trailConfig.duration;
 
         trail.emitting = false;
-        trail.shadowCastingMode = ShadowCastingMode.Off;
+        trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         return trail;
     }
 
