@@ -1,76 +1,79 @@
 using System;
 using UnityEngine;
 
-public class PlayerAction : MonoBehaviour
+namespace ZombieGame
 {
-    #region References
-
-    [SerializeField] protected Gun gun;
-    [SerializeField] protected PlayerInputParent playerInput;
-    [SerializeField] protected InputSystem_Actions controls;
-
-    #endregion
-
-    #region Variables
-
-    protected bool onattack;
-
-    #endregion
-
-    #region Funtions
-
-    private void OnAttack()
+    public class PlayerAction : MonoBehaviour
     {
-        onattack = true;
-        gun.Attack();
-        gun.DealDamage();
-    }
+        #region References
 
-    private void OnStopAttacking()
-    {
-        onattack = false;
-        gun.StopAttacking();
-    }
+        [SerializeField] protected Gun gun;
+        [SerializeField] protected PlayerInputParent playerInput;
+        [SerializeField] protected InputSystem_Actions controls;
 
-    #endregion
+        #endregion
 
-    #region Update
+        #region Variables
 
-    private void Update()
-    {
-        if (playerInput._shoot)
+        protected bool onattack;
+
+        #endregion
+
+        #region Funtions
+
+        private void OnAttack()
         {
-            OnAttack();
+            onattack = true;
+            gun.Attack();
             gun.DealDamage();
         }
-        else if (!playerInput._shoot || onattack)
+
+        private void OnStopAttacking()
         {
-            OnStopAttacking();
+            onattack = false;
+            gun.StopAttacking();
         }
+
+        #endregion
+
+        #region Update
+
+        private void Update()
+        {
+            if (playerInput._shoot)
+            {
+                OnAttack();
+                gun.DealDamage();
+            }
+            else if (!playerInput._shoot || onattack)
+            {
+                OnStopAttacking();
+            }
+        }
+
+        #endregion
+
+        #region Awake
+
+        private void Awake()
+        {
+            controls = new InputSystem_Actions();
+        }
+
+        #endregion
+
+        #region Enable/Disable
+
+        private void OnEnable()
+        {
+            controls.Player.Enable();
+        }
+
+        private void OnDisable()
+        {
+            controls.Player.Disable();
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Awake
-
-    private void Awake()
-    {
-        controls = new InputSystem_Actions();
-    }
-
-    #endregion
-
-    #region Enable/Disable
-
-    private void OnEnable()
-    {
-        controls.Player.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Player.Disable();
-    }
-
-    #endregion
 }

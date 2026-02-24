@@ -1,22 +1,25 @@
 using System;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+namespace ZombieGame
 {
-    #region References
-
-    [SerializeField] private Transform PlayerPos;
-
-    #endregion
-
-    private void Start()
+    public class CameraFollow : MonoBehaviour
     {
-        //start follow
-        transform.position = new Vector3(PlayerPos.position.x, 1, PlayerPos.position.z);
-    }
+        #region References
 
-    private void Update()
-    {
-        transform.position = new Vector3(PlayerPos.position.x, 1, PlayerPos.position.z);
+        [SerializeField] private Transform PlayerPos;
+
+        #endregion
+
+        private void Start()
+        {
+            //start follow
+            transform.position = new Vector3(PlayerPos.position.x, 1, PlayerPos.position.z);
+        }
+
+        private void Update()
+        {
+            transform.position = new Vector3(PlayerPos.position.x, 1, PlayerPos.position.z);
+        }
     }
 }

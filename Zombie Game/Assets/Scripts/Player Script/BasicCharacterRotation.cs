@@ -4,121 +4,152 @@ namespace LifelikeMotion.IKFootPlacement
 {
     using UnityEngine;
 
-    public class BasicCharacterRotation : PlayerInputParent
+    namespace ZombieGame
     {
-        #region Variables
-
-        [SerializeField] private float mouseSensitivity = 1.5f;
-        [SerializeField] private float mouseSmoothing = 0;
-        [SerializeField] private float gamepadSmoothing = 0f;
-        [SerializeField] private float smoothing = 0f;
-
-        private Vector3 rotation;
-        private Animator animator;
-        private float mouseX;
-        private float mouseY;
-        private float rotationX = 0;
-        private float rotationX_target = 0;
-        private float rotationY_target = 0;
-        private bool receiveInput = true;
-
-        [SerializeField] private LayerMask _groundLayer;
-        [SerializeField] private Camera _mainCamera;
-
-        #endregion
-
-
-        #region Start
-
-        private void Start()
+        public class BasicCharacterRotation : PlayerInputParent
         {
-            transform.rotation = Quaternion.Euler(0f, -45f, 0f);
-            animator = GetComponent<Animator>();
-            rotation.y = transform.eulerAngles.y;
-        }
+            #region Variables
 
-        #endregion
+            [SerializeField] private float mouseSensitivity = 1.5f;
+            [SerializeField] private float mouseSmoothing = 0;
+            [SerializeField] private float gamepadSmoothing = 0f;
+            [SerializeField] private float smoothing = 0f;
 
-        #region Update
+            private Vector3 rotation;
+            private Animator animator;
+            private float mouseX;
+            private float mouseY;
+            private float rotationX = 0;
+            private float rotationX_target = 0;
+            private float rotationY_target = 0;
+            private bool receiveInput = true;
 
-        private void Update()
-        {
-            GetInputData();
-            ApplyRotation();
-        }
+            [SerializeField] private LayerMask _groundLayer;
+            [SerializeField] private Camera _mainCamera;
 
-        #endregion
-
-        #region function
-
-        private Quaternion _SkewedRotaion()
-        {
-            Vector3 lookDirection = multiplyMatrix(_currentRotation);
+            #endregion
 
 
-            if (lookDirection != Vector3.zero) 
+            #region Start
+
+            private void Start()
             {
-                return Quaternion.LookRotation(lookDirection, Vector3.up);
-                
+                transform.rotation = Quaternion.Euler(0f, -45f, 0f);
+                animator = GetComponent<Animator>();
+                rotation.y = transform.eulerAngles.y;
             }
-            else 
+
+            #endregion
+
+            #region Update
+
+            private void Update()
             {
-                return transform.rotation; 
+                GetInputData();
+                ApplyRotation();
             }
-        }
 
-        private void ApplyRotation()
-        {
-            if (gamepadSmoothing <= 0 && mouseSmoothing <= 0 && _isRotationPressed)
+            #endregion
+
+            #region function
+
+            private Quaternion _SkewedRotaion()
             {
-                rotation.y += mouseX * mouseSensitivity;
-                rotationY_target = rotation.y;
-                rotationX_target += mouseX * mouseSensitivity;
-                rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
-                rotationX = rotationX_target;
+                Vector3 lookDirection = multiplyMatrix(_currentRotation);
 
-                float _rotation_Angle = rotationX_target / 90f;
-                animator.SetFloat("Rotation_Angle", _rotation_Angle);
 
-                Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
+                if (lookDirection != Vector3.zero)
                 {
-                    Vector3 targetPostion = hit.point;
+                    return Quaternion.LookRotation(lookDirection, Vector3.up);
+                }
+                else
+                {
+                    return transform.rotation;
+                }
+            }
 
-                    Vector3 direction = targetPostion - transform.position;
-                    direction.y = 0;
-                    if (direction != Vector3.zero)
+            private void ApplyRotation()
+            {
+                if (gamepadSmoothing <= 0 && mouseSmoothing <= 0 && _isRotationPressed)
+                {
+                    rotation.y += mouseX * mouseSensitivity;
+                    rotationY_target = rotation.y;
+                    rotationX_target += mouseX * mouseSensitivity;
+                    rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
+                    rotationX = rotationX_target;
+
+                    float _rotation_Angle = rotationX_target / 90f;
+                    animator.SetFloat("Rotation_Angle", _rotation_Angle);
+
+                    Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
                     {
-                        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-                        Quaternion targetAngle = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
+                        Vector3 targetPostion = hit.point;
+
+                        Vector3 direction = targetPostion - transform.position;
+                        direction.y = 0;
+                        if (direction != Vector3.zero)
+                        {
+                            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                            Quaternion targetAngle = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
+                            transform.rotation =
+                                Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
+                        }
+                    }
+
+                    if (_isRotationPressed)
+                    {
+                        transform.rotation = Quaternion.LookRotation(_currentRotation, Vector3.up);
                         transform.rotation =
-                            Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
+                            Quaternion.Slerp(transform.rotation, _SkewedRotaion(),
+                                Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
                     }
                 }
-
-                if (_isRotationPressed)
+                else if (mouseSmoothing > 0 || gamepadSmoothing > 0 && _isRotationPressed)
                 {
-                    transform.rotation = Quaternion.LookRotation(_currentRotation, Vector3.up);
-                    transform.rotation =
-                        Quaternion.Slerp(transform.rotation, _SkewedRotaion(),
-                            Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
+                    rotationY_target += mouseX * mouseSensitivity;
+
+
+                    rotationX_target += mouseX * mouseSensitivity;
+                    rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
+
+                    rotationX = Mathf.Lerp(rotationX, rotationX_target, Time.deltaTime / smoothing);
+                    float _rotation_Angle = rotationX / 90f;
+                    animator.SetFloat("Rotation_Angle", _rotation_Angle);
+
+
+                    Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+
+                    if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
+                    {
+                        rotation.y = Mathf.Lerp(rotation.y, rotationY_target, Time.deltaTime / mouseSmoothing);
+                        Vector3 targetPostion = hit.point;
+                        Vector3 direction = targetPostion - transform.position;
+                        direction.y = 0;
+                        if (direction != Vector3.zero)
+                        {
+                            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                            Quaternion targetAngle = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
+                            transform.rotation =
+                                Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
+                        }
+                    }
+
+                    if (_isRotationPressed)
+                    {
+                        rotation.y = Mathf.Lerp(rotation.y, rotationY_target, Time.deltaTime / gamepadSmoothing);
+                        transform.rotation = Quaternion.LookRotation(_currentRotation, Vector3.up);
+                        transform.rotation =
+                            Quaternion.Slerp(transform.rotation, _SkewedRotaion(),
+                                Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
+                    }
                 }
             }
-            else if (mouseSmoothing > 0 || gamepadSmoothing > 0 && _isRotationPressed)
+
+            void OnDrawGizmos()
             {
-                rotationY_target += mouseX * mouseSensitivity;
-
-
-                rotationX_target += mouseX * mouseSensitivity;
-                rotationX_target = Mathf.Clamp(rotationX_target, -90, 90);
-
-                rotationX = Mathf.Lerp(rotationX, rotationX_target, Time.deltaTime / smoothing);
-                float _rotation_Angle = rotationX / 90f;
-                animator.SetFloat("Rotation_Angle", _rotation_Angle);
-
-
+                Gizmos.color = Color.red;
                 Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-
                 if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
                 {
                     rotation.y = Mathf.Lerp(rotation.y, rotationY_target, Time.deltaTime / mouseSmoothing);
@@ -132,51 +163,22 @@ namespace LifelikeMotion.IKFootPlacement
                         transform.rotation =
                             Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
                     }
-                }
 
-                if (_isRotationPressed)
-                {
-                    rotation.y = Mathf.Lerp(rotation.y, rotationY_target, Time.deltaTime / gamepadSmoothing);
-                    transform.rotation = Quaternion.LookRotation(_currentRotation, Vector3.up);
-                    transform.rotation =
-                        Quaternion.Slerp(transform.rotation, _SkewedRotaion(),
-                            Time.deltaTime * gamepadSmoothing); // smoothing rotaion with slerp
+                    Gizmos.DrawLine(transform.position, hit.point);
                 }
             }
-        }
 
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 200f, _groundLayer))
+            private void GetInputData()
             {
-                rotation.y = Mathf.Lerp(rotation.y, rotationY_target, Time.deltaTime / mouseSmoothing);
-                Vector3 targetPostion = hit.point;
-                Vector3 direction = targetPostion - transform.position;
-                direction.y = 0;
-                if (direction != Vector3.zero)
+                if (receiveInput)
                 {
-                    Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-                    Quaternion targetAngle = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
-                    transform.rotation =
-                        Quaternion.Slerp(transform.rotation, targetAngle, Time.deltaTime * mouseSmoothing);
+                    multiplyMatrix(_currentRotation);
+                    mouseX = _currentRotation.x;
+                    mouseY = _currentRotation.z;
                 }
-
-                Gizmos.DrawLine(transform.position, hit.point);
             }
-        }
 
-        private void GetInputData()
-        {
-            if (receiveInput)
-            {
-                multiplyMatrix(_currentRotation);
-                mouseX = _currentRotation.x;
-                mouseY = _currentRotation.z;
-            }
+            #endregion
         }
-
-        #endregion
     }
 }

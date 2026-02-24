@@ -2,6 +2,10 @@ namespace LifelikeMotion.IKFootPlacement
     {
         using UnityEngine;
 
+        namespace ZombieGame
+        {
+            
+        }
         public class BasicCharacterMovement : PlayerInputParent
         {
             private CharacterController cc;

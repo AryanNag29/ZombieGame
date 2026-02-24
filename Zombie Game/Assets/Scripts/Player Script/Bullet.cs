@@ -1,13 +1,16 @@
 using UnityEngine;
 
-    public class Bullet : MonoBehaviour {
-
-
-        private void Awake() {
+namespace ZombieGame
+{
+    public class Bullet : MonoBehaviour
+    {
+        private void Awake()
+        {
             Destroy(gameObject, 3f);
         }
 
-        private void Update() {
+        private void Update()
+        {
             float moveSpeed = 10f;
             transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
         }
@@ -17,12 +20,10 @@ using UnityEngine;
         //         enemy.GetComponent<HealthSystem>().Damage(30);
         //         DestroySelf();
         //     }
-        
+
 
         // private void DestroySelf() {
         //     Destroy(gameObject);
         // }
-
     }
-    
-
+}

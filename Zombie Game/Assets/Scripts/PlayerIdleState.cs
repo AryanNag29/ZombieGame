@@ -2,10 +2,9 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Case.hello
+namespace ZombieGame
 {
-}
-
-public class PlayerIdleState : MonoBehaviour
-{
+    public class PlayerIdleState : MonoBehaviour
+    {
+    }
 }

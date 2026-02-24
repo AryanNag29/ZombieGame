@@ -1,89 +1,92 @@
 using UnityEngine;
 
-public class TwoDimentionAnimationStateControl : MonoBehaviour
+namespace ZombieGame
 {
-    #region Variables
-
-    Animator _animator;
-    private float VelocityX = 0.0f;
-    private float VelocityZ = 0.0f;
-    [SerializeField] protected float velocityAccelration = 2.0f;
-
-    #endregion
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class TwoDimentionAnimationStateControl : MonoBehaviour
     {
-        _animator = GetComponent<Animator>();
-    }
+        #region Variables
 
-    // Update is called once per frame
-    void Update()
-    {
-        bool forwardPressed = Input.GetKey(KeyCode.W);
-        bool backwardPressed = Input.GetKey(KeyCode.S);
-        bool leftPressed = Input.GetKey(KeyCode.A);
-        bool rightPressed = Input.GetKey(KeyCode.D);
-        bool forwaredRightPressed = forwardPressed && Input.GetKey(KeyCode.D);
-        bool forwaredLeftPressed = forwardPressed && Input.GetKey(KeyCode.A);
-        bool backwardRightPressed = backwardPressed && Input.GetKey(KeyCode.D);
-        bool backwardLeftPressed = backwardPressed && Input.GetKey(KeyCode.A);
+        Animator _animator;
+        private float VelocityX = 0.0f;
+        private float VelocityZ = 0.0f;
+        [SerializeField] protected float velocityAccelration = 2.0f;
 
-        //clamp
-        VelocityX = Mathf.Clamp(VelocityX, -0.5f, 0.5f);
-        VelocityZ = Mathf.Clamp(VelocityZ, -0.5f, 0.5f);
+        #endregion
 
-        if (forwardPressed)
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
         {
-            VelocityZ += Time.deltaTime * velocityAccelration;
+            _animator = GetComponent<Animator>();
         }
 
-        if (backwardPressed)
+        // Update is called once per frame
+        void Update()
         {
-            VelocityZ -= Time.deltaTime * velocityAccelration;
-        }
+            bool forwardPressed = Input.GetKey(KeyCode.W);
+            bool backwardPressed = Input.GetKey(KeyCode.S);
+            bool leftPressed = Input.GetKey(KeyCode.A);
+            bool rightPressed = Input.GetKey(KeyCode.D);
+            bool forwaredRightPressed = forwardPressed && Input.GetKey(KeyCode.D);
+            bool forwaredLeftPressed = forwardPressed && Input.GetKey(KeyCode.A);
+            bool backwardRightPressed = backwardPressed && Input.GetKey(KeyCode.D);
+            bool backwardLeftPressed = backwardPressed && Input.GetKey(KeyCode.A);
 
-        if (leftPressed)
-        {
-            VelocityX -= Time.deltaTime * velocityAccelration;
-        }
+            //clamp
+            VelocityX = Mathf.Clamp(VelocityX, -0.5f, 0.5f);
+            VelocityZ = Mathf.Clamp(VelocityZ, -0.5f, 0.5f);
 
-        if (rightPressed)
-        {
-            VelocityX += Time.deltaTime * velocityAccelration;
-        }
+            if (forwardPressed)
+            {
+                VelocityZ += Time.deltaTime * velocityAccelration;
+            }
 
-        if (forwaredRightPressed)
-        {
-            VelocityZ += Time.deltaTime * velocityAccelration;
-            VelocityX += Time.deltaTime * velocityAccelration;
-        }
+            if (backwardPressed)
+            {
+                VelocityZ -= Time.deltaTime * velocityAccelration;
+            }
 
-        if (forwaredLeftPressed)
-        {
-            VelocityZ += Time.deltaTime * velocityAccelration;
-            VelocityX -= Time.deltaTime * velocityAccelration;
-        }
+            if (leftPressed)
+            {
+                VelocityX -= Time.deltaTime * velocityAccelration;
+            }
 
-        if (backwardRightPressed)
-        {
-            VelocityZ -= Time.deltaTime * velocityAccelration;
-            VelocityX += Time.deltaTime * velocityAccelration;
-        }
+            if (rightPressed)
+            {
+                VelocityX += Time.deltaTime * velocityAccelration;
+            }
 
-        if (backwardLeftPressed)
-        {
-            VelocityZ -= Time.deltaTime * velocityAccelration;
-            VelocityX -= Time.deltaTime * velocityAccelration;
-        }
+            if (forwaredRightPressed)
+            {
+                VelocityZ += Time.deltaTime * velocityAccelration;
+                VelocityX += Time.deltaTime * velocityAccelration;
+            }
 
-        else if (!forwardPressed && !backwardPressed && !leftPressed && !rightPressed)
-        {
-            VelocityX = 0.0f;
-            VelocityZ = 0.0f;
-        }
+            if (forwaredLeftPressed)
+            {
+                VelocityZ += Time.deltaTime * velocityAccelration;
+                VelocityX -= Time.deltaTime * velocityAccelration;
+            }
 
-        _animator.SetFloat("VelocityX", VelocityX);
-        _animator.SetFloat("VelocityZ", VelocityZ);
+            if (backwardRightPressed)
+            {
+                VelocityZ -= Time.deltaTime * velocityAccelration;
+                VelocityX += Time.deltaTime * velocityAccelration;
+            }
+
+            if (backwardLeftPressed)
+            {
+                VelocityZ -= Time.deltaTime * velocityAccelration;
+                VelocityX -= Time.deltaTime * velocityAccelration;
+            }
+
+            else if (!forwardPressed && !backwardPressed && !leftPressed && !rightPressed)
+            {
+                VelocityX = 0.0f;
+                VelocityZ = 0.0f;
+            }
+
+            _animator.SetFloat("VelocityX", VelocityX);
+            _animator.SetFloat("VelocityZ", VelocityZ);
+        }
     }
 }

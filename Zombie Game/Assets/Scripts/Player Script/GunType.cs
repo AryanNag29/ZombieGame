@@ -1,11 +1,15 @@
 using UnityEngine;
 
-public enum GunType 
+namespace ZombieGame
 {
-   #region Guns Enum
-   //Guns Type
-   Glock,
-   M4A1
-   #endregion
-   
+    public enum GunType
+    {
+        #region Guns Enum
+
+        //Guns Type
+        Glock,
+        M4A1
+
+        #endregion
+    }
 }

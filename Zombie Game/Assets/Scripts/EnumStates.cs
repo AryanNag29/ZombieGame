@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class EnumStates : MonoBehaviour
+namespace ZombieGame
 {
-    protected enum playerState
+    public class EnumStates : MonoBehaviour
     {
-        idle,
-        walking,
-        running
-    }
+        protected enum playerState
+        {
+            idle,
+            walking,
+            running
+        }
 
-    protected enum daynightState
-    {
-        day,
-        night
+        protected enum daynightState
+        {
+            day,
+            night
+        }
     }
 }

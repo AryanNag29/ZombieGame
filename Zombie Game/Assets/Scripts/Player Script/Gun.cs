@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     #region References
 
     [Header("References")] [SerializeField]
-    private EnemyLogics _enemyLogics;
+    private ZombieGame.EnemyLogics _enemyLogics;
 
     #endregion
 
@@ -40,7 +40,7 @@ public class Gun : MonoBehaviour
 
     private void Start()
     {
-        _enemyLogics = GameObject.FindWithTag("Enemy").GetComponent<EnemyLogics>();
+        _enemyLogics = GameObject.FindWithTag("Enemy").GetComponent<ZombieGame.EnemyLogics>();
     }
 
     #endregion
