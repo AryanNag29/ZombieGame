@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class PoolableObject : MonoBehaviour
+namespace ZombieGame
 {
-    public ObjectPool Parent;
-
-    public virtual void OnDisable()
+    public class PoolableObject : MonoBehaviour
     {
-        Parent.ReturnObjectToPool(this);
+        public ObjectPool Parent;
+
+        public virtual void OnDisable()
+        {
+            Parent.ReturnObjectToPool(this);
+        }
     }
 }
