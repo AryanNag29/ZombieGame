@@ -10,7 +10,7 @@ namespace ZombieGame
         #region Variables/References
 
         //public members
-        public ImpactType impactType;
+        // public ImpactType impactType;
         public GunType gunType;
         public string name;
         public GameObject modelPrefab;
@@ -71,15 +71,15 @@ namespace ZombieGame
 
             instance.transform.position = endpoint;
 
-            if (hit.collider != null)
-                SurfaceManager.Instance.HandleImpact(
-                    hit.transform.gameObject,
-                    EndPoint,
-                    Hit.normal,
-                    ImpactType,
-                    0
-                )
-        }
+            // if (hit.collider != null)
+            //     SurfaceManager.Instance.HandleImpact(
+            //         hit.transform.gameObject,
+            //         EndPoint,
+            //         Hit.normal,
+            //         ImpactType,
+            //         0
+            //     )
+       // }
 
         yield return new WaitForSeconds(trailConfig.duration);
         yield return null;
