@@ -62,7 +62,14 @@ namespace LifelikeMotion.IKFootPlacement
 
                 animator.SetFloat("Z", vertical);
                 animator.SetFloat("X", horizontal);
-
+                
+                //idle animation
+                if (!_isMovementPressed)
+                {
+                    animator.SetFloat("Z", 0);
+                    animator.SetFloat("X", 0);
+                }
+                
                 _velocity = Vector3.ClampMagnitude(_velocity, 1);
 
                 velocity.z = _velocity.z * _currentSpeed;
