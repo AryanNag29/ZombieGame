@@ -79,71 +79,70 @@ namespace ZombieGame
             //         ImpactType,
             //         0
             //     )
-       // }
+            // }
 
-        yield return new WaitForSeconds(trailConfig.duration);
-        yield return null;
-        instance.emitting = false;
-        instance.gameObject.SetActive(false);
-        trailPool.Release(instance);
-    }
+            yield return new WaitForSeconds(trailConfig.duration);
+            yield return null;
+            instance.emitting = false;
+            instance.gameObject.SetActive(false);
+            trailPool.Release(instance);
+        }
 
-    public void Shoot()
-    {
-        if (Time.time > shootConfig.fireRate + lastShootTime)
+        public void Shoot()
         {
-            lastShootTime = Time.time;
-            shootSystem.Play();
-            Vector3 shootDirection = shootSystem.transform.forward + new Vector3(
-                Random.Range(-shootConfig.spread.x, shootConfig.spread.x),
-                Random.Range(-shootConfig.spread.y, shootConfig.spread.y),
-                Random.Range(-shootConfig.spread.z, shootConfig.spread.z)
-            );
-            shootDirection.Normalize();
-
-            if (Physics.Raycast(shootSystem.transform.position,
-                    shootDirection,
-                    out RaycastHit hit,
-                    float.MaxValue,
-                    shootConfig.HitMask))
-
+            if (Time.time > shootConfig.fireRate + lastShootTime)
             {
-                ActiveMonobehaviour.StartCoroutine(
-                    playTrail(
-                        shootSystem.transform.position,
-                        hit.point,
-                        hit
-                    )
+                lastShootTime = Time.time;
+                shootSystem.Play();
+                Vector3 shootDirection = shootSystem.transform.forward + new Vector3(
+                    Random.Range(-shootConfig.spread.x, shootConfig.spread.x),
+                    Random.Range(-shootConfig.spread.y, shootConfig.spread.y),
+                    Random.Range(-shootConfig.spread.z, shootConfig.spread.z)
                 );
-            }
-            else
-            {
-                ActiveMonobehaviour.StartCoroutine(
-                    playTrail(
-                        shootSystem.transform.position,
-                        shootSystem.transform.position + (shootDirection * trailConfig.missDistance),
-                        new RaycastHit()
-                    )
-                );
+                shootDirection.Normalize();
+
+                if (Physics.Raycast(shootSystem.transform.position,
+                        shootDirection,
+                        out RaycastHit hit,
+                        float.MaxValue,
+                        shootConfig.HitMask))
+
+                {
+                    ActiveMonobehaviour.StartCoroutine(
+                        playTrail(
+                            shootSystem.transform.position,
+                            hit.point,
+                            hit
+                        )
+                    );
+                }
+                else
+                {
+                    ActiveMonobehaviour.StartCoroutine(
+                        playTrail(
+                            shootSystem.transform.position,
+                            shootSystem.transform.position + (shootDirection * trailConfig.missDistance),
+                            new RaycastHit()
+                        )
+                    );
+                }
             }
         }
+
+        private TrailRenderer CreateTrail()
+        {
+            GameObject instance = new GameObject("Bullet Trail");
+            TrailRenderer trail = instance.AddComponent<TrailRenderer>();
+            trail.colorGradient = trailConfig.color;
+            trail.material = trailConfig.material;
+            trail.widthCurve = trailConfig.widthCurve;
+            trail.time = trailConfig.duration;
+
+            trail.emitting = false;
+            trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            return trail;
+        }
+
+        #endregion
     }
-
-    private TrailRenderer CreateTrail()
-    {
-        GameObject instance = new GameObject("Bullet Trail");
-        TrailRenderer trail = instance.AddComponent<TrailRenderer>();
-        trail.colorGradient = trailConfig.color;
-        trail.material = trailConfig.material;
-        trail.widthCurve = trailConfig.widthCurve;
-        trail.time = trailConfig.duration;
-
-        trail.emitting = false;
-        trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        return trail;
-    }
-
-    #endregion
-}
-
 }
