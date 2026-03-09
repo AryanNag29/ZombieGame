@@ -68,6 +68,11 @@ namespace LifelikeMotion.IKFootPlacement
                 {
                     animator.SetFloat("Z", 0);
                     animator.SetFloat("X", 0);
+                    animator.SetBool("Movement Pressed", false);
+                }
+                else
+                {
+                    animator.SetBool("Movement Pressed",true);
                 }
                 
                 _velocity = Vector3.ClampMagnitude(_velocity, 1);
