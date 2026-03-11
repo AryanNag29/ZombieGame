@@ -1,9 +1,8 @@
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace LifelikeMotion.IKFootPlacement
 {
-    using UnityEngine;
-
     namespace ZombieGame
     {
         public class BasicCharacterRotation : PlayerInputParent
