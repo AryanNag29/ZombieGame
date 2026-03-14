@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15504b3b9709a184d8cc0efe9c5ca677, type: 3}
-  m_Name: Spawn Metal Bullet Decal Effect
+  m_Name: Spawn Metal Particle Effect
   m_EditorClassIdentifier: Assembly-CSharp::ZombieGame.SpawnObjectEffect
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 3251793897682591163, guid: f41dc8cb0138d6647b528b1598e6384a, type: 3}
   Probability: 1
   RandomizeRotation: 0
   RandomizedRotationMultiplier: {x: 0, y: 0, z: 0}

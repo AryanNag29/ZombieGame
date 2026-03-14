@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea8f16c91e5ba645a3bf4e73316b186, type: 3}
   m_Name: Metal Surface
   m_EditorClassIdentifier: Assembly-CSharp::ZombieGame.Surface
-  ImpactTypeEffects: []
+  ImpactTypeEffects:
+  - ImpactType: {fileID: 11400000, guid: 661d21ce6389d8841875b7e2a8c814d5, type: 2}
+    SurfaceEffect: {fileID: 11400000, guid: 8bab7972d6bd98d47a9986f906b80fd3, type: 2}

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17e086601eb8e540bd85e7a0be7f2c3, type: 3}
   m_Name: Metel Surface Impact - Bullet Impact
   m_EditorClassIdentifier: Assembly-CSharp::ZombieGame.SurfaceEffect
-  SpawnObjectEffects: []
-  PlayAudioEffects: []
+  SpawnObjectEffects:
+  - {fileID: 11400000, guid: ede9653f3b7611148a98a371bd1d0552, type: 2}
+  - {fileID: 11400000, guid: b3bc4e59c6445544dbf5fe39ac083563, type: 2}
+  PlayAudioEffects:
+  - {fileID: 11400000, guid: b4a4296061fa3674d9b6c66fa614269d, type: 2}

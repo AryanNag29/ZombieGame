@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e489a364f0bcb44c8ce009b708a42cd, type: 3}
   m_Name: Metal Play Audio Effect - Bullet Impact
   m_EditorClassIdentifier: Assembly-CSharp::ZombieGame.PlayAudioEffect
-  AudioSourcePrefab: {fileID: 0}
-  AudioClips: []
-  VolumeRange: {x: 0, y: 1}
+  AudioSourcePrefab: {fileID: 556609876619741802, guid: f5393af7b9f343445bbabf443c775fa4, type: 3}
+  AudioClips:
+  - {fileID: 8300000, guid: 7f1e93761d9ed904fb0170de807a97cd, type: 3}
+  VolumeRange: {x: 0.5, y: 0.75}
