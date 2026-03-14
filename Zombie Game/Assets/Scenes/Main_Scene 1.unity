@@ -3541,7 +3541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3087592881939636251}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.8893323, z: -0, w: 0.4572616}
+  m_LocalRotation: {x: -0, y: 0.9998282, z: -0, w: 0.01853678}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4645,7 +4645,6 @@ GameObject:
   - component: {fileID: 2745010560085832814}
   - component: {fileID: 1674860783}
   - component: {fileID: 8607127818880737500}
-  - component: {fileID: 8607127818880737501}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -4975,8 +4974,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4190906472972635888}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5822588, y: 0.58353865, z: 0.38987383, w: 0.41043368}
-  m_LocalPosition: {x: 0.6650684, y: 1.4125099, z: -0.28025484}
+  m_LocalRotation: {x: 0.5822588, y: 0.5835386, z: 0.38987353, w: 0.410434}
+  m_LocalPosition: {x: 0.6650683, y: 1.4125099, z: -0.28025496}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6275,7 +6274,7 @@ Transform:
   m_GameObject: {fileID: 5368546534335343733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.014951665, y: 1.6143892, z: -0.053648125}
+  m_LocalPosition: {x: -0.014951664, y: 1.6143892, z: -0.05364813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6350,23 +6349,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAction
   gun: {fileID: 932881756}
   playerInput: {fileID: 2745010560085832809}
---- !u!114 &8607127818880737501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3087592881939636251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb27053d9daf004c8fb32ce10ccc236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ZombieGame.SurfaceManager
-  Surfaces:
-  - Albedo: {fileID: 0}
-    Surface: {fileID: 0}
-  DefaultPoolSizes: 10
-  DefaultSurface: {fileID: 11400000, guid: ea1d93a47348ed24e80c877ecab5251c, type: 2}
 --- !u!4 &8657612675911207454
 Transform:
   m_ObjectHideFlags: 0
