@@ -196,7 +196,7 @@ namespace ZombieGame
                 audioSource.transform.position = HitPoint;
                 audioSource.PlayOneShot(clip,
                     SoundOffset * Random.Range(playAudioEffect.VolumeRange.x, playAudioEffect.VolumeRange.y));
-                StartCoroutine(DisableAudioSource(audioSource, clip.length));
+                StartCoroutine(DisableAudioSource(audioSource, clip.length)); //disable audio source after it's done
             }
         }
 
