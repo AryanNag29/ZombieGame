@@ -8,17 +8,6 @@ using Debug = UnityEngine.Debug;
 
     public abstract class PlayerInputParent : MonoBehaviour
     {
-        #region PlayerEnum
-
-        public enum PlayerState
-        {
-            Idle,
-            Walk,
-            Run,
-        }
-
-        #endregion
-
         #region ComponentReference
 
         [SerializeField] protected CharacterController controls;
