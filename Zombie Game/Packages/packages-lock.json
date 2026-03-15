@@ -39,7 +39,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "3.1.5",
+      "version": "3.1.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -343,6 +343,12 @@
       "dependencies": {}
     },
     "com.unity.modules.jsonserialize": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.nvidia": {
       "version": "1.0.0",
       "depth": 0,
       "source": "builtin",

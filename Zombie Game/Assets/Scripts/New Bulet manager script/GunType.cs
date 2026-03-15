@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ZombieGame
 {
-    public enum GunType
+    public enum GunType 
     {
         #region Guns Enum
 
