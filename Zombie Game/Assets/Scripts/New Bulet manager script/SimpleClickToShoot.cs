@@ -28,8 +28,8 @@ namespace ZombieGame
 
         private void Awake()
         {
-            Camera = GetComponent<Camera>();
-            CameraRotation = transform.rotation.eulerAngles;
+            // Camera = GetComponent<Camera>();
+            // CameraRotation = transform.rotation.eulerAngles;
         }
 
         private void Update()
@@ -46,13 +46,13 @@ namespace ZombieGame
             {
                 Vector2 mouseMovementThisFrame = LastMousePosition - mousePosition;
 
-                CameraRotation = new Vector3(
-                    Mathf.Clamp(CameraRotation.x + MouseSensitivity * mouseMovementThisFrame.y, -35, 45),
-                    Mathf.Clamp(CameraRotation.y + MouseSensitivity * -mouseMovementThisFrame.x, -75, 75),
-                    transform.rotation.eulerAngles.z
-                );
+                // CameraRotation = new Vector3(
+                //     Mathf.Clamp(CameraRotation.x + MouseSensitivity * mouseMovementThisFrame.y, -35, 45),
+                //     Mathf.Clamp(CameraRotation.y + MouseSensitivity * -mouseMovementThisFrame.x, -75, 75),
+                //     transform.rotation.eulerAngles.z
+                // );
 
-                transform.rotation = Quaternion.Euler(CameraRotation);
+                // transform.rotation = Quaternion.LookRotation(Vector3.forward);
             }
 
             if (Keyboard.current.escapeKey.wasReleasedThisFrame)
