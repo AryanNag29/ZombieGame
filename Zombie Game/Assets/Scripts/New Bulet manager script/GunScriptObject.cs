@@ -10,7 +10,7 @@ namespace ZombieGame
         #region Variables/References
 
         //public members
-        // public ImpactType impactType;
+        public ImpactType impactType;
         public GunType gunType;
         public string name;
         public GameObject modelPrefab;
@@ -45,7 +45,7 @@ namespace ZombieGame
             shootSystem = model.GetComponentInChildren<ParticleSystem>();
         }
 
-        private IEnumerator playTrail(Vector3 startPoint, Vector3 endpoint, RaycastHit hit)
+        private IEnumerator playTrail(Vector3 startPoint, Vector3 endPoint, RaycastHit hit)
         {
             TrailRenderer instance = trailPool.Get();
             instance.gameObject.SetActive(true);
@@ -55,13 +55,13 @@ namespace ZombieGame
 
             instance.emitting = true;
 
-            float distance = Vector3.Distance(startPoint, endpoint);
+            float distance = Vector3.Distance(startPoint, endPoint);
             float remainingDistance = distance;
             while (remainingDistance > 0f)
             {
                 instance.transform.position = Vector3.Lerp(
                     startPoint,
-                    endpoint,
+                    endPoint,
                     Mathf.Clamp01(1 - (remainingDistance / distance))
                 );
                 remainingDistance -= trailConfig.simulationSpeed * Time.deltaTime;
@@ -69,17 +69,16 @@ namespace ZombieGame
                 yield return null;
             }
 
-            instance.transform.position = endpoint;
+            instance.transform.position = endPoint;
 
-            // if (hit.collider != null)
-            //     SurfaceManager.Instance.HandleImpact(
-            //         hit.transform.gameObject,
-            //         EndPoint,
-            //         Hit.normal,
-            //         ImpactType,
-            //         0
-            //     )
-            // }
+            if (hit.collider != null)
+                SurfaceManager.Instance.HandleImpact(
+                    hit.transform.gameObject,
+                    endPoint,
+                    hit.normal,
+                    ImpactType,
+                    0
+                );
 
             yield return new WaitForSeconds(trailConfig.duration);
             yield return null;
