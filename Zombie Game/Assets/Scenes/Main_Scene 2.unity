@@ -230,11 +230,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17245049}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!96 &59990916 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 3715647171317436358, guid: 04b9af051b7011f4bb7a39f09c05b3f0, type: 3}
-  m_PrefabInstance: {fileID: 8170124719219085737}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &59990917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7616271059290752746, guid: 04b9af051b7011f4bb7a39f09c05b3f0, type: 3}
@@ -1592,7 +1587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af51fc5baee48143b54745d69cd8491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyLogics
-  gun: {fileID: 932881756}
+  gun: {fileID: 0}
   currentHealth: 0
 --- !u!1 &932881754
 GameObject:
@@ -1603,7 +1598,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 932881755}
-  - component: {fileID: 932881756}
   - component: {fileID: 932881757}
   m_Layer: 0
   m_Name: ShootingPoint
@@ -1629,29 +1623,6 @@ Transform:
   - {fileID: 59990917}
   m_Father: {fileID: 4456479307946071069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!114 &932881756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932881754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82b3d316298970346862c7b97d5dca64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gun
-  _enemyLogics: {fileID: 916569216}
-  addBulletSpread: 1
-  bulletSpreadVariance: {x: 0, y: 0, z: 0}
-  shootingSystem: {fileID: 251756514}
-  bulletSpawn: {fileID: 932881755}
-  impactParticleSystem: {fileID: 1267268409}
-  shootingDelay: 0.1
-  bulletTrail: {fileID: 59990916}
-  _mask:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!95 &932881757
 Animator:
   serializedVersion: 7
@@ -2070,11 +2041,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243225159}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!198 &1267268409 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198515452120210940, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-  m_PrefabInstance: {fileID: 251756512}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1387642517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3567,7 +3533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3087592881939636251}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.546593, z: -0, w: -0.83739847}
+  m_LocalRotation: {x: -0, y: 0.99983144, z: -0, w: 0.01836109}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5000,8 +4966,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4190906472972635888}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.58225894, y: 0.58353853, z: 0.3898737, w: 0.4104338}
-  m_LocalPosition: {x: 0.6650684, y: 1.4125099, z: -0.28025496}
+  m_LocalRotation: {x: 0.5822589, y: 0.5835386, z: 0.38987377, w: 0.41043374}
+  m_LocalPosition: {x: 0.6650683, y: 1.4125099, z: -0.2802549}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6300,7 +6266,7 @@ Transform:
   m_GameObject: {fileID: 5368546534335343733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.014951663, y: 1.6143892, z: -0.05364812}
+  m_LocalPosition: {x: -0.014951661, y: 1.6143892, z: -0.05364812}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6373,7 +6339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd2da74ffba3584abccc1d6e1315063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAction
-  gun: {fileID: 932881756}
+  gun: {fileID: 0}
   playerInput: {fileID: 2745010560085832809}
 --- !u!4 &8657612675911207454
 Transform:
