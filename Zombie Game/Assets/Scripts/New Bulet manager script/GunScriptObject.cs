@@ -71,14 +71,14 @@ namespace ZombieGame
 
             instance.transform.position = endPoint;
 
-            if (hit.collider != null)
-                SurfaceManager.Instance.HandleImpact(
-                    hit.transform.gameObject,
-                    endPoint,
-                    hit.normal,
-                    ImpactType,
-                    0
-                );
+            // if (hit.collider != null)
+            //     SurfaceManager.Instance.HandleImpact(
+            //         hit.transform.gameObject,
+            //         endPoint,
+            //         hit.normal,
+            //         ImpactType,
+            //         0
+            //     );
 
             yield return new WaitForSeconds(trailConfig.duration);
             yield return null;
