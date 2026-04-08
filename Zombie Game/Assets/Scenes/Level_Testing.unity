@@ -969,6 +969,7 @@ MonoBehaviour:
   _isMovementPressed: 0
   _isRotationPressed: 0
   _isSprintPressed: 0
+  _shoot: 0
   _mainCamera: {fileID: 330585545}
   _groundLayer:
     serializedVersion: 2
